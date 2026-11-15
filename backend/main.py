@@ -40,12 +40,24 @@ app = FastAPI(title="Kestrel Finance Fast-Track", version="0.1.0", lifespan=life
 async def headers_and_csrf(request: Request, call_next):
     if request.method not in ("GET", "HEAD", "OPTIONS"):
         origin = request.headers.get("origin")
-        if origin and origin != str(request.base_url).rstrip("/"):
-            # Vite proxies preserve browser origin while forwarding to local backend.
-            if not (
-                settings.demo_mode
-                and origin in ("http://localhost:5173", "http://127.0.0.1:5173")
-            ):
+        if origin:
+            from urllib.parse import urlparse
+
+            origin_clean = origin.rstrip("/")
+            base_clean = str(request.base_url).rstrip("/")
+            origin_parsed = urlparse(origin_clean)
+            base_parsed = urlparse(base_clean)
+            host_header = request.headers.get("x-forwarded-host") or request.headers.get("host")
+            is_same_origin = (
+                origin_clean == base_clean
+                or origin_parsed.netloc == base_parsed.netloc
+                or (host_header and origin_parsed.netloc == host_header)
+                or (
+                    settings.demo_mode
+                    and origin in ("http://localhost:5173", "http://127.0.0.1:5173")
+                )
+            )
+            if not is_same_origin:
                 return Response("Cross-origin mutation denied", status_code=403)
     response = await call_next(request)
     response.headers["X-Content-Type-Options"] = "nosniff"

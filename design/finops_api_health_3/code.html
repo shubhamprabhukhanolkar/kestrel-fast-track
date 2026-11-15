@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#7a0014", "inverse-primary": "#ffb3b0", "on-tertiary-container": "#ffb477", "tertiary": "#5c2f00", "error-container": "#ffdad6", "on-surface": "#1a1a2b", "inverse-surface": "#2f2f41", "surface-dim": "#dad8ef", "surface-container": "#efecff", "surface-container-highest": "#e3e0f8", "midnight-slate": "#25243B", "surface-variant": "#e3e0f8", "primary-fixed": "#ffdad8", "crimson-dark": "#7A141D", "tertiary-container": "#7d4200", "surface-pearl": "#F4F4F6", "gold-dark": "#B45309", "surface": "#fcf8ff", "on-tertiary-fixed-variant": "#6e3900", "on-tertiary-fixed": "#2f1500", "crimson-light": "#C92A36", "on-error": "#ffffff", "primary-fixed-dim": "#ffb3b0", "primary-container": "#9d1d27", "surface-container-lowest": "#ffffff", "outline": "#8d706f", "inverse-on-surface": "#f2efff", "secondary-container": "#7cc5fe", "on-background": "#1a1a2b", "on-secondary-fixed": "#001e30", "tertiary-fixed": "#ffdcc3", "secondary-fixed-dim": "#90cdff", "surface-tint": "#b02c33", "on-surface-variant": "#594140", "tertiary-fixed-dim": "#ffb77d", "on-secondary": "#ffffff", "surface-container-high": "#e8e6fe", "on-primary-container": "#ffafac", "on-error-container": "#93000a", "outline-variant": "#e0bfbd", "gold-light": "#FDE68A", "on-secondary-container": "#00517b", "background": "#fcf8ff", "on-tertiary": "#ffffff", "on-primary-fixed-variant": "#8e101e", "surface-cream": "#FDFBF7", "on-primary-fixed": "#410006", "secondary-fixed": "#cbe6ff", "on-secondary-fixed-variant": "#004b71", "secondary": "#006495", "surface-bright": "#fcf8ff", "surface-container-low": "#f5f2ff", "on-primary": "#ffffff", "error": "#ba1a1a" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.5rem", "gutter-mobile": "0.75rem", "space-2xs": "0.25rem", "space-lg": "1.5rem", "space-md": "1rem", "margin": "2rem", "space-2xl": "3rem", "space-3xl": "4rem", "gutter": "1.5rem", "space-sm": "0.75rem", "space-xl": "2rem", "margin-mobile": "1rem" }, "fontFamily": { "display-hero": ["Inter"], "body-md": ["Inter"], "label-md": ["Inter"], "headline-sm": ["Inter"], "body-sm": ["Inter"], "headline-lg-mobile": ["Inter"], "body-lg": ["Inter"], "label-sm": ["Inter"], "headline-lg": ["Inter"], "display-hero-mobile": ["Inter"], "headline-md": ["Inter"], "financial-display": ["Inter"], "label-lg": ["Inter"] }, "fontSize": { "display-hero": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }], "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "display-hero-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "800" }], "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "financial-display": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface"><header class="fixed top-0 w-full z-50 bg-primary-container text-on-primary shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-gold-light text-[24px]">account_balance</span><div class="flex flex-col"><span class="font-label-lg text-label-lg text-on-primary leading-tight">Kestrel Finance</span><span class="font-label-sm text-label-sm text-gold-light opacity-90 leading-tight">IDFC FIRST Co-Lending Pilot (<₹25L Fast-Track)</span></div></div><div class="h-6 w-px bg-on-primary/20"></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-primary text-on-primary font-bold rounded-lg shadow-sm"><a class="px-space-sm py-space-xs font-label-md text-label-md text-on-primary/80 hover:text-on-primary hover:bg-primary-fixed-dim/20 rounded-lg transition-colors" data-path="intake-and-extraction" href="#">Intake & Extraction</a><a class="px-space-sm py-space-xs font-label-md text-label-md text-on-primary/80 hover:text-on-primary hover:bg-primary-fixed-dim/20 rounded-lg transition-colors" data-path="verification-and-sign-off" href="#">Verification & Sign-Off</a><a class="px-space-sm py-space-xs font-label-md text-label-md text-on-primary/80 hover:text-on-primary hover:bg-primary-fixed-dim/20 rounded-lg transition-colors" data-path="prompt-and-toner-studio" href="#">Prompt & Toner Studio</a><a class="px-space-sm py-space-xs font-label-md text-label-md text-on-primary/80 hover:text-on-primary hover:bg-primary-fixed-dim/20 rounded-lg transition-colors" data-path="finops-and-api-health" href="#">FinOps & API Health</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden lg:flex items-center gap-space-xs bg-crimson-dark px-space-sm py-space-2xs rounded-full"><span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span><span class="font-label-sm text-label-sm text-on-primary">Backend Proxy Active · GenAI: Gemini 2.5 Flash (Online) · Session: ₹4.82</span></div><div class="hidden md:flex items-center gap-space-2xs bg-tertiary-container px-space-xs py-space-2xs rounded-full text-gold-light"><span class="material-symbols-outlined text-[14px]">verified_user</span><span class="font-label-sm text-label-sm text-gold-light">RBI Mandate Compliant</span></div><div class="flex items-center gap-space-xs pl-space-xs"><div class="hidden sm:flex flex-col text-right"><span class="font-label-md text-label-md text-on-primary leading-tight">Arjun Iyer</span><span class="font-label-sm text-label-sm text-gold-light leading-tight">Credit Manager / CRO</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full">
+<!-- Command Header & Telemetry Identity -->
+<section class="w-full bg-surface-cream px-margin py-space-md shadow-sm">
+<div class="max-w-[1280px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-label-sm text-label-sm text-gold-dark tracking-wider uppercase font-semibold">FINOPS OPERATIONS & ENCLAVE RELIABILITY</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sovereign Cloud Gateway (Azure India Central)</span>
+<span class="inline-flex items-center gap-1 bg-surface-container-high px-space-xs py-0.5 rounded-full text-secondary font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+            Live Proxy Stream
+          </span>
+</div>
+<div class="flex items-center gap-space-sm">
+<h1 class="font-headline-lg text-headline-lg text-primary-container tracking-tight">FinOps Cost & Redundancy Sentinel</h1>
+<span class="bg-primary/10 text-primary px-space-xs py-0.5 rounded font-label-md text-label-md">HSM-Level 3</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs bg-surface-pearl px-space-sm py-space-xs rounded-lg shadow-sm">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-label-md text-label-md shadow-sm">FQ</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Farhan Qureshi</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">FinOps Admin / Lead Enclave SRE</span>
+</div>
+</div>
+<button class="flex items-center gap-space-2xs bg-primary hover:bg-crimson-dark text-on-primary px-space-md py-space-xs rounded-lg font-label-lg text-label-lg shadow-sm transition-all duration-200 active:scale-95" id="syncMetricsBtn">
+<span class="material-symbols-outlined text-[18px]" id="syncIcon">sync</span>
+<span>Sync Metrics</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Top KPI Grid: 4 Tonal Cards -->
+<section class="w-full px-margin py-space-md">
+<div class="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- KPI 1 -->
+<div class="bg-surface-pearl rounded-xl p-space-md shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[96px] text-midnight-slate">payments</span>
+</div>
+<div>
+<div class="flex items-center justify-between mb-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Total Pilot Spend</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm px-space-2xs py-0.5 rounded">9.4% Budget Cap</span>
+</div>
+<div class="font-financial-display text-financial-display text-primary-container font-extrabold tracking-tight">₹1,420.50</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex flex-col gap-1">
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 9.4%;"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Across 295 processed · Cap ₹15,000.00</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-pearl rounded-xl p-space-md shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[96px] text-midnight-slate">trending_down</span>
+</div>
+<div>
+<div class="flex items-center justify-between mb-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Avg Cost / Application</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm px-space-2xs py-0.5 rounded">-51.9% vs Ceiling</span>
+</div>
+<div class="font-financial-display text-financial-display text-midnight-slate font-extrabold tracking-tight">₹4.81</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Target Ceiling: < ₹10.00</span>
+<span class="text-secondary font-semibold">₹5.19 headroom</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-pearl rounded-xl p-space-md shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[96px] text-midnight-slate">verified</span>
+</div>
+<div>
+<div class="flex items-center justify-between mb-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Primary API Uptime</span>
+<span class="bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm px-space-2xs py-0.5 rounded font-semibold">SLA Compliant</span>
+</div>
+<div class="font-financial-display text-financial-display text-secondary font-extrabold tracking-tight">99.4%</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Azure Central Enclave</span>
+<span class="text-on-surface-variant">Commitment 99.0%</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-pearl rounded-xl p-space-md shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[96px] text-midnight-slate">bolt</span>
+</div>
+<div>
+<div class="flex items-center justify-between mb-space-2xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Failover Triggers (Groq)</span>
+<span class="bg-tertiary-fixed-dim text-tertiary font-label-sm text-label-sm px-space-2xs py-0.5 rounded font-semibold">Auto-Resumed</span>
+</div>
+<div class="font-financial-display text-financial-display text-tertiary font-extrabold tracking-tight">3 Cases</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Avg latency: 124ms</span>
+<span class="text-primary font-semibold">100% Resolved</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Asymmetric Workspace (55% / 45%) -->
+<section class="w-full px-margin pb-space-3xl">
+<div class="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left Panel: 55% (lg:col-span-7) -->
+<div class="lg:col-span-7 bg-surface-cream rounded-xl p-space-lg shadow-sm flex flex-col gap-space-lg">
+<!-- Header & Session Scope -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pb-space-xs">
+<div>
+<span class="font-label-sm text-label-sm text-gold-dark uppercase tracking-wider font-semibold">Granular Token Accounting</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Agent Action Cost & Token Breakdown</h2>
+</div>
+<div class="flex items-center gap-space-xs self-start sm:self-auto">
+<span class="bg-surface-pearl px-space-xs py-1 rounded font-label-sm text-label-sm text-on-surface-variant font-mono">Session #SME-295</span>
+<span class="bg-surface-container-high text-on-surface px-space-xs py-1 rounded font-label-sm text-label-sm">Co-Lending Core</span>
+</div>
+</div>
+<!-- Token Distribution Multi-Segment Bar -->
+<div class="bg-surface-pearl rounded-lg p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Model Load Share (Tokens Consumed)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Total: 10,550 Tokens</span>
+</div>
+<!-- Multi-Segment Visual Bar -->
+<div class="w-full h-3 rounded-full bg-surface-container-highest overflow-hidden flex shadow-inner">
+<div class="bg-primary h-full transition-all duration-500" style="width: 71.1%;" title="Gemini 2.5 Pro: 71.1%"></div>
+<div class="bg-secondary h-full transition-all duration-500" style="width: 18.0%;" title="Gemini 2.5 Flash: 18.0%"></div>
+<div class="bg-gold-dark h-full transition-all duration-500" style="width: 10.9%;" title="Groq Llama-3.3-70B: 10.9%"></div>
+</div>
+<!-- Legend -->
+<div class="grid grid-cols-3 gap-space-xs mt-space-sm pt-space-2xs text-center">
+<div class="flex flex-col items-center">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Gemini Pro</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">7,500 toks · 71.1%</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Flash 2.5</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2,650 toks · 18.0%</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-gold-dark"></span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Groq Llama</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">1,480 toks · 10.9%</span>
+</div>
+</div>
+</div>
+<!-- 5-Column Table -->
+<div class="overflow-x-auto rounded-lg shadow-sm bg-surface-container-lowest">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-pearl text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<tr>
+<th class="py-space-xs px-space-sm">Agent Name</th>
+<th class="py-space-xs px-space-sm">Target LLM</th>
+<th class="py-space-xs px-space-sm">In / Out Tokens</th>
+<th class="py-space-xs px-space-sm">Latency</th>
+<th class="py-space-xs px-space-sm text-right">Cost (₹)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high font-body-sm text-body-sm">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-xs px-space-sm">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">hub</span>
+<span class="font-semibold text-on-surface">Orchestrator Agent</span>
+</div>
+</td>
+<td class="py-space-xs px-space-sm">
+<span class="font-mono text-label-sm text-label-sm bg-secondary-fixed px-1.5 py-0.5 rounded text-on-secondary-fixed">Gemini 2.5 Flash</span>
+</td>
+<td class="py-space-xs px-space-sm font-mono text-label-sm">850 / 120</td>
+<td class="py-space-xs px-space-sm font-mono text-label-sm">0.4s</td>
+<td class="py-space-xs px-space-sm text-right font-mono font-bold text-on-surface">₹0.35</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-xs px-space-sm">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[16px] text-primary">data_object</span>
+<span class="font-semibold text-on-surface">Cited Extractor Agent (B1)</span>
+</div>
+</td>
+<td class="py-space-xs px-space-sm">
+<span class="font-mono text-label-sm text-label-sm bg-primary-fixed px-1.5 py-0.5 rounded text-on-primary-fixed-variant">Gemini 2.5 Pro</span>
+</td>
+<td class="py-space-xs px-space-sm font-mono text-label-sm">6,400 / 1,100</td>
+<td class="py-space-xs px-space-sm font-mono text-label-sm">2.8s</td>
+<td class="py-space-xs px-space-sm text-right font-mono font-bold text-primary-container">₹2.90</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-xs px-space-sm">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">rule</span>
+<span class="font-semibold text-on-surface">Critique Agent (QA Verification)</span>
+</div>
+</td>
+<td class="py-space-xs px-space-sm">
+<span class="font-mono text-label-sm text-label-sm bg-secondary-fixed px-1.5 py-0.5 rounded text-on-secondary-fixed">Gemini 2.5 Flash</span>
+</td>
+<td class="py-space-xs px-space-sm font-mono text-label-sm">2,200 / 450</td>
+<td class="py-space-xs px-space-sm font-mono text-label-sm">0.9s</td>
+<td class="py-space-xs px-space-sm text-right font-mono font-bold text-on-surface">₹0.96</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-xs px-space-sm">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[16px] text-gold-dark">edit_note</span>
+<span class="font-semibold text-on-surface">Toner Agent (Memo Formatting)</span>
+</div>
+</td>
+<td class="py-space-xs px-space-sm">
+<span class="font-mono text-label-sm text-label-sm bg-tertiary-fixed px-1.5 py-0.5 rounded text-on-tertiary-fixed font-semibold">Groq Llama-3.3-70B</span>
+</td>
+<td class="py-space-xs px-space-sm font-mono text-label-sm">1,100 / 380</td>
+<td class="py-space-xs px-space-sm font-mono text-label-sm">0.3s</td>
+<td class="py-space-xs px-space-sm text-right font-mono font-bold text-on-surface">₹0.60</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Total Pipeline Cost & Arbitrage Card -->
+<div class="bg-gradient-to-br from-primary-container to-crimson-dark text-on-primary rounded-xl p-space-md shadow-md flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md w-full md:w-auto">
+<div class="w-12 h-12 rounded-lg bg-on-primary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[28px] text-gold-light">savings</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-gold-light uppercase tracking-wider">Per-Application Total Pipeline Cost</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-hero text-headline-lg font-black text-on-primary">₹4.81</span>
+<span class="font-label-sm text-label-sm text-on-primary/80">/ 10,550 tokens aggregate</span>
+</div>
+</div>
+</div>
+<div class="bg-primary/40 rounded-lg p-space-xs px-space-sm w-full md:w-auto text-left md:text-right shadow-inner">
+<span class="font-label-sm text-label-sm text-gold-light font-semibold uppercase block">Savings vs Commercial OCR Vendor</span>
+<div class="font-headline-sm text-headline-sm font-bold text-on-primary">78.4% Net Savings</div>
+<span class="font-label-sm text-label-sm text-on-primary/90">₹17.69 Saved per SME File</span>
+</div>
+</div>
+<!-- Inline Visual Mini-Sparkline Trend -->
+<div class="bg-surface-pearl rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Spend Trajectory (Last 7 Batches)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Steadily trending under ₹5.00 ceiling</span>
+</div>
+<svg class="w-48 h-8 text-primary overflow-visible" fill="none" viewbox="0 0 160 32">
+<path d="M0,24 Q25,28 50,18 T100,12 T130,8 T160,6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.5"></path>
+<circle class="fill-primary animate-ping" cx="160" cy="6" r="3.5"></circle>
+<circle class="fill-primary" cx="160" cy="6" r="3.5"></circle>
+</svg>
+</div>
+</div>
+<!-- Right Panel: 45% (lg:col-span-5) -->
+<div class="lg:col-span-5 bg-surface-cream rounded-xl p-space-lg shadow-sm flex flex-col gap-space-lg">
+<!-- Header -->
+<div class="pb-space-xs">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Dual-Active Standby Mesh</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">API Redundancy & Failover Controller</h2>
+</div>
+<!-- Active Route Status Card -->
+<div class="bg-surface-container-high p-space-sm rounded-lg flex items-start gap-space-xs shadow-sm">
+<span class="material-symbols-outlined text-[20px] text-secondary mt-0.5">router</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider">Active Route Status</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Routing via Primary: <strong>Google Gemini 2.5 Flash</strong></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Backend Latency: 420ms · Token Quota: Healthy (98.2% Free)</span>
+</div>
+</div>
+<!-- Encrypted Topology Flow Diagram -->
+<div class="bg-surface-pearl rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface font-bold uppercase tracking-wider">Zero-Trust Sovereign Flow</span>
+<span class="font-label-sm text-label-sm text-gold-dark font-mono font-semibold">TLS 1.3 · AES-256</span>
+</div>
+<!-- Flowchart Graphic Nodes -->
+<div class="flex flex-col gap-2 relative">
+<!-- Node 1: Client -->
+<div class="bg-surface-container-lowest p-space-xs rounded shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-midnight-slate">laptop_mac</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Client React UI (IDFC Branch Portal)</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Origin</span>
+</div>
+<!-- Connector Down -->
+<div class="flex justify-center -my-1">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">arrow_downward</span>
+</div>
+<!-- Node 2: Gateway -->
+<div class="bg-surface-container-high p-space-xs rounded shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">security</span>
+<div>
+<span class="font-label-md text-label-md text-primary font-bold">FastAPI Sovereign Gateway</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Azure India Central Secure Enclave</span>
+</div>
+</div>
+<span class="bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm px-1.5 py-0.5 rounded">HSM Proxy</span>
+</div>
+<!-- Connector Split -->
+<div class="flex justify-around -my-1 px-8">
+<span class="material-symbols-outlined text-[16px] text-secondary">subdirectory_arrow_right</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary">subdirectory_arrow_right</span>
+</div>
+<!-- Parallel Branches -->
+<div class="grid grid-cols-2 gap-space-xs">
+<!-- Branch A: Gemini -->
+<div class="bg-surface-container-lowest p-space-xs rounded shadow-sm flex flex-col gap-1 transition-all duration-300" id="primaryRouteNode">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-bold text-secondary">Primary LLM</span>
+<span class="w-2 h-2 rounded-full bg-secondary" id="geminiStatusBadge"></span>
+</div>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Gemini 2.5 Flash</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono" id="geminiLatencyText">420ms · 200 OK</span>
+</div>
+<!-- Branch B: Groq Standby -->
+<div class="bg-surface-container-lowest p-space-xs rounded shadow-sm flex flex-col gap-1 opacity-70 transition-all duration-300" id="standbyRouteNode">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-bold text-tertiary">Hot Standby</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim" id="groqStatusBadge"></span>
+</div>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Groq Llama-3.3-70B</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">124ms · Warm Pool</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Drill & Fault Injection Simulator -->
+<div class="bg-surface-pearl rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[20px] text-primary">bug_report</span>
+<span class="font-label-sm text-label-sm text-on-surface font-bold uppercase tracking-wider">Drill & Fault Injection Simulator</span>
+</div>
+<div class="flex flex-col gap-space-xs pt-space-2xs">
+<label class="flex items-center gap-space-xs p-space-xs rounded bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer transition-colors">
+<input class="w-4 h-4 accent-primary rounded cursor-pointer" id="inject503" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Simulate Gemini Service Outage (Inject HTTP 503)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Forces circuit-breaker flip to secondary Groq pool</span>
+</div>
+</label>
+<label class="flex items-center gap-space-xs p-space-xs rounded bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer transition-colors">
+<input class="w-4 h-4 accent-primary rounded cursor-pointer" id="inject429" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Simulate Gemini Quota Exhaustion (Inject HTTP 429)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Simulates token TPM burst throttles at banking peak</span>
+</div>
+</label>
+</div>
+<button class="w-full mt-space-2xs bg-primary-container hover:bg-crimson-dark text-on-primary py-space-xs px-space-md rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow transition-all duration-200 active:scale-98" id="triggerFailoverBtn">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span>Trigger Test Failover Ping (Mock 100 Tokens)</span>
+</button>
+</div>
+<!-- Tamper-Evident SHA-256 Audit Log -->
+<div class="bg-midnight-slate text-surface rounded-lg p-space-sm flex flex-col gap-space-2xs font-mono text-label-sm shadow-md">
+<div class="flex items-center justify-between text-on-primary-container pb-space-2xs">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-gold-light">lock</span>
+<span class="font-bold text-gold-light tracking-wide uppercase">Tamper-Evident SHA-256 Audit Trail</span>
+</div>
+<span class="text-secondary-container">Immutable Enclave</span>
+</div>
+<div class="flex flex-col gap-1 max-h-36 overflow-y-auto text-surface-dim" id="auditLogStream">
+<div class="flex items-center justify-between">
+<span class="text-surface-dim">[14:32:01.102 IST] PROBE_OK: gemini-2.5-flash latency 420ms</span>
+<span class="text-gold-light">sig: 8f9b...a102</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-surface-dim">[14:32:05.890 IST] HMAC_CHECK: Sovereign HSM signed batch SME-295</span>
+<span class="text-gold-light">sig: d23e...c588</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-secondary-fixed">[14:32:10.014 IST] DUAL_ACTIVE: Standby Groq heartbeat confirmed (124ms)</span>
+<span class="text-gold-light">sig: 4a7c...19ff</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Logic for Sync & Fault Injection -->
+<script>
+    (function initFinOpsSentinel() {
+      const syncBtn = document.getElementById('syncMetricsBtn');
+      const syncIcon = document.getElementById('syncIcon');
+      const triggerBtn = document.getElementById('triggerFailoverBtn');
+      const inject503 = document.getElementById('inject503');
+      const inject429 = document.getElementById('inject429');
+      const auditLog = document.getElementById('auditLogStream');
+      const primaryNode = document.getElementById('primaryRouteNode');
+      const standbyNode = document.getElementById('standbyRouteNode');
+      const geminiStatusBadge = document.getElementById('geminiStatusBadge');
+      const groqStatusBadge = document.getElementById('groqStatusBadge');
+      const geminiLatencyText = document.getElementById('geminiLatencyText');
+
+      // Sync pulse
+      syncBtn?.addEventListener('click', () => {
+        syncIcon.classList.add('animate-spin');
+        setTimeout(() => {
+          syncIcon.classList.remove('animate-spin');
+          appendLog('MANUAL_SYNC: Ingested telemetry from Azure India Central API nodes.');
+        }, 600);
+      });
+
+      // Failover simulation
+      triggerBtn?.addEventListener('click', () => {
+        const isFaulted = inject503.checked || inject429.checked;
+        const faultCode = inject503.checked ? '503 SERVICE_UNAVAILABLE' : (inject429.checked ? '429 TOO_MANY_REQUESTS' : null);
+
+        if (isFaulted) {
+          // Switch to secondary Groq
+          primaryNode.classList.add('opacity-40');
+          geminiStatusBadge.className = 'w-2 h-2 rounded-full bg-error animate-ping';
+          geminiLatencyText.textContent = `DROPPED · HTTP ${faultCode.split(' ')[0]}`;
+
+          standbyNode.classList.remove('opacity-70');
+          standbyNode.classList.add('bg-secondary-fixed');
+          groqStatusBadge.className = 'w-2 h-2 rounded-full bg-secondary animate-pulse';
+
+          appendLog(`CIRCUIT_BREAKER_TRIPPED: Primary reported ${faultCode}. Rerouting 100 mock tokens to Standby Groq.`);
+          appendLog(`FAILOVER_RESOLVED: Secondary Groq answered in 118ms. 0 dropped packets.`);
+
+          setTimeout(() => {
+            // Recover state after 4 seconds
+            primaryNode.classList.remove('opacity-40');
+            geminiStatusBadge.className = 'w-2 h-2 rounded-full bg-secondary';
+            geminiLatencyText.textContent = '420ms · 200 OK';
+            standbyNode.classList.add('opacity-70');
+            standbyNode.classList.remove('bg-secondary-fixed');
+            groqStatusBadge.className = 'w-2 h-2 rounded-full bg-tertiary-fixed-dim';
+            appendLog(`PRIMARY_RESTORED: Circuit-breaker auto-reset to Gemini 2.5 Flash.`);
+          }, 4500);
+
+        } else {
+          // Normal ping to primary
+          appendLog(`PING_PRIMARY: 100 mock tokens routed to Gemini 2.5 Flash. Latency: 395ms.`);
+        }
+      });
+
+      function appendLog(msg) {
+        if (!auditLog) return;
+        const now = new Date();
+        const timeStr = `[${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}.${String(now.getMilliseconds()).padStart(3, '0')} IST]`;
+        const randHash = Math.random().toString(16).substring(2, 6) + '...' + Math.random().toString(16).substring(2, 6);
+
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between text-surface-cream animate-fadeIn';
+        row.innerHTML = `<span>${timeStr} ${msg}</span><span class="text-gold-light">sig: ${randHash}</span>`;
+        auditLog.prepend(row);
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-pearl text-on-surface-variant py-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="w-full px-margin flex flex-col md:flex-row items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs text-center md:text-left"><span class="material-symbols-outlined text-primary text-[18px]">verified</span><span class="font-body-sm text-body-sm text-on-surface-variant">© 2025 Kestrel Finance Technologies Ltd. in partnership with IDFC FIRST Bank Ltd. Regulated NBFC Co-Lending Integration Core.</span></div><div class="flex items-center gap-space-xs"><span class="font-label-sm text-label-sm text-tertiary bg-tertiary-fixed px-space-xs py-space-2xs rounded">Sovereign Enclave Key: HSM-KMS-0091</span><span class="font-label-sm text-label-sm text-secondary bg-secondary-fixed px-space-xs py-space-2xs rounded">All Systems Nominal</span></div></div></footer></body></html>

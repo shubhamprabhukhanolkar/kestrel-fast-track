@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><title>Final • Prompt &amp; Toner Studio (Dark)</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .phantom-glow {
+      box-shadow: 0 0 35px -8px rgba(171, 159, 242, 0.15);
+    }
+    .phantom-glow-purple {
+      box-shadow: 0 0 25px -4px rgba(122, 107, 245, 0.4);
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 18px;
+      width: 18px;
+      border-radius: 9999px;
+      background: #ab9ff2;
+      box-shadow: 0 0 10px rgba(171, 159, 242, 0.65);
+      cursor: pointer;
+      border: 2px solid #181824;
+    }
+    input[type=range]::-moz-range-thumb {
+      height: 18px;
+      width: 18px;
+      border-radius: 9999px;
+      background: #ab9ff2;
+      box-shadow: 0 0 10px rgba(171, 159, 242, 0.65);
+      cursor: pointer;
+      border: 2px solid #181824;
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-bright": "#22222d",
+            "surface-container": "#181822",
+            "surface-container-low": "#121218",
+            "surface-raised": "#1a1a24",
+            "surface-base": "#0a0a0d",
+            "surface-deep": "#070709",
+            "surface-overlay": "#20202c",
+            "border-subtle": "rgba(255, 255, 255, 0.08)",
+            "border-highlight": "rgba(171, 159, 242, 0.35)",
+            "accent-lavender-glow": "#ab9ff2",
+            "accent-purple": "#7a6bf5",
+            "accent-purple-dark": "#4e40bb",
+            "neon-cyan": "#06b6d4",
+            "neon-mint": "#10b981",
+            "status-danger": "#ef4444",
+            "background": "#0a0a0d",
+            "surface": "#0d0d12",
+            "on-surface": "#f1f0f7",
+            "on-surface-variant": "#9d9bb0",
+            "primary": "#ab9ff2",
+            "secondary": "#7a6bf5",
+            "tertiary": "#10b981",
+            "error": "#f87171"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"],
+            grotesk: ["Space Grotesk", "sans-serif"]
+          },
+          borderRadius: {
+            "xl": "1.25rem",
+            "2xl": "1.5rem",
+            "3xl": "2rem"
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface-base font-sans text-on-surface antialiased min-h-screen selection:bg-accent-lavender-glow/30 selection:text-white">
+<!-- Persistent Phantom-Styled Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-[#0a0a0d]/85 backdrop-blur-xl border-b border-border-subtle">
+<div class="h-16 w-full px-6 flex items-center justify-between gap-4">
+<div class="flex items-center gap-6">
+<!-- Logo & Fast Track Tag -->
+<div class="flex items-center gap-3">
+<div class="relative w-8 h-8 rounded-xl bg-gradient-to-br from-accent-purple via-accent-lavender-glow to-indigo-500 p-[1.5px] shadow-[0_0_15px_rgba(171,159,242,0.4)] flex items-center justify-center shrink-0">
+<div class="w-full h-full bg-[#0e0e14] rounded-[10px] flex items-center justify-center">
+<span class="material-symbols-outlined text-accent-lavender-glow text-lg">auto_awesome</span>
+</div>
+</div>
+<span class="font-grotesk text-lg tracking-tight font-bold text-white flex items-center gap-1.5">
+            Kestrel <span class="text-accent-lavender-glow font-medium text-sm">/ Studio</span>
+</span>
+<span class="px-2.5 py-0.5 rounded-full bg-accent-purple/15 text-accent-lavender-glow border border-accent-lavender-glow/30 font-grotesk text-[11px] font-semibold tracking-wide flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-lavender-glow animate-pulse"></span>
+            &lt;₹25L Fast-Track
+          </span>
+</div>
+<!-- Pill Nav -->
+<nav class="hidden lg:flex items-center gap-1 bg-[#121218]/90 p-1 rounded-2xl border border-white/5">
+<a class="px-3.5 py-1.5 rounded-xl text-xs font-medium text-on-surface-variant hover:text-white hover:bg-white/[0.04] transition-all" data-path="intake-extraction" href="#">Intake &amp; Extraction</a>
+<a class="px-3.5 py-1.5 rounded-xl text-xs font-medium text-on-surface-variant hover:text-white hover:bg-white/[0.04] transition-all" data-path="verification-sign-off" href="#">Verification &amp; Sign-Off</a>
+<a class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-accent-purple text-white shadow-[0_0_15px_rgba(122,107,245,0.45)] transition-all" data-path="prompt-toner-studio" href="#">Prompt &amp; Toner Studio</a>
+<a class="px-3.5 py-1.5 rounded-xl text-xs font-medium text-on-surface-variant hover:text-white hover:bg-white/[0.04] transition-all" data-path="finops-api-health" href="#">FinOps &amp; API Health</a>
+</nav>
+</div>
+<!-- Right Telemetry & Profile -->
+<div class="flex items-center gap-4">
+<div class="hidden xl:flex items-center gap-2 bg-[#12121a] px-3.5 py-1.5 rounded-full border border-white/[0.08] text-xs">
+<span class="w-2 h-2 rounded-full bg-neon-mint shadow-[0_0_8px_#10B981]"></span>
+<span class="text-on-surface-variant font-mono text-[11px]">Proxy Active · Gemini 2.5 Flash <span class="text-neon-mint font-semibold">(Online)</span> · Groq 70B <span class="text-white/40">(Standby)</span> · <span class="text-accent-lavender-glow font-bold">₹4.82</span></span>
+</div>
+<div aria-label="Theme Switcher" class="flex items-center bg-[#12121a] p-1 rounded-full border border-white/[0.08] shadow-inner" role="group"><button class="w-7 h-7 rounded-full flex items-center justify-center text-white/50 hover:text-white transition-all" title="Light Mode" type="button"><span class="material-symbols-outlined text-[15px]">light_mode</span></button><button class="w-7 h-7 rounded-full bg-accent-purple/20 text-accent-lavender-glow border border-accent-lavender-glow/30 shadow-[0_0_8px_#ab9ff2] flex items-center justify-center transition-all" title="Dark Mode (Active)" type="button"><span class="material-symbols-outlined text-[15px]">dark_mode</span></button></div><div class="flex items-center gap-3 pl-2 border-l border-white/10">
+<div class="flex flex-col text-right leading-tight">
+<span class="text-xs font-semibold text-white">Arjun Iyer</span>
+<span class="text-[10px] text-accent-lavender-glow/80 font-grotesk tracking-wide">Credit Manager / CRO</span>
+</div>
+<div class="relative">
+<img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-accent-purple/50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZztgoy4hLC7cpANwv8gB-xSmU_aDvxQa_mJFhXwifkuV5BueL--z5ZYb1RzQC22EAKBWj6wM0rzlObg89wNCgraepugX_sRRMs9DfvuzpiggE5LiQQE8T4lekk4CWfp4Ni3imr7ZlHuumOSqQZKgNNX1lulwqdlJ8v7PU1NvNM84-KGhYClFKURwj9B35-joMvYeMmHUHBr46oZG8lNjLiqsVXsqTF7SqJgjnr30"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-neon-mint border-2 border-surface-base"></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sub-bar Sovereign Ledger Info -->
+<div class="h-7 w-full bg-[#07070a]/90 backdrop-blur border-t border-white/[0.04] px-6 flex items-center justify-between text-[11px] font-mono text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px] text-accent-lavender-glow">shield_locked</span>
+<span class="text-white/80">Underwriting Environment: Non-Repudiated Dual Ledger</span>
+<span class="text-white/30">|</span>
+<span class="text-accent-lavender-glow">Indian Sovereign Cloud (Mumbai Data Isolation)</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1 text-white/70">
+<span class="material-symbols-outlined text-[13px] text-neon-mint">lock</span> SHA-256 Enabled
+        </span>
+<span class="px-2 py-0.5 rounded bg-neon-mint/10 text-neon-mint border border-neon-mint/20 font-medium">RBI SME Compliant (&lt;₹25L)</span>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="w-full pt-28 pb-16 bg-surface-base min-h-screen">
+<div class="max-w-[1560px] mx-auto px-6 flex flex-col gap-6">
+<!-- Top Governance Pill Banner in Phantom Obsidian Style -->
+<div class="w-full rounded-2xl bg-gradient-to-r from-[#14141e] via-[#12121a] to-[#101016] p-4 border border-white/[0.07] phantom-glow flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-10 h-10 rounded-xl bg-accent-purple/20 border border-accent-purple/40 text-accent-lavender-glow flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(122,107,245,0.3)]">
+<span class="material-symbols-outlined text-xl">swap_horizontal_circle</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-grotesk text-sm font-bold text-white tracking-wide">Two-Way Door Governance Active</span>
+<span class="px-2 py-0.5 rounded-full bg-accent-lavender-glow/15 text-accent-lavender-glow border border-accent-lavender-glow/30 font-grotesk text-[10px] font-semibold tracking-wider uppercase">Hot-Swap Staging</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate">
+              Prompt modifications take effect in real-time staging without code deployment or backend redeployments.
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-4 shrink-0 self-start lg:self-auto bg-[#09090d]/80 border border-white/[0.06] px-4 py-2 rounded-xl">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-accent-lavender-glow shadow-[0_0_8px_#ab9ff2] animate-pulse"></span>
+<span class="text-xs text-on-surface-variant">Active Version:</span>
+<span class="text-xs font-mono font-bold text-white">v1.4.2 (Production Staging)</span>
+</div>
+<div class="h-3.5 w-px bg-white/10"></div>
+<div class="flex items-center gap-1.5 text-xs text-on-surface-variant font-mono">
+<span class="material-symbols-outlined text-[13px] text-accent-lavender-glow">schedule</span>
+<span>Modified Today, 11:20 AM by <span class="text-white font-medium">M. Pillai</span></span>
+</div>
+</div>
+</div>
+<!-- Core 2-Panel Grid: Phantom Left IDE & Right Persona Studio -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full items-start">
+<!-- LEFT PANEL: Critical System Prompt Editor (Developer IDE Theme) -->
+<section class="bg-[#101017] rounded-3xl p-6 border border-white/[0.08] shadow-2xl relative overflow-hidden flex flex-col gap-5">
+<!-- Subtle top gradient accent glow -->
+<div class="absolute -top-24 -left-24 w-60 h-60 bg-accent-purple/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1 border-b border-white/[0.05]">
+<div>
+<span class="font-grotesk text-[11px] uppercase tracking-wider text-accent-lavender-glow font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-lavender-glow"></span>
+                Policy Logic Layer
+              </span>
+<h2 class="text-xl font-bold text-white tracking-tight mt-0.5">Critical System Prompt Editor</h2>
+</div>
+<div class="flex items-center gap-1.5 bg-[#171722] border border-white/10 px-3 py-1 rounded-full self-start">
+<span class="w-2 h-2 rounded-full bg-neon-mint shadow-[0_0_6px_#10B981]"></span>
+<span class="font-grotesk text-xs text-on-surface font-medium">Two-Way Door Compliant</span>
+</div>
+</div>
+<!-- Agent Selector Segmented Control (Phantom Purple Active) -->
+<div class="grid grid-cols-3 gap-1.5 bg-[#09090d] p-1.5 rounded-2xl border border-white/[0.06]">
+<button class="py-2 px-3 text-center rounded-xl text-xs font-semibold text-on-surface-variant hover:text-white hover:bg-white/[0.03] transition-all truncate" type="button">
+              Extractor Agent
+            </button>
+<button class="py-2 px-3 text-center rounded-xl text-xs font-bold bg-accent-purple text-white phantom-glow-purple transition-all truncate flex items-center justify-center gap-1.5" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+              Critique Guardrail
+            </button>
+<button class="py-2 px-3 text-center rounded-xl text-xs font-semibold text-on-surface-variant hover:text-white hover:bg-white/[0.03] transition-all truncate" type="button">
+              Toner Agent
+            </button>
+</div>
+<!-- Model & Parameter Bar -->
+<div class="bg-[#14141e] border border-white/[0.06] rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-accent-lavender-glow">cloud_lock</span>
+<span class="text-on-surface-variant">Provider:</span>
+<span class="font-mono text-white font-semibold">Gemini 2.5 Flash (Proxy)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant">Temp:</span>
+<span class="font-mono text-accent-lavender-glow font-bold bg-accent-purple/10 px-2 py-0.5 rounded border border-accent-purple/20">0.1 (Strict)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant">Tag:</span>
+<span class="font-mono text-white/90 bg-[#1e1e2c] px-2 py-0.5 rounded border border-white/10">v1.4-critique</span>
+</div>
+</div>
+<!-- IDE Dark Graphite Code Box with Terminal Header -->
+<div class="flex flex-col rounded-2xl border border-white/[0.1] bg-[#0c0c11] overflow-hidden shadow-inner">
+<div class="flex items-center justify-between px-4 py-2.5 bg-[#14141d] border-b border-white/[0.08] text-xs font-mono">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-[#ef4444]/70"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-[#eab308]/70"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-[#10b981]/70"></span>
+</span>
+<span class="ml-2 text-white/80 font-medium">system_prompt.chain_of_thought.cot</span>
+</div>
+<span class="px-2 py-0.5 rounded-md bg-[#1a1a27] text-accent-lavender-glow border border-accent-purple/20 text-[11px] font-mono">384 Tokens · UTF-8</span>
+</div>
+<div class="relative p-4">
+<textarea class="w-full bg-transparent font-mono text-[13px] leading-relaxed text-[#dcd7fc] outline-none resize-none selection:bg-accent-purple/40 border-0 focus:ring-0" id="prompt-editor" rows="11" spellcheck="false">You are the Kestrel Finance Critique Agent. Your mandate is to enforce zero-hallucination compliance on extracted SME financial figures (&lt;₹25L slice).
+
+RULES:
+1. Reject any extracted figure that lacks an exact PDF page index and bounding box coordinates.
+2. Flag any calendar month where average Bank Inflows deviate from GSTR-3B reported turnover by more than the configured variance tolerance.
+3. Explicitly check for inward cheque bounce remarks (Codes: 01, 02, 05) and classify as 'Technical' vs 'Insufficient Funds'.
+4. Format all flagged variances with formula: ((Bank_Credits - GST_Sales) / GST_Sales) * 100.</textarea>
+</div>
+</div>
+<!-- Policy Threshold Control with Phantom Purple Slider -->
+<div class="bg-[#14141e] border border-white/[0.06] rounded-2xl p-4 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-accent-purple/20 text-accent-lavender-glow flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+</div>
+<label class="font-grotesk text-sm font-semibold text-white" for="tolerance-slider">Bank vs. GST Variance Tolerance</label>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono text-lg font-bold text-accent-lavender-glow" id="tolerance-val">10.0%</span>
+<span class="text-xs text-on-surface-variant font-mono">(Default)</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<input class="w-full h-2 bg-[#20202e] rounded-lg appearance-none cursor-pointer accent-[#ab9ff2]" id="tolerance-slider" max="25" min="5" step="0.5" type="range" value="10.0"/>
+<div class="flex items-center gap-1 shrink-0 bg-[#0c0c11] border border-white/10 px-2.5 py-1 rounded-xl shadow-inner">
+<button class="text-on-surface-variant hover:text-white font-bold text-sm px-1.5 transition-colors" id="step-down">-</button>
+<span class="text-xs font-mono text-white w-9 text-center font-bold" id="stepper-box">10.0</span>
+<button class="text-on-surface-variant hover:text-white font-bold text-sm px-1.5 transition-colors" id="step-up">+</button>
+</div>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+              Flags above this threshold require Senior Credit Analyst approval before dossier sign-off.
+            </p>
+</div>
+<!-- Action Buttons Group -->
+<div class="flex flex-col gap-3 pt-1">
+<div class="flex flex-col sm:flex-row items-center gap-3">
+<button class="w-full sm:w-auto flex-1 bg-gradient-to-r from-accent-purple to-[#8d7ff7] hover:brightness-110 text-white font-semibold py-3 px-5 rounded-2xl text-xs flex items-center justify-center gap-2 transition-all phantom-glow-purple shadow-lg active:scale-[0.99]" id="save-prompt-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Save Prompt Version (v1.4)</span>
+</button>
+<button class="w-full sm:w-auto bg-[#171723] hover:bg-[#1f1f2f] text-on-surface border border-white/10 py-3 px-4 rounded-2xl text-xs font-semibold flex items-center justify-center gap-2 transition-all" id="reset-baseline-btn" type="button">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">restart_alt</span>
+<span>Reset to Baseline</span>
+</button>
+</div>
+<div class="flex items-center gap-2 justify-center text-accent-lavender-glow text-xs font-mono">
+<span class="material-symbols-outlined text-sm text-neon-mint">verified</span>
+<span class="text-white/70">Auto-validated against 40 benchmark gold-set PDF test suites in sandboxed VM.</span>
+</div>
+</div>
+</section>
+<!-- RIGHT PANEL: Toner Agent Live Preview & Calibration -->
+<section class="bg-[#101017] rounded-3xl p-6 border border-white/[0.08] shadow-2xl relative overflow-hidden flex flex-col gap-5">
+<!-- Subtle top gradient accent glow -->
+<div class="absolute -top-24 -right-24 w-60 h-60 bg-accent-lavender-glow/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1 border-b border-white/[0.05]">
+<div>
+<span class="font-grotesk text-[11px] uppercase tracking-wider text-accent-lavender-glow font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-purple"></span>
+                Autonomous Adaptation
+              </span>
+<h2 class="text-xl font-bold text-white tracking-tight mt-0.5">Persona Tone Calibration &amp; Live Transformer</h2>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-neon-mint/10 border border-neon-mint/30 text-neon-mint text-xs font-grotesk font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-neon-mint animate-ping"></span>
+              Streaming Ready
+            </div>
+</div>
+<!-- Tone Preset Segmented Pills (Phantom Purple/Lavender Active) -->
+<div class="flex flex-col gap-2">
+<span class="font-grotesk text-xs text-on-surface-variant font-medium flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-accent-lavender-glow">tune</span>
+              Recipient Persona &amp; Tone Preset
+            </span>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 bg-[#09090d] p-1.5 rounded-2xl border border-white/[0.06]">
+<button class="preset-btn py-2.5 px-2 rounded-xl text-xs bg-gradient-to-b from-[#8f80f8] to-accent-purple text-white font-bold shadow-[0_0_15px_rgba(122,107,245,0.4)] flex flex-col items-center justify-center transition-all text-center border border-white/20" id="btn-preset-audit" type="button">
+<span>Strict Regulatory</span>
+<span class="text-[10px] font-normal text-white/80">Audit Memo (Arjun/CRO)</span>
+</button>
+<button class="preset-btn py-2.5 px-2 rounded-xl text-xs text-on-surface-variant hover:text-white hover:bg-white/[0.04] flex flex-col items-center justify-center transition-all text-center" id="btn-preset-analyst" type="button">
+<span>Concise Dossier</span>
+<span class="text-[10px] font-normal text-on-surface-variant/70">Variance Math (Meena)</span>
+</button>
+<button class="preset-btn py-2.5 px-2 rounded-xl text-xs text-on-surface-variant hover:text-white hover:bg-white/[0.04] flex flex-col items-center justify-center transition-all text-center" id="btn-preset-rm" type="button">
+<span>Actionable RM Chaser</span>
+<span class="text-[10px] font-normal text-on-surface-variant/70">Borrower Fix (Vikram)</span>
+</button>
+</div>
+</div>
+<!-- Before vs. After Live Preview Box -->
+<div class="flex flex-col gap-4">
+<!-- Raw JSON Assertion Input -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-xs text-on-surface-variant px-1 font-mono">
+<span class="flex items-center gap-1.5 text-white/90 font-medium">
+<span class="material-symbols-outlined text-[14px] text-accent-lavender-glow">data_object</span>
+                  1. Raw Engine JSON Assertion
+                </span>
+<span class="text-[10px] bg-[#161622] px-2 py-0.5 rounded border border-white/10 text-accent-lavender-glow">Checksum: 0x9AF4</span>
+</div>
+<div class="bg-[#0b0b10] border border-white/[0.08] rounded-2xl p-4 font-mono text-xs text-on-surface shadow-inner overflow-x-auto leading-relaxed">
+<pre class="m-0 text-[#9bb0d8]">{
+  <span class="text-accent-lavender-glow">"rule_id"</span>: <span class="text-neon-mint">"GST_VAR_01"</span>,
+  <span class="text-accent-lavender-glow">"variance_pct"</span>: <span class="text-[#f87171]">12.3</span>,
+  <span class="text-accent-lavender-glow">"bank_credit_sum"</span>: <span class="text-amber-300">1420000</span>,
+  <span class="text-accent-lavender-glow">"gst_turnover"</span>: <span class="text-amber-300">1245000</span>,
+  <span class="text-accent-lavender-glow">"rm_cash_note"</span>: <span class="text-accent-purple">true</span>,
+  <span class="text-accent-lavender-glow">"severity"</span>: <span class="text-amber-400">"AMBER_FLAG"</span>
+}</pre>
+</div>
+</div>
+<!-- Synthesized Recipient Memo (Live Toned) -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-xs px-1">
+<span class="flex items-center gap-1.5 font-semibold text-accent-lavender-glow font-grotesk">
+<span class="material-symbols-outlined text-[15px] text-accent-purple">auto_awesome</span>
+                  2. Synthesized Recipient Memo (Live Toned)
+                </span>
+<span class="px-2.5 py-0.5 rounded-full bg-accent-purple/20 text-accent-lavender-glow border border-accent-lavender-glow/30 font-grotesk text-[10px] font-semibold" id="tone-badge">Audit Memo Format</span>
+</div>
+<div class="bg-gradient-to-b from-[#151522] to-[#12121a] border border-accent-purple/30 rounded-2xl p-4 shadow-[0_0_25px_rgba(122,107,245,0.08)] transition-all" id="toned-preview-card">
+<div class="space-y-3" id="toned-content">
+<div class="font-grotesk text-xs font-bold text-accent-lavender-glow tracking-wider uppercase flex items-center justify-between border-b border-white/[0.08] pb-2">
+<span>Regulatory Audit Memorandum (Ref: KF-2026-0892)</span>
+<span class="text-[10px] text-white/50 font-mono">AUTONOMOUS_GEN</span>
+</div>
+<div class="text-xs leading-relaxed text-on-surface space-y-2 pt-0.5">
+<p class="flex items-start gap-2">
+<span class="font-bold text-white shrink-0">• Finding:</span>
+<span class="text-on-surface/90">Turnover variance of <span class="font-bold text-error bg-error/10 px-1 rounded">12.3%</span> observed between HDFC bank credits (<span class="font-semibold text-white">₹14.20L/m</span>, p.4, L18) and GSTR-3B filings (<span class="font-semibold text-white">₹12.45L/m</span>, p.2, B4).</span>
+</p>
+<p class="flex items-start gap-2">
+<span class="font-bold text-white shrink-0">• Reconciliation:</span>
+<span class="text-on-surface/90">Discrepancy is mitigated by verified <span class="text-accent-lavender-glow font-semibold">15% counter cash receipts</span> recorded in RM A2 checklist.</span>
+</p>
+<p class="flex items-start gap-2">
+<span class="font-bold text-white shrink-0">• Recommendation:</span>
+<span class="text-neon-mint font-medium">Case qualified for credit approval subject to standard working capital covenants.</span>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Telemetry Details & Execution Bar -->
+<div class="bg-[#14141e] border border-white/[0.06] rounded-xl px-4 py-2.5 flex items-center justify-between gap-3 flex-wrap text-xs">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-mono">
+<span class="material-symbols-outlined text-[15px] text-neon-mint">bolt</span>
+<span>Latency: <strong class="text-white">280ms</strong> (Groq Llama-3.3-70B backend)</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-mono">
+<span class="material-symbols-outlined text-[15px] text-accent-lavender-glow">token</span>
+<span>Inference Cost: <strong class="text-accent-lavender-glow">₹0.04</strong></span>
+</div>
+</div>
+<!-- Primary Phantom Action Button -->
+<div class="flex flex-col gap-2 pt-1">
+<button class="w-full bg-gradient-to-r from-accent-purple via-[#8e80fa] to-accent-lavender-glow hover:brightness-110 text-white font-semibold py-3.5 px-6 rounded-2xl text-xs font-grotesk tracking-wide uppercase flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(122,107,245,0.4)] active:scale-[0.99]" id="apply-tone-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">auto_fix_high</span>
+<span>Apply Tone to Active Dossier</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 text-on-surface-variant font-mono text-[11px]">
+<span class="material-symbols-outlined text-[12px] text-accent-lavender-glow">lock_clock</span>
+<span>State synchronized with Underwriting Queue #KF-892</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Audit Trace Benchmarking Bar in Phantom Dark Mode -->
+<div class="w-full bg-gradient-to-r from-[#14141e] via-[#101017] to-[#12121b] border border-white/[0.08] rounded-2xl p-4 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3.5">
+<div class="w-9 h-9 rounded-xl bg-neon-mint/15 border border-neon-mint/30 flex items-center justify-center text-neon-mint shadow-[0_0_12px_rgba(16,185,129,0.25)]">
+<span class="material-symbols-outlined text-lg">verified_user</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-grotesk text-sm font-bold text-white">Regression Protection: 40 Benchmark Gold Sets</span>
+<span class="px-2 py-0.5 rounded-full bg-neon-mint/20 text-neon-mint border border-neon-mint/30 text-[10px] font-mono font-bold">100% Deterministic Pass</span>
+</div>
+<span class="text-xs text-on-surface-variant">Zero hallucinations detected across latest ₹25L fast-track pilot test suites.</span>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<button class="px-4 py-2 rounded-xl bg-[#1b1b28] hover:bg-[#232335] text-accent-lavender-glow border border-accent-purple/30 text-xs font-grotesk font-semibold flex items-center gap-1.5 transition-all shadow-sm" type="button">
+<span>Inspect Log Ledger</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Phantom Footer -->
+<footer class="w-full bg-[#07070a] border-t border-white/[0.06] py-5">
+<div class="max-w-[1560px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-3 text-[11px] font-mono text-on-surface-variant">
+<div>© 2025 Kestrel Finance Technologies Ltd. Regulated NBFC Lending Partner Integration Core.</div>
+<div class="flex items-center gap-4 text-white/60">
+<span>Policy Framework: <span class="text-accent-lavender-glow">v4.2.1-Prod</span></span>
+<span class="text-white/20">•</span>
+<span>Enclave Key: <span class="text-white/90">HSM-KMS-0091</span></span>
+<span class="text-white/20">•</span>
+<span class="flex items-center gap-1 text-neon-mint"><span class="w-1.5 h-1.5 rounded-full bg-neon-mint"></span> Systems Nominal</span>
+</div>
+</div>
+</footer>
+<script>
+    (function() {
+      // Slider & Stepper synchronization
+      const slider = document.getElementById('tolerance-slider');
+      const valDisplay = document.getElementById('tolerance-val');
+      const boxDisplay = document.getElementById('stepper-box');
+      const stepUp = document.getElementById('step-up');
+      const stepDown = document.getElementById('step-down');
+
+      function updateTolerance(val) {
+        const num = parseFloat(val).toFixed(1);
+        slider.value = num;
+        valDisplay.textContent = num + '%';
+        boxDisplay.textContent = num;
+      }
+
+      if (slider) {
+        slider.addEventListener('input', (e) => updateTolerance(e.target.value));
+      }
+      if (stepUp) {
+        stepUp.addEventListener('click', () => {
+          let cur = parseFloat(slider.value) || 10.0;
+          if (cur < 25) updateTolerance(cur + 0.5);
+        });
+      }
+      if (stepDown) {
+        stepDown.addEventListener('click', () => {
+          let cur = parseFloat(slider.value) || 10.0;
+          if (cur > 5) updateTolerance(cur - 0.5);
+        });
+      }
+
+      // Persona Tone Calibration Interactive Switcher
+      const btnAudit = document.getElementById('btn-preset-audit');
+      const btnAnalyst = document.getElementById('btn-preset-analyst');
+      const btnRm = document.getElementById('btn-preset-rm');
+      const toneBadge = document.getElementById('tone-badge');
+      const contentBox = document.getElementById('toned-content');
+      const allPresets = [btnAudit, btnAnalyst, btnRm];
+
+      const activeClass = "preset-btn py-2.5 px-2 rounded-xl text-xs bg-gradient-to-b from-[#8f80f8] to-accent-purple text-white font-bold shadow-[0_0_15px_rgba(122,107,245,0.4)] flex flex-col items-center justify-center transition-all text-center border border-white/20";
+      const inactiveClass = "preset-btn py-2.5 px-2 rounded-xl text-xs text-on-surface-variant hover:text-white hover:bg-white/[0.04] flex flex-col items-center justify-center transition-all text-center border border-transparent";
+
+      const presetsData = {
+        audit: {
+          badge: "Audit Memo Format",
+          html: `
+            <div class="font-grotesk text-xs font-bold text-accent-lavender-glow tracking-wider uppercase flex items-center justify-between border-b border-white/[0.08] pb-2">
+              <span>Regulatory Audit Memorandum (Ref: KF-2026-0892)</span>
+              <span class="text-[10px] text-white/50 font-mono">AUTONOMOUS_GEN</span>
+            </div>
+            <div class="text-xs leading-relaxed text-on-surface space-y-2 pt-0.5">
+              <p class="flex items-start gap-2">
+                <span class="font-bold text-white shrink-0">• Finding:</span>
+                <span class="text-on-surface/90">Turnover variance of <span class="font-bold text-error bg-error/10 px-1 rounded">12.3%</span> observed between HDFC bank credits (<span class="font-semibold text-white">₹14.20L/m</span>, p.4, L18) and GSTR-3B filings (<span class="font-semibold text-white">₹12.45L/m</span>, p.2, B4).</span>
+              </p>
+              <p class="flex items-start gap-2">
+                <span class="font-bold text-white shrink-0">• Reconciliation:</span>
+                <span class="text-on-surface/90">Discrepancy is mitigated by verified <span class="text-accent-lavender-glow font-semibold">15% counter cash receipts</span> recorded in RM A2 checklist.</span>
+              </p>
+              <p class="flex items-start gap-2">
+                <span class="font-bold text-white shrink-0">• Recommendation:</span>
+                <span class="text-neon-mint font-medium">Case qualified for credit approval subject to standard working capital covenants.</span>
+              </p>
+            </div>
+          `
+        },
+        analyst: {
+          badge: "Analyst Dossier Bullets",
+          html: `
+            <div class="font-grotesk text-xs font-bold text-accent-lavender-glow tracking-wider uppercase flex items-center justify-between border-b border-white/[0.08] pb-2">
+              <span>Exceptions &amp; Variance Calculation (KF-2026-0892)</span>
+              <span class="text-[10px] text-neon-mint font-mono">ANALYST_STAGING</span>
+            </div>
+            <div class="text-xs leading-relaxed space-y-2 pt-0.5 font-mono">
+              <div class="bg-[#0b0b10] p-2.5 rounded-xl border border-white/10 text-xs">
+                Δ_TURNOVER = ((₹14.20L - ₹12.45L) / ₹12.45L) * 100 = <span class="text-error font-bold">+12.3%</span> <span class="text-amber-300">[Amber Flag: &gt;10% Tol]</span>
+              </div>
+              <p class="text-on-surface-variant text-[11px] leading-normal pt-1">
+                • Primary cause: Retail OTC cash deposits in current account without GST line item.<br/>
+                • Cash verification: Verified via branch physical register upload (Ref Doc #A2-88).<br/>
+                • DSCR impact: Negligible (Projected DSCR remains 1.74x).
+              </p>
+            </div>
+          `
+        },
+        rm: {
+          badge: "RM Action Checklist",
+          html: `
+            <div class="font-grotesk text-xs font-bold text-accent-lavender-glow tracking-wider uppercase flex items-center justify-between border-b border-white/[0.08] pb-2">
+              <span>Borrower Action Checklist (Sales RM Follow-up)</span>
+              <span class="text-[10px] text-amber-300 font-mono">CHASER_DISPATCH</span>
+            </div>
+            <div class="text-xs leading-relaxed space-y-2 pt-0.5">
+              <p class="text-white font-medium">Hi Vikram, please obtain the following quick declaration from Shri Krishna Traders to clear the ₹18.5L disbursement:</p>
+              <ul class="list-disc pl-5 space-y-1.5 text-on-surface-variant text-xs">
+                <li>Sign simple counter-receipt declaration form for cash deposits totaling <span class="text-white font-semibold">₹1.75L</span> in October 2025.</li>
+                <li>Confirm turnover reconciliation aligns with CA-attested provisional run-rate.</li>
+              </ul>
+            </div>
+          `
+        }
+      };
+
+      function selectPreset(type, activeBtn) {
+        allPresets.forEach(b => {
+          if (!b) return;
+          b.className = inactiveClass;
+        });
+        activeBtn.className = activeClass;
+
+        const p = presetsData[type];
+        if (p && toneBadge && contentBox) {
+          toneBadge.textContent = p.badge;
+          contentBox.innerHTML = p.html;
+        }
+      }
+
+      if (btnAudit) btnAudit.addEventListener('click', () => selectPreset('audit', btnAudit));
+      if (btnAnalyst) btnAnalyst.addEventListener('click', () => selectPreset('analyst', btnAnalyst));
+      if (btnRm) btnRm.addEventListener('click', () => selectPreset('rm', btnRm));
+
+      // Save Feedback interaction
+      const saveBtn = document.getElementById('save-prompt-btn');
+      if (saveBtn) {
+        saveBtn.addEventListener('click', function() {
+          const original = this.innerHTML;
+          this.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span> Staging Deployment Active...';
+          setTimeout(() => {
+            this.innerHTML = '<span class="material-symbols-outlined text-[16px] text-neon-mint">check_circle</span> Saved to Hot-Staging!';
+            setTimeout(() => { this.innerHTML = original; }, 2000);
+          }, 600);
+        });
+      }
+
+      // Apply Tone interaction
+      const applyBtn = document.getElementById('apply-tone-btn');
+      if (applyBtn) {
+        applyBtn.addEventListener('click', function() {
+          const original = this.innerHTML;
+          this.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">sync</span> Syncing with Active Case...';
+          setTimeout(() => {
+            this.innerHTML = '<span class="material-symbols-outlined text-[16px] text-white">done_all</span> Applied to Dossier #KF-892';
+            setTimeout(() => { this.innerHTML = original; }, 2200);
+          }, 500);
+        });
+      }
+    })();
+  </script>
+</body></html>

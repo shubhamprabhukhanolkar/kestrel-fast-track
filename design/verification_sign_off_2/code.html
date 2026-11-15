@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#7a0014", "inverse-primary": "#ffb3b0", "on-tertiary-container": "#ffb477", "tertiary": "#5c2f00", "error-container": "#ffdad6", "on-surface": "#1a1a2b", "inverse-surface": "#2f2f41", "surface-dim": "#dad8ef", "surface-container": "#efecff", "surface-container-highest": "#e3e0f8", "midnight-slate": "#25243B", "surface-variant": "#e3e0f8", "primary-fixed": "#ffdad8", "crimson-dark": "#7A141D", "tertiary-container": "#7d4200", "surface-pearl": "#F4F4F6", "gold-dark": "#B45309", "surface": "#fcf8ff", "on-tertiary-fixed-variant": "#6e3900", "on-tertiary-fixed": "#2f1500", "crimson-light": "#C92A36", "on-error": "#ffffff", "primary-fixed-dim": "#ffb3b0", "primary-container": "#9d1d27", "surface-container-lowest": "#ffffff", "outline": "#8d706f", "inverse-on-surface": "#f2efff", "secondary-container": "#7cc5fe", "on-background": "#1a1a2b", "on-secondary-fixed": "#001e30", "tertiary-fixed": "#ffdcc3", "secondary-fixed-dim": "#90cdff", "surface-tint": "#b02c33", "on-surface-variant": "#594140", "tertiary-fixed-dim": "#ffb77d", "on-secondary": "#ffffff", "surface-container-high": "#e8e6fe", "on-primary-container": "#ffafac", "on-error-container": "#93000a", "outline-variant": "#e0bfbd", "gold-light": "#FDE68A", "on-secondary-container": "#00517b", "background": "#fcf8ff", "on-tertiary": "#ffffff", "on-primary-fixed-variant": "#8e101e", "surface-cream": "#FDFBF7", "on-primary-fixed": "#410006", "secondary-fixed": "#cbe6ff", "on-secondary-fixed-variant": "#004b71", "secondary": "#006495", "surface-bright": "#fcf8ff", "surface-container-low": "#f5f2ff", "on-primary": "#ffffff", "error": "#ba1a1a" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.5rem", "gutter-mobile": "0.75rem", "space-2xs": "0.25rem", "space-lg": "1.5rem", "space-md": "1rem", "margin": "2rem", "space-2xl": "3rem", "space-3xl": "4rem", "gutter": "1.5rem", "space-sm": "0.75rem", "space-xl": "2rem", "margin-mobile": "1rem" }, "fontFamily": { "display-hero": ["Inter"], "body-md": ["Inter"], "label-md": ["Inter"], "headline-sm": ["Inter"], "body-sm": ["Inter"], "headline-lg-mobile": ["Inter"], "body-lg": ["Inter"], "label-sm": ["Inter"], "headline-lg": ["Inter"], "display-hero-mobile": ["Inter"], "headline-md": ["Inter"], "financial-display": ["Inter"], "label-lg": ["Inter"] }, "fontSize": { "display-hero": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }], "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "display-hero-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "800" }], "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "financial-display": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface"><header class="fixed top-0 w-full z-50 bg-primary-container text-on-primary shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-gold-light text-[24px]">account_balance</span><div class="flex flex-col"><span class="font-label-lg text-label-lg text-on-primary leading-tight">Kestrel Finance</span><span class="font-label-sm text-label-sm text-gold-light opacity-90 leading-tight">IDFC FIRST Co-Lending Pilot (<₹25L Fast-Track)</span></div></div><div class="h-6 w-px bg-on-primary/20"></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-primary text-on-primary font-bold rounded-lg shadow-sm"><a class="px-space-sm py-space-xs font-label-md text-label-md text-on-primary/80 hover:text-on-primary hover:bg-primary-fixed-dim/20 rounded-lg transition-colors" data-path="intake-and-extraction" href="#">Intake & Extraction</a><a class="px-space-sm py-space-xs font-label-md text-label-md text-on-primary/80 hover:text-on-primary hover:bg-primary-fixed-dim/20 rounded-lg transition-colors" data-path="verification-and-sign-off" href="#">Verification & Sign-Off</a><a class="px-space-sm py-space-xs font-label-md text-label-md text-on-primary/80 hover:text-on-primary hover:bg-primary-fixed-dim/20 rounded-lg transition-colors" data-path="prompt-and-toner-studio" href="#">Prompt & Toner Studio</a><a class="px-space-sm py-space-xs font-label-md text-label-md text-on-primary/80 hover:text-on-primary hover:bg-primary-fixed-dim/20 rounded-lg transition-colors" data-path="finops-and-api-health" href="#">FinOps & API Health</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden lg:flex items-center gap-space-xs bg-crimson-dark px-space-sm py-space-2xs rounded-full"><span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span><span class="font-label-sm text-label-sm text-on-primary">Backend Proxy Active · GenAI: Gemini 2.5 Flash (Online) · Session: ₹4.82</span></div><div class="hidden md:flex items-center gap-space-2xs bg-tertiary-container px-space-xs py-space-2xs rounded-full text-gold-light"><span class="material-symbols-outlined text-[14px]">verified_user</span><span class="font-label-sm text-label-sm text-gold-light">RBI Mandate Compliant</span></div><div class="flex items-center gap-space-xs pl-space-xs"><div class="hidden sm:flex flex-col text-right"><span class="font-label-md text-label-md text-on-primary leading-tight">Arjun Iyer</span><span class="font-label-sm text-label-sm text-gold-light leading-tight">Credit Manager / CRO</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full">
+<!-- Sticky Sub-Header Dossier Bar -->
+<section class="w-full bg-surface-cream px-margin py-space-sm shadow-sm">
+<div class="max-w-[1440px] mx-auto flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<!-- Left Metadata Cluster -->
+<div class="flex flex-wrap items-center gap-space-md">
+<div class="flex items-center gap-space-xs">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[22px]">medical_services</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Shree Ganesh Surgicals</span>
+<span class="bg-gold-light text-tertiary-container px-space-xs py-space-2xs rounded-full font-label-sm text-label-sm tracking-wide">FAST-TRACK PILOT</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Prop. Rajesh V. Patil · CIN/GSTIN: 27AABCS1429B1Z8 · Solapur Medical Hub</span>
+</div>
+</div>
+<div class="hidden sm:block h-8 w-px bg-outline-variant/50"></div>
+<div class="flex items-center gap-space-lg">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Facility Ticket</span>
+<span class="font-financial-display text-financial-display text-primary leading-tight">₹18,50,000</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Current Pipeline</span>
+<div class="flex items-center gap-space-2xs">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Step 3–5 Verification & Sign-Off</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Governance Badges -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center gap-space-xs bg-surface-pearl px-space-sm py-space-xs rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Risk Grade</span>
+<span class="font-label-md text-label-md text-on-surface font-bold text-primary">B+ (Low Delinquency)</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-pearl px-space-sm py-space-xs rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-gold-dark text-[20px]">timer</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sign-off SLA</span>
+<span class="font-label-md text-label-md text-tertiary font-bold" id="slaTimer">04m : 18s elapsed</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs bg-primary-fixed px-space-sm py-space-xs rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Co-Lending Policy IDFC-KESTREL-v4.2</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Two-Column Workspace Layout (55% / 45%) -->
+<div class="w-full max-w-[1440px] mx-auto px-margin py-space-lg">
+<div class="grid grid-cols-1 lg:grid-cols-10 gap-space-lg items-start">
+<!-- LEFT PANEL: Steps 3 & 4 Cited Spreading & GST Reconciliation (55% -> 6 Cols in 10-Col Grid) -->
+<div class="lg:col-span-6 flex flex-col gap-space-lg">
+<!-- Spreading Sheet Master Card -->
+<div class="w-full bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-xs gap-space-xs">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-space-2xs bg-primary-container text-on-primary font-label-sm text-label-sm rounded">STEP 03</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Cited Spreading Sheet & GST Reconciliation</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Direct PDF token-mapped telemetry with multi-document cross-variance validation</p>
+</div>
+<div class="flex items-center gap-space-xs self-start sm:self-auto">
+<span class="font-label-sm text-label-sm bg-surface-pearl text-on-surface-variant px-space-xs py-space-2xs rounded">4 of 4 Verified</span>
+<button class="text-primary hover:text-crimson-dark flex items-center gap-1 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">file_download</span> Export CSV
+              </button>
+</div>
+</div>
+<!-- Spreading Table -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-pearl text-on-surface-variant">
+<th class="py-space-xs px-space-sm font-label-md text-label-md rounded-l">Metric Parameter</th>
+<th class="py-space-xs px-space-sm font-label-md text-label-md">Extracted Value</th>
+<th class="py-space-xs px-space-sm font-label-md text-label-md">Cited Evidentiary Anchor</th>
+<th class="py-space-xs px-space-sm font-label-md text-label-md">Reconciliation State</th>
+<th class="py-space-xs px-space-sm font-label-md text-label-md text-right rounded-r">Action / Status</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-pearl/60 transition-colors group cursor-pointer" onclick="selectRowSnippet('bank-credit')">
+<td class="py-space-sm px-space-sm">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Avg Monthly Bank Credit</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">6M Banking Aggregator</span>
+</div>
+</td>
+<td class="py-space-sm px-space-sm font-label-lg text-label-lg font-bold text-on-surface">
+                    ₹14,20,000
+                  </td>
+<td class="py-space-sm px-space-sm">
+<span class="inline-flex items-center gap-1 bg-surface-container px-space-xs py-space-2xs rounded font-label-sm text-label-sm text-secondary font-mono">
+<span class="material-symbols-outlined text-[14px]">link</span> [Bank PDF · p.4, L18]
+                    </span>
+</td>
+<td class="py-space-sm px-space-sm">
+<div class="flex items-center gap-space-2xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-md text-label-md text-secondary font-medium">Verified (99% Conf)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-sm text-right">
+<span class="bg-surface-pearl text-on-surface font-label-sm text-label-sm px-space-sm py-space-2xs rounded-full font-semibold">Approved</span>
+</td>
+</tr>
+<!-- Row 2 (Flagged Variance > 10%) -->
+<tr class="bg-gold-light/20 hover:bg-gold-light/35 transition-colors cursor-pointer" onclick="selectRowSnippet('gst-turnover')">
+<td class="py-space-sm px-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">GSTR-3B Reported Turnover</span>
+<span class="material-symbols-outlined text-gold-dark text-[16px]">warning</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">Table 3.1(a) Outward Taxable</span>
+</div>
+</td>
+<td class="py-space-sm px-space-sm font-label-lg text-label-lg font-bold text-on-surface">
+                    ₹12,45,000
+                  </td>
+<td class="py-space-sm px-space-sm">
+<span class="inline-flex items-center gap-1 bg-surface-pearl px-space-xs py-space-2xs rounded font-label-sm text-label-sm text-primary font-mono">
+<span class="material-symbols-outlined text-[14px]">link</span> [GST PDF · p.2, B4]
+                    </span>
+</td>
+<td class="py-space-sm px-space-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-bold text-tertiary-container bg-gold-light px-space-xs py-0.5 rounded-full inline-block w-fit">
+                        12.3% Variance (>10% Rule)
+                      </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">₹1.75L unaccounted delta</span>
+</div>
+</td>
+<td class="py-space-sm px-space-sm text-right">
+<button class="bg-primary text-on-primary hover:bg-crimson-dark px-space-sm py-space-2xs rounded font-label-sm text-label-sm transition-all shadow-sm">
+                      Edit / Confirm
+                    </button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-pearl/60 transition-colors cursor-pointer" onclick="selectRowSnippet('amb-balance')">
+<td class="py-space-sm px-space-sm">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Average Monthly Balance (AMB)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Solapur Urban Co-op Current A/c</span>
+</div>
+</td>
+<td class="py-space-sm px-space-sm font-label-lg text-label-lg font-bold text-on-surface">
+                    ₹3,85,000
+                  </td>
+<td class="py-space-sm px-space-sm">
+<span class="inline-flex items-center gap-1 bg-surface-container px-space-xs py-space-2xs rounded font-label-sm text-label-sm text-secondary font-mono">
+<span class="material-symbols-outlined text-[14px]">link</span> [Bank PDF · p.12, L42]
+                    </span>
+</td>
+<td class="py-space-sm px-space-sm">
+<div class="flex items-center gap-space-2xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-md text-label-md text-secondary font-medium">Verified (98% Conf)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-sm text-right">
+<span class="bg-surface-pearl text-on-surface font-label-sm text-label-sm px-space-sm py-space-2xs rounded-full font-semibold">Approved</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-pearl/60 transition-colors cursor-pointer" onclick="selectRowSnippet('bounce-check')">
+<td class="py-space-sm px-space-sm">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Inward Cheque Bounces</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Trailing 6 Months Inward Clearing</span>
+</div>
+</td>
+<td class="py-space-sm px-space-sm font-label-lg text-label-lg font-bold text-tertiary">
+                    1 (Oct 2025)
+                  </td>
+<td class="py-space-sm px-space-sm">
+<span class="inline-flex items-center gap-1 bg-surface-container px-space-xs py-space-2xs rounded font-label-sm text-label-sm text-secondary font-mono">
+<span class="material-symbols-outlined text-[14px]">link</span> [Bank PDF · p.7, L09]
+                    </span>
+</td>
+<td class="py-space-sm px-space-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-semibold text-primary">Technical Bounce</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Signature Mismatch (Cleared D+2)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-sm text-right">
+<button class="bg-surface-pearl hover:bg-surface-container-high text-on-surface px-space-sm py-space-2xs rounded font-label-sm text-label-sm transition-colors">
+                      Override / Log
+                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Metric & Audit Strip Callout -->
+<div class="bg-surface-pearl p-space-sm rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm mt-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[22px]">analytics</span>
+<div class="flex flex-wrap items-center gap-x-space-md gap-y-1">
+<span class="font-body-sm text-body-sm text-on-surface"><strong>Analyst Correction Rate:</strong> 1 of 12 fields adjusted (8.3%)</span>
+<span class="hidden md:inline text-outline-variant">•</span>
+<span class="font-body-sm text-body-sm text-on-surface"><strong>Est. Time Saved:</strong> <span class="text-primary font-bold">3.1 hrs</span> vs manual spread</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs self-end md:self-auto">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono bg-surface-container px-space-xs py-1 rounded">
+                SHA-256: 7f8a9...b401
+              </span>
+</div>
+</div>
+</div>
+<!-- Reconciliation Delta Heatmap & Monthly Velocity -->
+<div class="w-full bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-space-2xs bg-secondary-fixed text-secondary font-label-sm text-label-sm rounded font-bold">STEP 04</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Reconciliation Delta Heatmap (Banking vs. GSTR-3B)</h3>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Threshold Rule: ±10.0% Max Drift</span>
+</div>
+<!-- Monthly Velocity Chips -->
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-space-xs">
+<div class="bg-surface-pearl p-space-sm rounded-lg flex flex-col items-center justify-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">May 2025</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-1">+2.1%</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">Nominal</span>
+</div>
+<div class="bg-surface-pearl p-space-sm rounded-lg flex flex-col items-center justify-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Jun 2025</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-1">+4.0%</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">Nominal</span>
+</div>
+<div class="bg-surface-pearl p-space-sm rounded-lg flex flex-col items-center justify-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Jul 2025</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-1">+1.8%</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">Nominal</span>
+</div>
+<div class="bg-surface-pearl p-space-sm rounded-lg flex flex-col items-center justify-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Aug 2025</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-1">+3.2%</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">Nominal</span>
+</div>
+<div class="bg-surface-pearl p-space-sm rounded-lg flex flex-col items-center justify-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sep 2025</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-1">+5.1%</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">Nominal</span>
+</div>
+<!-- Highlighted Amber Oct Delta -->
+<div class="bg-gold-light/40 p-space-sm rounded-lg flex flex-col items-center justify-center text-center ring-2 ring-tertiary-container/30">
+<span class="font-label-sm text-label-sm text-tertiary uppercase font-bold">Oct 2025</span>
+<span class="font-headline-sm text-headline-sm text-tertiary font-bold mt-1">+12.3%</span>
+<span class="font-label-sm text-label-sm text-tertiary-container bg-gold-light px-space-2xs py-0.5 rounded-full font-bold">Flagged</span>
+</div>
+</div>
+<!-- Inline Visual Bar Comparison Chart (SVG) -->
+<div class="w-full bg-surface-cream p-space-md rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-primary"></span> Bank Inflows (Cr)</span>
+<span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-secondary"></span> GSTR-3B Declared Turnover</span>
+<span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-tertiary"></span> 10% Policy Band</span>
+</div>
+<svg class="w-full h-24 text-on-surface" preserveaspectratio="none" viewbox="0 0 600 120">
+<!-- Grid lines -->
+<line stroke="currentColor" stroke-dasharray="4" stroke-opacity="0.08" x1="0" x2="600" y1="30" y2="30"></line>
+<line stroke="currentColor" stroke-dasharray="4" stroke-opacity="0.08" x1="0" x2="600" y1="70" y2="70"></line>
+<line stroke="currentColor" stroke-opacity="0.12" x1="0" x2="600" y1="110" y2="110"></line>
+<!-- May -->
+<rect fill="#7a0014" height="65" rx="3" width="22" x="40" y="45"></rect>
+<rect fill="#006495" height="60" rx="3" width="22" x="66" y="50"></rect>
+<!-- Jun -->
+<rect fill="#7a0014" height="70" rx="3" width="22" x="135" y="40"></rect>
+<rect fill="#006495" height="62" rx="3" width="22" x="161" y="48"></rect>
+<!-- Jul -->
+<rect fill="#7a0014" height="72" rx="3" width="22" x="230" y="38"></rect>
+<rect fill="#006495" height="68" rx="3" width="22" x="256" y="42"></rect>
+<!-- Aug -->
+<rect fill="#7a0014" height="78" rx="3" width="22" x="325" y="32"></rect>
+<rect fill="#006495" height="71" rx="3" width="22" x="351" y="39"></rect>
+<!-- Sep -->
+<rect fill="#7a0014" height="82" rx="3" width="22" x="420" y="28"></rect>
+<rect fill="#006495" height="70" rx="3" width="22" x="446" y="40"></rect>
+<!-- Oct (Drift Spike) -->
+<rect fill="#7a0014" height="94" rx="3" width="22" x="515" y="16"></rect>
+<rect fill="#006495" height="62" rx="3" width="22" x="541" y="48"></rect>
+<!-- Oct Indicator -->
+<circle cx="539" cy="12" fill="#B45309" r="4"></circle>
+</svg>
+</div>
+<!-- Bottom Financial KPIs -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md pt-space-xs">
+<div class="bg-surface-pearl p-space-md rounded-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Calc. DSCR Ratio</span>
+<span class="font-financial-display text-financial-display text-on-surface font-bold">1.84x</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">≥ 1.35x Min IDFC FIRST Policy</span>
+</div>
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[24px]">trending_up</span>
+</div>
+</div>
+<div class="bg-surface-pearl p-space-md rounded-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Recommended Cap</span>
+<span class="font-financial-display text-financial-display text-primary font-bold">₹22.40L</span>
+<span class="font-label-sm text-label-sm text-tertiary font-medium">Capped to Ticket: ₹18.50L</span>
+</div>
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">price_check</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT PANEL: PDF Traceability & Step 5 Dual Sign-Off (45% -> 4 Cols in 10-Col Grid) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Top Card: PDF Source Traceability Preview -->
+<div class="w-full bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-2xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">find_in_page</span>
+<h3 class="font-label-lg text-label-lg font-bold text-on-surface">PDF Source Traceability Preview</h3>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm bg-surface-pearl text-on-surface px-space-xs py-space-2xs rounded font-mono">Page 4 of 38</span>
+<span class="font-label-sm text-label-sm bg-secondary-fixed text-secondary px-space-xs py-space-2xs rounded font-semibold">OCR Match: 99.4%</span>
+</div>
+</div>
+<!-- Document Snippet Mockup Container -->
+<div class="relative w-full bg-surface-cream rounded-lg p-space-sm font-mono text-[11px] leading-relaxed text-on-surface overflow-hidden">
+<!-- Source doc header watermark -->
+<div class="flex items-center justify-between text-on-surface-variant/70 pb-space-xs mb-space-xs">
+<span class="flex items-center gap-1 font-bold text-on-surface">
+<span class="material-symbols-outlined text-[14px]">account_balance</span> SOLAPUR URBAN CO-OPERATIVE BANK LTD.
+              </span>
+<span class="text-[9px]">A/C # 910283019283 · INR</span>
+</div>
+<!-- Preceding lines blurred/dimmed -->
+<div class="opacity-40 select-none">
+<div>12-Oct-2025 | CHQ CLG-CIPLA DISTRIBUTORS | -₹2,10,400.00 | Bal: ₹4,25,210.50</div>
+<div>14-Oct-2025 | RTGS DR-SURGICAL IMPORTS | -₹1,80,000.00 | Bal: ₹2,45,210.50</div>
+</div>
+<!-- Targeted Highlighted OCR Transaction Line with Bounding Frame -->
+<div class="my-space-xs p-space-xs bg-gold-light/60 rounded shadow-sm text-on-surface transition-all" id="activeSnippetBox">
+<div class="flex items-center justify-between text-[10px] text-tertiary font-sans font-bold pb-0.5">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">crop_free</span> OCR BBOX [x:114, y:482, w:640, h:24]</span>
+<span class="text-primary font-bold">Anchor: Bank Credit #18</span>
+</div>
+<div class="font-bold text-[12px] text-primary bg-surface-cream/80 p-1 rounded">
+                15-Oct-2025 | NEFT CR-MEDISURG PHARMA-SALES REC | ₹14,20,000.00 | Bal: ₹18,45,210.50
+              </div>
+</div>
+<!-- Succeeding lines blurred/dimmed -->
+<div class="opacity-40 select-none">
+<div>18-Oct-2025 | UPI-SHREE CHEMIST SOLAPUR | +₹84,500.00 | Bal: ₹19,29,710.50</div>
+<div>22-Oct-2025 | IMPS RET-HOSPITAL SUPPLY CORP | -₹45,000.00 | Bal: ₹18,84,710.50</div>
+</div>
+<!-- Micro Controls for PDF -->
+<div class="flex items-center justify-between pt-space-xs mt-space-xs text-on-surface-variant text-[11px] font-sans">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span> Tamper-Evident SHA-256 Ledger Verified
+              </span>
+<div class="flex items-center gap-2">
+<button class="hover:text-primary"><span class="material-symbols-outlined text-[16px]">zoom_in</span></button>
+<button class="hover:text-primary"><span class="material-symbols-outlined text-[16px]">open_in_new</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Card: Step 5 One-Page Evidence Dossier & Human Credit Decision -->
+<div class="w-full bg-surface-container-lowest rounded-xl shadow-md p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-space-2xs bg-primary text-on-primary font-label-sm text-label-sm rounded font-bold">STEP 05</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Human Credit Decision (Dual-Sign Off)</h3>
+</div>
+<span class="font-label-sm text-label-sm text-gold-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">gavel</span> Co-Lending Core
+            </span>
+</div>
+<!-- Mandatory Regulatory Guardrail Banner -->
+<div class="bg-primary/10 p-space-sm rounded-lg flex items-start gap-space-sm text-primary">
+<span class="material-symbols-outlined text-[20px] text-primary shrink-0 mt-0.5">policy</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider text-primary">MANDATORY REGULATORY GUARDRAIL: NO MODEL APPROVES CREDIT</span>
+<p class="font-body-sm text-body-sm text-on-surface mt-0.5 leading-snug">
+                Named human credit manager signature required under <strong>RBI SME Lending Circular Guidelines 2024</strong>. Automated recommendations are non-binding evidentiary priors.
+              </p>
+</div>
+</div>
+<!-- Toner-Formatted Summary Note -->
+<div class="bg-surface-pearl p-space-md rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[18px]">summarize</span> Toner-Synthesized Credit Note
+              </span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Confidence: 96.8%</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              12.3% GST turnover variance in October 2025 is substantiated by <strong>15% cash counter-receipts</strong> documented in Bank Book (p.18) for festive surgical wholesale orders. Debt Service Coverage Ratio sits comfortably at <strong>1.84x</strong> (min requirement: 1.35x). Single October inward clearing bounce was verified as a <strong>technical drawer signature mismatch</strong>, honored on re-presentation without financial distress. Business demonstrates stable 3-year cash flow.
+            </p>
+</div>
+<!-- Credit Manager Determination (Radio Buttons) -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">Credit Manager Determination</label>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-xs">
+<!-- Approve (Selected) -->
+<label class="flex items-center gap-space-xs p-space-sm rounded-lg bg-primary-fixed/40 cursor-pointer shadow-sm">
+<input checked="" class="accent-primary w-4 h-4 cursor-pointer" name="credit_decision" type="radio" value="approve"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">Approve Policy</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ticket: ₹18.50L</span>
+</div>
+</label>
+<!-- Return to RM -->
+<label class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-pearl hover:bg-surface-container cursor-pointer transition-colors">
+<input class="accent-primary w-4 h-4 cursor-pointer" name="credit_decision" type="radio" value="return_rm"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Return to RM</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Need Field Visit</span>
+</div>
+</label>
+<!-- Decline -->
+<label class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-pearl hover:bg-surface-container cursor-pointer transition-colors">
+<input class="accent-primary w-4 h-4 cursor-pointer" name="credit_decision" type="radio" value="decline"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Decline</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Policy Outlier</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Underwriting Rationale (CRO Audit Record) Text Box -->
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider" for="croRationale">
+                Mandatory Underwriting Rationale (CRO Audit Record)
+              </label>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Immutable RBI Audit Trail</span>
+</div>
+<textarea class="w-full p-space-sm bg-surface rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest transition-all" id="croRationale" rows="3">Approved fast-track facility under IDFC-KESTREL co-lending framework. Oct turnover delta verified against cash register & verified by Solapur branch manager via tele-call. DSCR 1.84x provides ample coverage for ₹18.50L unsecured credit ticket.</textarea>
+</div>
+<!-- Action Sign-off Button -->
+<div class="pt-space-xs flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-tertiary">key</span>
+<span class="font-label-sm text-label-sm">Digital Token: HSM-0091-IDFC-SEC</span>
+</div>
+<button class="w-full sm:w-auto bg-primary-container text-on-primary hover:bg-crimson-dark px-space-xl py-space-sm rounded-lg font-label-lg text-label-lg font-semibold flex items-center justify-center gap-space-xs shadow-md transition-all hover:scale-[1.01]" id="signOffBtn" onclick="handleSignOff()">
+<span class="material-symbols-outlined text-[20px]">lock_clock</span>
+<span>Sign & Record Audit Outcome (Arjun Iyer, CRO)</span>
+</button>
+</div>
+<!-- Audit Success Confirmation Toast (Hidden by default) -->
+<div class="hidden bg-secondary-fixed p-space-sm rounded-lg flex items-center gap-space-sm text-secondary" id="successNotice">
+<span class="material-symbols-outlined text-[22px]">check_circle</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold">Cryptographically Signed & Dispatched to IDFC FIRST LMS</span>
+<span class="font-label-sm text-label-sm">Dossier hash recorded on immutable audit ledger. Borrower notification triggered.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Dynamic SLA Timer Simulation
+  (function initTimer() {
+    let totalSeconds = 258; // 04m : 18s
+    const timerEl = document.getElementById('slaTimer');
+    if (!timerEl) return;
+    setInterval(() => {
+      totalSeconds++;
+      const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+      const seconds = String(totalSeconds % 60).padStart(2, '0');
+      timerEl.innerText = `${minutes}m : ${seconds}s elapsed`;
+    }, 1000);
+  })();
+
+  // Interactive PDF Snippet Selector
+  function selectRowSnippet(rowId) {
+    const box = document.getElementById('activeSnippetBox');
+    if (!box) return;
+
+    if (rowId === 'gst-turnover') {
+      box.innerHTML = `
+        <div class="flex items-center justify-between text-[10px] text-tertiary font-sans font-bold pb-0.5">
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">crop_free</span> GST FORM GSTR-3B [Table 3.1(a)]</span>
+          <span class="text-tertiary-container font-bold">Anchor: Turnover #02</span>
+        </div>
+        <div class="font-bold text-[12px] text-primary bg-surface-cream/80 p-1 rounded">
+          TABLE 3.1.A | TAXABLE SUPPLIES | ₹12,45,000.00 | IGST: ₹0 | CGST: ₹1,12,050.00
+        </div>
+      `;
+    } else if (rowId === 'bounce-check') {
+      box.innerHTML = `
+        <div class="flex items-center justify-between text-[10px] text-tertiary font-sans font-bold pb-0.5">
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">crop_free</span> OCR BBOX [x:84, y:612, w:640, h:24]</span>
+          <span class="text-tertiary font-bold">Anchor: Return Reason #01</span>
+        </div>
+        <div class="font-bold text-[12px] text-tertiary bg-surface-cream/80 p-1 rounded">
+          08-Oct-2025 | RET INWARD CHQ #881290 | ₹1,20,000.00 | REASON: 88-SIGNATURE DIFFERS
+        </div>
+      `;
+    } else if (rowId === 'amb-balance') {
+      box.innerHTML = `
+        <div class="flex items-center justify-between text-[10px] text-secondary font-sans font-bold pb-0.5">
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">crop_free</span> OCR BBOX [x:410, y:890, w:640, h:24]</span>
+          <span class="text-secondary font-bold">Anchor: Ledger AMB #42</span>
+        </div>
+        <div class="font-bold text-[12px] text-secondary bg-surface-cream/80 p-1 rounded">
+          AVERAGE MONTHLY BALANCE (OCTOBER) | COMPUTED: ₹3,85,000.00 | STATUS: SUFFICIENT
+        </div>
+      `;
+    } else {
+      box.innerHTML = `
+        <div class="flex items-center justify-between text-[10px] text-tertiary font-sans font-bold pb-0.5">
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">crop_free</span> OCR BBOX [x:114, y:482, w:640, h:24]</span>
+          <span class="text-primary font-bold">Anchor: Bank Credit #18</span>
+        </div>
+        <div class="font-bold text-[12px] text-primary bg-surface-cream/80 p-1 rounded">
+          15-Oct-2025 | NEFT CR-MEDISURG PHARMA-SALES REC | ₹14,20,000.00 | Bal: ₹18,45,210.50
+        </div>
+      `;
+    }
+  }
+
+  // Handle Dual Sign-Off Action
+  function handleSignOff() {
+    const btn = document.getElementById('signOffBtn');
+    const notice = document.getElementById('successNotice');
+    if (!btn || !notice) return;
+
+    btn.disabled = true;
+    btn.innerHTML = `<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> <span>Generating HSM Signature...</span>`;
+    
+    setTimeout(() => {
+      btn.innerHTML = `<span class="material-symbols-outlined text-[20px]">lock</span> <span>Audit Record Signed by Arjun Iyer</span>`;
+      btn.classList.remove('bg-primary-container', 'hover:bg-crimson-dark');
+      btn.classList.add('bg-surface-pearl', 'text-on-surface-variant', 'cursor-not-allowed');
+      notice.classList.remove('hidden');
+    }, 900);
+  }
+</script></main><footer class="w-full bg-surface-pearl text-on-surface-variant py-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="w-full px-margin flex flex-col md:flex-row items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs text-center md:text-left"><span class="material-symbols-outlined text-primary text-[18px]">verified</span><span class="font-body-sm text-body-sm text-on-surface-variant">© 2025 Kestrel Finance Technologies Ltd. in partnership with IDFC FIRST Bank Ltd. Regulated NBFC Co-Lending Integration Core.</span></div><div class="flex items-center gap-space-xs"><span class="font-label-sm text-label-sm text-tertiary bg-tertiary-fixed px-space-xs py-space-2xs rounded">Sovereign Enclave Key: HSM-KMS-0091</span><span class="font-label-sm text-label-sm text-secondary bg-secondary-fixed px-space-xs py-space-2xs rounded">All Systems Nominal</span></div></div></footer></body></html>

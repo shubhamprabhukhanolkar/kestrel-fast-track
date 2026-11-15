@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_blank" name="shell-type"/>
+<title>Kestrel Finance · Enterprise Access Gateway</title>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { display: none; }
+
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(153, 138, 235, 0.45);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(153, 138, 235, 0);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(153, 138, 235, 0);
+      }
+    }
+    .animate-persona-pulse {
+      animation: pulse-ring 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes laser-sweep {
+      0% { transform: translateY(-100%); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(120%); opacity: 0; }
+    }
+
+    @keyframes idle-laser-sweep {
+      0% { transform: translateY(-120%); opacity: 0; }
+      30% { opacity: 0.7; }
+      70% { opacity: 0.7; }
+      100% { transform: translateY(120%); opacity: 0; }
+    }
+
+    .laser-scan-idle {
+      animation: idle-laser-sweep 2.8s ease-in-out infinite;
+    }
+
+    .laser-scan-active {
+      animation: laser-sweep 0.75s ease-in-out infinite alternate;
+    }
+
+    @keyframes roving-beam {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(200%); }
+    }
+
+    .btn-roving-beam {
+      animation: roving-beam 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes radar-pulse {
+      0% { transform: scale(0.85); opacity: 0.8; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+    .animate-radar-pulse {
+      animation: radar-pulse 1.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-deep": "#08080a",
+            "surface-card": "#111115",
+            "surface-card-hover": "#16161c",
+            "surface-selected": "#191724",
+            "border-subtle": "rgba(255, 255, 255, 0.07)",
+            "border-highlight": "rgba(171, 159, 242, 0.28)",
+            "accent-primary": "#998aeb",
+            "accent-glow": "#ab9ff2",
+            "accent-emerald": "#10b981",
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "Inter", "sans-serif"],
+            mono: ["JetBrains Mono", "Space Grotesk", "monospace"],
+          }
+        }
+      }
+    };
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-[#08080a] text-[#e5e1e4] font-sans antialiased min-h-screen flex items-center justify-center p-4 sm:p-6 selection:bg-[#998aeb]/30 relative overflow-x-hidden">
+<!-- Ambient Background Lighting / Linear & Stripe Glow -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden">
+<div class="absolute -top-[25%] left-1/2 -translate-x-1/2 w-[700px] h-[550px] bg-gradient-to-b from-[#6953dc]/15 via-[#342475]/10 to-transparent blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-15%] left-1/2 -translate-x-1/2 w-[550px] h-[350px] bg-gradient-to-t from-[#10b981]/5 via-transparent to-transparent blur-[100px] rounded-full"></div>
+<div class="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] [background-size:24px_24px] opacity-40"></div>
+</div>
+<main class="w-full max-w-2xl relative z-10 my-auto">
+<!-- Elevated Modal Security Gate -->
+<div class="relative rounded-2xl bg-[#0f0f13]/90 backdrop-blur-xl border border-white/[0.08] shadow-[0_24px_70px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.02)] p-6 sm:p-9 transition-all duration-200">
+<!-- Top Subtle Luminous Accent Edge -->
+<div class="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-[#998aeb]/60 to-transparent"></div>
+<!-- Header Lockup -->
+<header class="flex items-center justify-between pb-6 mb-6 border-b border-white/[0.06]">
+<div class="flex items-center gap-3.5">
+<div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-b from-[#1f1c2b] to-[#121118] border border-white/[0.1] shadow-inner shrink-0">
+<img alt="Kestrel Finance Logo" class="w-6 h-6 object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrC6OyM5Yqr7V9us6sLiv84PNVNTtE9UiilyQn8kDyAphT5gJL7WU7tZ1Fz5eppHVLCN7aokxahwNWkzD9RZc7x9MBP-Of1C7LbV1RVnpNrevuVNJP-603EI85zmTe06zLt0ZiiAJ6O65bCM65rspb6itL4IwYCYoAdwJ9ov6hhw6_koG6PrjVI4xE6lhFK4fIkhfxvY-qLLaF75t33DkkWDnPwRtE09bVQiWje2wDM"/>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h1 class="text-base font-semibold tracking-tight text-white">Kestrel Finance</h1>
+<span class="text-[10px] font-mono tracking-wider uppercase px-2 py-0.5 rounded-full bg-white/[0.06] text-[#b8b3c7] border border-white/[0.06]">Enterprise Gateway</span>
+</div>
+<p class="text-xs text-[#8c8899] mt-0.5">SME Underwriting &amp; Multi-Agent Verification Platform</p>
+</div>
+</div>
+<!-- Clean Control Cluster (Audio Toggle & Status Indicator) -->
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center w-8 h-8 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-[#a49ec2] hover:text-white transition-all cursor-pointer" id="hapticAudioToggle" onclick="toggleHapticsAudio()" title="Toggle haptics and feedback sound" type="button">
+<span class="material-symbols-outlined text-[16px]" id="hapticIcon">volume_up</span>
+</button>
+<div class="h-4 w-[1px] bg-white/[0.08] mx-0.5"></div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/[0.07] border border-emerald-500/20 text-emerald-400 text-[11px] font-mono font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+<span>SECURE ENCLAVE</span>
+</div>
+</div>
+</header>
+<!-- Section Title & Role Guidance -->
+<div class="flex items-center justify-between mb-3.5">
+<span class="text-[11px] font-mono tracking-wider uppercase text-[#9f9ab3] font-medium flex items-center gap-2">
+<span class="w-1 h-1 rounded-full bg-[#998aeb]"></span>
+          Operator Persona
+        </span>
+<span class="text-[11px] text-[#6b6777] font-mono">RBAC Clearance L1–L4</span>
+</div>
+<!-- Persona Cards Grid (2x2) -->
+<div class="flex flex-col gap-3 mb-5" id="carouselContainer"><div class="flex items-center gap-1.5 p-1 rounded-xl bg-white/[0.03] border border-white/[0.06] overflow-x-hidden" id="personaPills"><button class="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-medium text-[#7d798e] hover:text-[#e5e1e4] hover:bg-white/[0.04] transition-all cursor-pointer" id="pill-0" onclick="goToPersona(0)" type="button"><span class="w-5 h-5 rounded flex items-center justify-center text-[10px] font-semibold bg-white/[0.05] text-[#8c8899]">VR</span><span class="truncate hidden sm:inline text-[11px]">Vikram</span><span class="text-[9px] font-mono text-[#646170]">L1</span></button><button class="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-medium text-[#7d798e] hover:text-[#e5e1e4] hover:bg-white/[0.04] transition-all cursor-pointer" id="pill-1" onclick="goToPersona(1)" type="button"><span class="w-5 h-5 rounded flex items-center justify-center text-[10px] font-semibold bg-white/[0.05] text-[#8c8899]">MP</span><span class="truncate hidden sm:inline text-[11px]">Meena</span><span class="text-[9px] font-mono text-[#646170]">L2</span></button><button class="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold bg-[#998aeb]/20 text-[#c9beff] border border-[#998aeb]/40 shadow-[0_0_12px_rgba(153,138,235,0.18)] transition-all cursor-pointer" id="pill-2" onclick="goToPersona(2)" type="button"><span class="w-5 h-5 rounded flex items-center justify-center text-[10px] font-semibold bg-[#998aeb]/30 text-[#e5e1e4]">AI</span><span class="truncate hidden sm:inline text-[11px]">Arjun</span><span class="text-[9px] font-mono text-[#c9beff]">L3</span></button><button class="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-medium text-[#7d798e] hover:text-[#e5e1e4] hover:bg-white/[0.04] transition-all cursor-pointer" id="pill-3" onclick="goToPersona(3)" type="button"><span class="w-5 h-5 rounded flex items-center justify-center text-[10px] font-semibold bg-white/[0.05] text-[#8c8899]">FQ</span><span class="truncate hidden sm:inline text-[11px]">Farhan</span><span class="text-[9px] font-mono text-[#646170]">L4</span></button></div><div class="relative rounded-xl p-4 sm:p-5 bg-gradient-to-b from-[#1c192b] to-[#131318] border border-[#998aeb]/60 shadow-[0_0_28px_rgba(153,138,235,0.14)] transition-all duration-300" id="activePersonaCard"><div class="flex items-start justify-between gap-3 mb-3.5"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#998aeb]/30 to-[#6953dc]/20 border border-[#998aeb]/50 flex items-center justify-center text-sm font-bold text-[#c9beff] shadow-[0_0_12px_rgba(153,138,235,0.25)] shrink-0" id="spotlightAvatar">AI</div><div class="min-w-0"><div class="flex items-center gap-2"><h3 class="text-base font-semibold text-white tracking-tight truncate" id="spotlightName">Arjun Iyer</h3><span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-[#998aeb]/25 text-[#ab9ff2] border border-[#998aeb]/40" id="spotlightTierBadge">L3 · CRO Sign-off</span></div><p class="text-xs text-[#a49ec2] font-medium mt-0.5 truncate" id="spotlightRole">Chief Risk Officer (CRO)</p></div></div><div class="flex items-center gap-1.5 shrink-0"><button class="w-7 h-7 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.08] flex items-center justify-center text-[#a49ec2] hover:text-white transition-all cursor-pointer" onclick="prevPersona()" title="Previous Persona" type="button"><span class="material-symbols-outlined text-[16px]">chevron_left</span></button><span class="text-[11px] font-mono text-[#8a8599] px-1" id="carouselStepCounter">03 / 04</span><button class="w-7 h-7 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.08] flex items-center justify-center text-[#a49ec2] hover:text-white transition-all cursor-pointer" onclick="nextPersona()" title="Next Persona" type="button"><span class="material-symbols-outlined text-[16px]">chevron_right</span></button></div></div><p class="text-xs text-[#cfcbdb] leading-relaxed mb-3.5" id="spotlightMandate">Reviews multi-agent evidence dossiers, reconciles financial variances, and commits sovereign enclave final credit sign-off authority.</p><div class="flex flex-wrap items-center justify-between pt-3 border-t border-white/[0.06] text-[11px] font-mono gap-2"><div class="flex items-center gap-1.5 text-[#8c8899]"><span class="text-[#646170]">Key ID:</span><span class="text-[#c9beff]" id="spotlightKeyId">ENC-KEY-CRO-8839</span></div><div class="flex items-center gap-2"><span class="text-[#646170]">Clearance:</span><span class="flex items-center gap-1 text-emerald-400"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span id="spotlightClearanceStatus">Level 3 Authority</span></span></div></div></div></div>
+<!-- Minimal Discrete Metadata Bar -->
+<div class="flex flex-wrap items-center justify-between py-2.5 px-3.5 rounded-lg bg-white/[0.02] border border-white/[0.05] text-[11px] font-mono text-[#8a8599] mb-5 gap-2">
+<div class="flex items-center gap-1.5">
+<span class="text-[#646170]">Cluster:</span>
+<span class="text-[#cfcbdb]">Azure Central India (ENC-04)</span>
+</div>
+<div class="hidden sm:block text-white/10">•</div>
+<div class="flex items-center gap-1.5">
+<span class="text-[#646170]">Auth:</span>
+<span class="text-[#cfcbdb] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> FIDO2 / YubiKey
+          </span>
+</div>
+<div class="hidden sm:block text-white/10">•</div>
+<div class="flex items-center gap-1.5">
+<span class="text-[#646170]">Enclave:</span>
+<span class="text-[#cfcbdb]">ENC-IN-8821</span>
+</div>
+</div>
+<!-- High-Impact Primary CTA with Interactive Biometric / WebAuthn Scan -->
+<button class="w-full relative group overflow-hidden py-3 px-6 rounded-xl bg-gradient-to-r from-[#7a6bf5] via-[#9181ea] to-[#998aeb] hover:from-[#8879fa] hover:to-[#a89df2] text-white font-medium text-sm flex items-center justify-center gap-2.5 shadow-[0_0_28px_rgba(122,107,245,0.32),inset_0_1px_1px_rgba(255,255,255,0.25)] transition-all duration-300 active:scale-[0.99] cursor-pointer" id="signInBtn" onclick="handleBiometricScan()" type="button">
+<!-- Roving Shimmer Beam -->
+<div class="btn-roving-beam absolute inset-0 w-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] pointer-events-none" id="btnShimmer"></div>
+<!-- Biometric Icon Container with Scanner Ring & Laser -->
+<div class="relative w-6 h-6 flex items-center justify-center shrink-0" id="bioIconContainer">
+<!-- Ambient Radar Pulse Ring -->
+<span class="absolute inset-0 rounded-full bg-white/20 scale-100 transition-all opacity-0 pointer-events-none" id="radarRing"></span>
+<!-- Fingerprint Base Icon -->
+<span class="material-symbols-outlined text-[20px] transition-transform duration-300 select-none" id="fingerprintIcon">fingerprint</span>
+<!-- Scanning Laser Line Effect -->
+<div class="absolute inset-x-[-2px] h-[2px] bg-gradient-to-r from-transparent via-[#ffffff] to-transparent shadow-[0_0_8px_#ffffff] pointer-events-none laser-scan-idle" id="laserScanLine"></div>
+<!-- Success Checkmark Badge (Hidden Initially) -->
+<span class="material-symbols-outlined text-[14px] text-emerald-300 absolute -bottom-0.5 -right-0.5 bg-[#0a0a0e] rounded-full p-0.5 scale-0 opacity-0 transition-all duration-300 shadow-[0_0_8px_#10b981]" id="successCheckBadge" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<!-- Label -->
+<span class="tracking-tight font-semibold relative z-10 transition-colors duration-200" id="btnLabel">Sign In as Arjun Iyer (CRO)</span>
+<!-- Action Arrow / Status Icon -->
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-0.5 transition-all duration-200 relative z-10" id="btnTrailingIcon">arrow_forward</span>
+</button>
+<!-- Minimal Clean Footer Linkage -->
+<div class="flex flex-wrap items-center justify-between mt-4 pt-3.5 border-t border-white/[0.05] text-xs text-[#716e7e]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-emerald-400" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span>RBI Directive Compliant · Sovereign Enclave</span>
+</div>
+<div class="flex items-center gap-3">
+<a class="hover:text-[#c9beff] transition-colors underline-offset-4 hover:underline" href="#request-override">Request Override</a>
+<span class="text-white/15">•</span>
+<a class="hover:text-[#e5e1e4] transition-colors flex items-center gap-1" href="#whitepaper">
+<span>Security Whitepaper</span>
+<span class="material-symbols-outlined text-[12px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</main>
+<!-- Sleek Obsidian Floating Toast Notification -->
+<aside aria-live="polite" class="fixed bottom-5 right-5 z-50 transition-all duration-300 transform translate-y-8 opacity-0 pointer-events-none max-w-sm w-[calc(100vw-2.5rem)] sm:w-auto" id="toastNotification">
+<div class="flex items-center gap-3 p-3 rounded-xl bg-[#111116]/95 backdrop-blur-md border border-white/[0.1] shadow-[0_16px_40px_rgba(0,0,0,0.7),0_0_20px_rgba(153,138,235,0.15)] text-[#e5e1e4]">
+<div class="w-8 h-8 rounded-lg bg-[#998aeb]/15 border border-[#998aeb]/30 flex items-center justify-center text-[#c9beff] shrink-0" id="toastIconBox">
+<span class="material-symbols-outlined text-[17px]" id="toastIcon">switch_account</span>
+</div>
+<div class="flex flex-col pr-1 min-w-0">
+<div class="flex items-center gap-2">
+<span class="text-xs font-semibold text-white tracking-tight" id="toastTitle">Persona Switched</span>
+<span class="px-1.5 py-0.2 rounded text-[10px] font-mono bg-white/[0.06] text-[#c9beff]" id="toastTierBadge">CRO · L3</span>
+</div>
+<p class="text-[11px] text-[#938f9f] truncate mt-0.5" id="toastMessage">
+          Active session mapped to Arjun Iyer (CRO)
+        </p>
+</div>
+<button aria-label="Dismiss toast" class="text-[#7d798e] hover:text-white transition-colors p-1 ml-auto shrink-0 cursor-pointer" onclick="dismissToast()" type="button">
+<span class="material-symbols-outlined text-[15px]">close</span>
+</button>
+</div>
+</aside>
+<script>
+    let toastTimeout = null;
+    let audioHapticsEnabled = true;
+    let audioCtx = null;
+    let isAuthenticating = false;
+    let currentOperator = {
+      name: 'Arjun Iyer',
+      role: 'Chief Risk Officer (CRO)',
+      shortRole: 'CRO',
+      tier: 'CRO / Policy Sign-Off - L3'
+    };
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playCyberChime() {
+      if (!audioHapticsEnabled) return;
+      try {
+        initAudioContext();
+        if (!audioCtx) return;
+
+        const now = audioCtx.currentTime;
+
+        const masterGain = audioCtx.createGain();
+        masterGain.gain.setValueAtTime(0.14, now);
+        masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.075);
+        masterGain.connect(audioCtx.destination);
+
+        const osc = audioCtx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(740, now);
+        osc.frequency.exponentialRampToValueAtTime(1280, now + 0.05);
+
+        osc.connect(masterGain);
+        osc.start(now);
+        osc.stop(now + 0.075);
+      } catch (e) {
+        console.warn('Audio playback error', e);
+      }
+
+      if ('vibrate' in navigator) {
+        try {
+          navigator.vibrate(20);
+        } catch (err) {}
+      }
+    }
+
+    function playScanHum() {
+      if (!audioHapticsEnabled) return;
+      try {
+        initAudioContext();
+        if (!audioCtx) return;
+
+        const now = audioCtx.currentTime;
+
+        // Subtle tech sweep / scanning hum
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(320, now);
+        osc.frequency.exponentialRampToValueAtTime(680, now + 0.85);
+
+        gain.gain.setValueAtTime(0.06, now);
+        gain.gain.exponentialRampToValueAtTime(0.005, now + 0.85);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.85);
+      } catch (e) {
+        console.warn('Audio playback error', e);
+      }
+    }
+
+    function playSuccessChime() {
+      if (!audioHapticsEnabled) return;
+      try {
+        initAudioContext();
+        if (!audioCtx) return;
+
+        const now = audioCtx.currentTime;
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+        gain.connect(audioCtx.destination);
+
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+
+        osc1.type = 'sine';
+        osc2.type = 'sine';
+
+        osc1.frequency.setValueAtTime(587.33, now); // D5
+        osc1.frequency.setValueAtTime(880, now + 0.12); // A5
+
+        osc2.frequency.setValueAtTime(1174.66, now + 0.12); // D6
+
+        osc1.connect(gain);
+        osc2.connect(gain);
+
+        osc1.start(now);
+        osc2.start(now + 0.12);
+        osc1.stop(now + 0.45);
+        osc2.stop(now + 0.45);
+      } catch (e) {
+        console.warn('Audio playback error', e);
+      }
+
+      if ('vibrate' in navigator) {
+        try {
+          navigator.vibrate([30, 40, 60]);
+        } catch (err) {}
+      }
+    }
+
+    function toggleHapticsAudio() {
+      audioHapticsEnabled = !audioHapticsEnabled;
+      const icon = document.getElementById('hapticIcon');
+      const toggleBtn = document.getElementById('hapticAudioToggle');
+
+      if (audioHapticsEnabled) {
+        if (icon) icon.textContent = 'volume_up';
+        if (toggleBtn) {
+          toggleBtn.classList.remove('opacity-40');
+        }
+        playCyberChime();
+      } else {
+        if (icon) icon.textContent = 'volume_off';
+        if (toggleBtn) {
+          toggleBtn.classList.add('opacity-40');
+        }
+      }
+    }
+
+    function dismissToast() {
+      const toast = document.getElementById('toastNotification');
+      if (!toast) return;
+      toast.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
+      toast.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      if (toastTimeout) {
+        clearTimeout(toastTimeout);
+        toastTimeout = null;
+      }
+    }
+
+    function showToast(name, roleTitle, clearanceTier, customTitle, customIcon) {
+      const toast = document.getElementById('toastNotification');
+      const toastTitleEl = document.getElementById('toastTitle');
+      const toastBadge = document.getElementById('toastTierBadge');
+      const toastMsg = document.getElementById('toastMessage');
+      const toastIconEl = document.getElementById('toastIcon');
+      const toastIconBox = document.getElementById('toastIconBox');
+      if (!toast) return;
+
+      if (toastTimeout) {
+        clearTimeout(toastTimeout);
+      }
+
+      if (toastTitleEl) {
+        toastTitleEl.textContent = customTitle || "Persona Switched";
+      }
+
+      if (customIcon && toastIconEl) {
+        toastIconEl.textContent = customIcon;
+      } else if (toastIconEl) {
+        toastIconEl.textContent = "switch_account";
+      }
+
+      if (toastBadge) {
+        toastBadge.textContent = clearanceTier.split(' - ')[1] || clearanceTier;
+      }
+      if (toastMsg) {
+        if (customTitle) {
+          toastMsg.textContent = `Enclave-04 session verified for ${name}`;
+        } else {
+          toastMsg.textContent = `Active session mapped to ${name} (${roleTitle})`;
+        }
+      }
+
+      toast.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
+      toast.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+
+      toastTimeout = setTimeout(() => {
+        dismissToast();
+      }, 3400);
+    }
+
+    function selectRole(element, name, roleTitle, clearanceTier, categoryLabel, initials) {
+      if (isAuthenticating) return;
+      playCyberChime();
+
+      currentOperator = {
+        name: name,
+        role: roleTitle,
+        shortRole: roleTitle.split(' / ')[0],
+        tier: clearanceTier
+      };
+
+      const cards = document.querySelectorAll('.role-card');
+      cards.forEach(card => {
+        card.classList.remove(
+          'selected-role', 
+          'bg-[#1c192b]', 
+          'border-[#998aeb]/80', 
+          'shadow-[0_0_24px_rgba(153,138,235,0.12)]', 
+          'text-white',
+          'animate-persona-pulse'
+        );
+        card.classList.add('bg-[#131318]', 'border-white/[0.07]');
+
+        // Reset radio
+        const radio = card.querySelector('.role-radio');
+        const dot = card.querySelector('.role-dot');
+        if (radio && dot) {
+          radio.className = 'role-radio w-4 h-4 rounded-full border border-white/[0.2] flex items-center justify-center shrink-0 mt-0.5 transition-all';
+          dot.className = 'role-dot w-1.5 h-1.5 rounded-full bg-transparent';
+        }
+
+        // Reset avatar badge
+        const avatar = card.querySelector('.avatar-box');
+        if (avatar) {
+          avatar.className = 'avatar-box w-7 h-7 rounded-lg bg-white/[0.05] border border-white/[0.08] flex items-center justify-center text-xs font-semibold text-[#b8b3c7]';
+        }
+
+        // Reset title
+        const pName = card.querySelector('.persona-name');
+        if (pName) {
+          pName.className = 'font-medium text-sm text-[#e5e1e4] persona-name leading-tight';
+        }
+      });
+
+      // Activate selected card
+      element.classList.remove('bg-[#131318]', 'border-white/[0.07]');
+      element.classList.add(
+        'selected-role', 
+        'bg-[#1c192b]', 
+        'border-[#998aeb]/80', 
+        'shadow-[0_0_24px_rgba(153,138,235,0.12)]', 
+        'text-white',
+        'animate-persona-pulse'
+      );
+
+      const radio = element.querySelector('.role-radio');
+      const dot = element.querySelector('.role-dot');
+      if (radio && dot) {
+        radio.className = 'role-radio w-4 h-4 rounded-full bg-[#998aeb] flex items-center justify-center shrink-0 mt-0.5 transition-all shadow-[0_0_8px_#998aeb]';
+        dot.className = 'role-dot w-1.5 h-1.5 rounded-full bg-[#1b0063]';
+      }
+
+      const avatar = element.querySelector('.avatar-box');
+      if (avatar) {
+        avatar.className = 'avatar-box w-7 h-7 rounded-lg bg-[#998aeb]/20 border border-[#998aeb]/40 flex items-center justify-center text-xs font-semibold text-[#c9beff]';
+      }
+
+      const pName = element.querySelector('.persona-name');
+      if (pName) {
+        pName.className = 'font-semibold text-sm text-white persona-name leading-tight';
+      }
+
+      const btnLabel = document.getElementById('btnLabel');
+      if (btnLabel) {
+        btnLabel.textContent = `Sign In as ${name} (${currentOperator.shortRole})`;
+      }
+
+      showToast(name, roleTitle, clearanceTier);
+    }
+
+    function handleBiometricScan() {
+      if (isAuthenticating) return;
+      isAuthenticating = true;
+
+      const btn = document.getElementById('signInBtn');
+      const btnLabel = document.getElementById('btnLabel');
+      const btnTrailingIcon = document.getElementById('btnTrailingIcon');
+      const fingerprintIcon = document.getElementById('fingerprintIcon');
+      const laserScanLine = document.getElementById('laserScanLine');
+      const radarRing = document.getElementById('radarRing');
+      const successBadge = document.getElementById('successCheckBadge');
+
+      playScanHum();
+
+      // Phase 1: Initiating WebAuthn Challenge
+      btn.classList.add('cursor-wait');
+      btn.classList.remove('bg-gradient-to-r', 'from-[#7a6bf5]', 'via-[#9181ea]', 'to-[#998aeb]', 'hover:from-[#8879fa]', 'hover:to-[#a89df2]');
+      btn.classList.add('bg-[#201a40]', 'border', 'border-[#998aeb]/70', 'shadow-[0_0_36px_rgba(153,138,235,0.45)]');
+
+      radarRing.classList.remove('opacity-0');
+      radarRing.classList.add('animate-radar-pulse');
+
+      laserScanLine.classList.remove('laser-scan-idle');
+      laserScanLine.classList.add('laser-scan-active');
+      laserScanLine.style.background = 'linear-gradient(to right, transparent, #c9beff, #ffffff, #c9beff, transparent)';
+      laserScanLine.style.boxShadow = '0 0 10px #c9beff, 0 0 16px #998aeb';
+
+      fingerprintIcon.classList.add('text-[#c9beff]', 'animate-pulse');
+      btnLabel.textContent = "Verifying Sovereign Passkey...";
+      btnTrailingIcon.textContent = "sync";
+      btnTrailingIcon.classList.add('animate-spin');
+
+      // Phase 2: Biometric Match / Hardware Token Verified (~900ms)
+      setTimeout(() => {
+        laserScanLine.style.background = 'linear-gradient(to right, transparent, #34d399, #6ee7b7, #10b981, transparent)';
+        laserScanLine.style.boxShadow = '0 0 12px #34d399, 0 0 20px #10b981';
+
+        btn.classList.remove('bg-[#201a40]', 'border-[#998aeb]/70', 'shadow-[0_0_36px_rgba(153,138,235,0.45)]');
+        btn.classList.add('bg-[#0d2a20]', 'border-emerald-500/80', 'shadow-[0_0_36px_rgba(16,185,129,0.35)]');
+
+        fingerprintIcon.classList.remove('text-[#c9beff]', 'animate-pulse');
+        fingerprintIcon.classList.add('text-emerald-400');
+
+        successBadge.classList.remove('scale-0', 'opacity-0');
+        successBadge.classList.add('scale-100', 'opacity-100');
+
+        btnTrailingIcon.classList.remove('animate-spin');
+        btnTrailingIcon.textContent = "check";
+        btnTrailingIcon.classList.add('text-emerald-300');
+
+        btnLabel.textContent = "Hardware Token Verified";
+        playSuccessChime();
+      }, 950);
+
+      // Phase 3: Auth Success & Connection (~1500ms)
+      setTimeout(() => {
+        btn.classList.remove('bg-[#0d2a20]');
+        btn.classList.add('bg-gradient-to-r', 'from-[#065f46]', 'via-[#059669]', 'to-[#10b981]');
+        btnLabel.textContent = "Access Granted • Enclave-04 Connected";
+        btnTrailingIcon.textContent = "lock_open";
+        btnTrailingIcon.classList.remove('text-emerald-300');
+        btnTrailingIcon.classList.add('text-white');
+
+        showToast(
+          currentOperator.name,
+          currentOperator.role,
+          currentOperator.tier,
+          "Biometric Verified",
+          "verified_user"
+        );
+
+        // Reset after simulated handshake
+        setTimeout(() => {
+          btn.classList.remove(
+            'cursor-wait', 
+            'bg-gradient-to-r', 'from-[#065f46]', 'via-[#059669]', 'to-[#10b981]',
+            'border-emerald-500/80', 'shadow-[0_0_36px_rgba(16,185,129,0.35)]'
+          );
+          btn.classList.add(
+            'bg-gradient-to-r', 'from-[#7a6bf5]', 'via-[#9181ea]', 'to-[#998aeb]', 'hover:from-[#8879fa]', 'hover:to-[#a89df2]'
+          );
+
+          radarRing.classList.remove('animate-radar-pulse');
+          radarRing.classList.add('opacity-0');
+
+          laserScanLine.classList.remove('laser-scan-active');
+          laserScanLine.classList.add('laser-scan-idle');
+          laserScanLine.style.background = '';
+          laserScanLine.style.boxShadow = '';
+
+          fingerprintIcon.classList.remove('text-emerald-400');
+          successBadge.classList.add('scale-0', 'opacity-0');
+          successBadge.classList.remove('scale-100', 'opacity-100');
+
+          btnTrailingIcon.textContent = "arrow_forward";
+          btnTrailingIcon.classList.remove('text-emerald-300', 'text-white');
+
+          btnLabel.textContent = `Sign In as ${currentOperator.name} (${currentOperator.shortRole})`;
+          isAuthenticating = false;
+        }, 2200);
+
+      }, 1600);
+    }
+  </script>
+</body></html>

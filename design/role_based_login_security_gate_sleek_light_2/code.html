@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_blank" name="shell-type"/>
+<title>Kestrel Finance · Enterprise Access Gateway</title>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    @keyframes card-ripple {
+      0% { transform: scale(0.35); opacity: 0.6; }
+      100% { transform: scale(2.8); opacity: 0; }
+    }
+    .selection-ripple {
+      position: absolute;
+      border-radius: 9999px;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(0, 65, 182, 0.22) 0%, rgba(0, 65, 182, 0) 70%);
+      animation: card-ripple 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Biometric Scanning Animations */
+    @keyframes laser-sweep {
+      0% { transform: translateY(-120%); opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { transform: translateY(120%); opacity: 0.2; }
+    }
+    .laser-active {
+      animation: laser-sweep 0.75s ease-in-out infinite alternate;
+    }
+
+    @keyframes roving-shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .btn-shimmer-border {
+      background: linear-gradient(90deg, transparent 0%, rgba(148, 240, 225, 0.4) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: roving-shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes radar-pulse {
+      0% { transform: scale(0.85); opacity: 0.8; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+    .pulse-radar {
+      animation: radar-pulse 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+    }
+
+    @keyframes burst-ring {
+      0% { transform: scale(0.5); opacity: 0.9; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+    .animate-burst-ring {
+      animation: burst-ring 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-surface": "#0b1c30",
+            "secondary-fixed-dim": "#7ad7c8",
+            "primary": "#0041b6",
+            "secondary-fixed": "#97f3e4",
+            "on-primary": "#ffffff",
+            "tertiary-container": "#546483",
+            "on-secondary": "#ffffff",
+            "error-container": "#ffdad6",
+            "secondary-container": "#94f0e1",
+            "tertiary": "#3c4c6a",
+            "inverse-on-surface": "#ebf1ff",
+            "surface-container": "#e6eeff",
+            "on-surface-variant": "#434654",
+            "tertiary-fixed-dim": "#b7c7eb",
+            "surface": "#f8f9ff",
+            "outline": "#747685",
+            "on-primary-container": "#d9e0ff",
+            "primary-container": "#2d5bd1",
+            "on-tertiary-fixed": "#091b37",
+            "on-error": "#ffffff",
+            "on-primary-fixed-variant": "#003dab",
+            "surface-dim": "#cbdbf7",
+            "surface-container-highest": "#d3e3ff",
+            "surface-variant": "#d3e3ff",
+            "tertiary-fixed": "#d7e2ff",
+            "background": "#f8f9ff",
+            "inverse-primary": "#b5c4ff",
+            "on-background": "#0b1c30",
+            "inverse-surface": "#213146",
+            "surface-tint": "#2555cb",
+            "surface-container-high": "#dde9ff",
+            "surface-bright": "#f8f9ff",
+            "on-tertiary": "#ffffff",
+            "primary-fixed": "#dbe1ff",
+            "secondary": "#006a60",
+            "on-tertiary-fixed-variant": "#374765",
+            "on-secondary-fixed": "#00201c",
+            "surface-container-lowest": "#ffffff",
+            "outline-variant": "#c4c6d6",
+            "surface-container-low": "#eff4ff",
+            "on-tertiary-container": "#d5e1ff",
+            "on-primary-fixed": "#00174d",
+            "on-secondary-container": "#006f64",
+            "primary-fixed-dim": "#b5c4ff",
+            "on-secondary-fixed-variant": "#005048",
+            "error": "#ba1a1a",
+            "on-error-container": "#93000a"
+          },
+          fontFamily: {
+            "body-md": ["Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-10 selection:bg-primary-fixed selection:text-primary">
+<main class="w-full max-w-2xl relative">
+<!-- Subtle ambient decorative glow behind card -->
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-primary/10 blur-3xl pointer-events-none rounded-full"></div>
+<!-- Main Card Gateway -->
+<div class="w-full bg-surface-container-lowest rounded-2xl shadow-[0_16px_48px_-12px_rgba(11,28,48,0.08),0_1px_3px_rgba(11,28,48,0.04)] border border-outline-variant/30 p-6 sm:p-8 relative overflow-hidden backdrop-blur-xl">
+<!-- Top Sleek Accent Stripe -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary-container to-secondary"></div>
+<!-- Header Section: Logo Lockup & Compact Utilities -->
+<div class="flex items-start justify-between gap-4 pb-6 border-b border-surface-container">
+<div class="flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-surface-container-low border border-outline-variant/30 flex items-center justify-center p-1.5 shadow-sm">
+<img alt="Kestrel Finance Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrC6OyM5Yqr7V9us6sLiv84PNVNTtE9UiilyQn8kDyAphT5gJL7WU7tZ1Fz5eppHVLCN7aokxahwNWkzD9RZc7x9MBP-Of1C7LbV1RVnpNrevuVNJP-603EI85zmTe06zLt0ZiiAJ6O65bCM65rspb6itL4IwYCYoAdwJ9ov6hhw6_koG6PrjVI4xE6lhFK4fIkhfxvY-qLLaF75t33DkkWDnPwRtE09bVQiWje2wDM"/>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h1 class="text-base font-semibold tracking-tight text-on-surface">Kestrel Finance</h1>
+<span class="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-primary/10 text-primary">Gateway</span>
+</div>
+<p class="text-xs text-on-surface-variant font-normal mt-0.5">SME Underwriting &amp; Deterministic Verification</p>
+</div>
+</div>
+<!-- Sleek Control Cluster: Theme & Audio Mute -->
+<div class="flex items-center gap-1.5 bg-surface-container-low/70 border border-outline-variant/30 rounded-xl p-1 shadow-sm">
+<button aria-label="Toggle Sound" class="w-7 h-7 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-all" id="soundToggleBtn" onclick="toggleSoundHaptic()" title="Toggle feedback sound" type="button">
+<span class="material-symbols-outlined text-[17px]" id="soundIcon">volume_up</span>
+</button>
+<span class="h-3 w-px bg-outline-variant/40"></span>
+<button aria-label="Toggle Theme" class="w-7 h-7 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-all" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Theme" type="button">
+<span class="material-symbols-outlined text-[17px]" id="themeIcon">light_mode</span>
+</button>
+</div>
+</div>
+<!-- Persona Selection Heading -->
+<div class="pt-5 pb-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Select Operator Persona</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-xs text-outline font-medium">Session Verification</span>
+</div>
+<span class="text-[11px] font-mono text-outline">Azure Enclave IN-04</span>
+</div>
+<!-- 4 Sleek Persona Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6" id="personaGrid">
+<!-- Card 1: Vikram Rao -->
+<div class="persona-card group relative p-3.5 rounded-xl border border-outline-variant/40 bg-surface-container-lowest hover:border-primary/40 hover:bg-surface-container-low/50 transition-all duration-150 cursor-pointer overflow-hidden" onclick="selectPersona(this, 'Vikram Rao', 'RM / Frontline', 'Ingestion L1', event)">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2.5">
+<div class="persona-radio w-4 h-4 rounded-full border border-outline-variant/80 flex items-center justify-center transition-colors">
+<span class="persona-dot w-2 h-2 rounded-full bg-transparent transition-transform"></span>
+</div>
+<span class="text-sm font-semibold text-on-surface tracking-tight">Vikram Rao</span>
+</div>
+<span class="text-[10px] font-medium px-2 py-0.5 rounded-md bg-surface-container-high text-on-surface-variant">Frontline</span>
+</div>
+<p class="text-xs text-on-surface-variant pl-[26px] line-clamp-1">Borrower ingestion &amp; A1 checks</p>
+</div>
+<!-- Card 2: Meena Pillai -->
+<div class="persona-card group relative p-3.5 rounded-xl border border-outline-variant/40 bg-surface-container-lowest hover:border-primary/40 hover:bg-surface-container-low/50 transition-all duration-150 cursor-pointer overflow-hidden" onclick="selectPersona(this, 'Meena Pillai', 'Senior QA Analyst', 'Underwriting QA L2', event)">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2.5">
+<div class="persona-radio w-4 h-4 rounded-full border border-outline-variant/80 flex items-center justify-center transition-colors">
+<span class="persona-dot w-2 h-2 rounded-full bg-transparent transition-transform"></span>
+</div>
+<span class="text-sm font-semibold text-on-surface tracking-tight">Meena Pillai</span>
+</div>
+<span class="text-[10px] font-medium px-2 py-0.5 rounded-md bg-surface-container-high text-on-surface-variant">Credit QA</span>
+</div>
+<p class="text-xs text-on-surface-variant pl-[26px] line-clamp-1">B1 extraction &amp; GST reconciliation</p>
+</div>
+<!-- Card 3: Arjun Iyer (Pre-selected by default) -->
+<div class="persona-card selected-card group relative p-3.5 rounded-xl border-2 border-primary bg-primary-fixed/20 transition-all duration-150 cursor-pointer overflow-hidden shadow-sm" onclick="selectPersona(this, 'Arjun Iyer', 'CRO', 'CRO Sign-Off L3', event)">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2.5">
+<div class="persona-radio w-4 h-4 rounded-full border border-primary bg-primary flex items-center justify-center transition-colors">
+<span class="persona-dot w-2 h-2 rounded-full bg-on-primary scale-100 transition-transform"></span>
+</div>
+<span class="text-sm font-bold text-on-surface tracking-tight">Arjun Iyer</span>
+</div>
+<span class="badge-role text-[10px] font-semibold px-2 py-0.5 rounded-md bg-primary text-on-primary">Final Sign-Off</span>
+</div>
+<p class="text-xs text-on-surface pl-[26px] line-clamp-1 font-medium">1-page dossier &amp; credit sign-off</p>
+</div>
+<!-- Card 4: Farhan Qureshi -->
+<div class="persona-card group relative p-3.5 rounded-xl border border-outline-variant/40 bg-surface-container-lowest hover:border-primary/40 hover:bg-surface-container-low/50 transition-all duration-150 cursor-pointer overflow-hidden" onclick="selectPersona(this, 'Farhan Qureshi', 'FinOps &amp; Infra', 'Infrastructure L4', event)">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2.5">
+<div class="persona-radio w-4 h-4 rounded-full border border-outline-variant/80 flex items-center justify-center transition-colors">
+<span class="persona-dot w-2 h-2 rounded-full bg-transparent transition-transform"></span>
+</div>
+<span class="text-sm font-semibold text-on-surface tracking-tight">Farhan Qureshi</span>
+</div>
+<span class="text-[10px] font-medium px-2 py-0.5 rounded-md bg-surface-container-high text-on-surface-variant">FinOps Admin</span>
+</div>
+<p class="text-xs text-on-surface-variant pl-[26px] line-clamp-1">LLM cost &amp; failover latency</p>
+</div>
+</div>
+<!-- Sleek Enclave Security Strip (Minimalist & High-trust) -->
+<div class="flex items-center justify-between py-2.5 px-3.5 mb-6 rounded-xl bg-surface-container-low/70 border border-outline-variant/30 text-xs">
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[17px] text-primary" style="font-variation-settings: 'FILL' 1;">shield_lock</span>
+<span class="font-medium text-xs">Sovereign India Enclave · FIDO2 Biometric</span>
+</div>
+<div class="flex items-center gap-1.5 text-secondary font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-[11px] tracking-wide">mTLS Active</span>
+</div>
+</div>
+<!-- Primary Action Button: Biometric / WebAuthn Scan Enhanced -->
+<div class="relative w-full group">
+<!-- Subtle roving shimmer border hinting at FIDO2 readiness -->
+<div class="absolute -inset-[1px] rounded-xl btn-shimmer-border opacity-60 group-hover:opacity-100 pointer-events-none transition-opacity"></div>
+<button class="relative w-full py-3.5 px-5 rounded-xl bg-primary hover:bg-primary-container active:scale-[0.99] text-on-primary font-semibold text-sm flex items-center justify-center gap-2.5 shadow-[0_8px_20px_-4px_rgba(0,65,182,0.35)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 overflow-hidden select-none" id="signInBtn" onclick="handleBiometricScan(event)">
+<!-- Active scanning line overlay across the entire button -->
+<div class="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300" id="btnScanSweep">
+<div class="w-full h-full bg-gradient-to-b from-transparent via-cyan-300/25 to-transparent laser-active"></div>
+</div>
+<!-- Biometric Icon Scanner Capsule -->
+<div class="relative flex items-center justify-center w-7 h-7" id="biometricIconContainer">
+<!-- Radar pulse ring (idle & scan) -->
+<span class="absolute inset-0 rounded-full border border-cyan-400/40 opacity-0 transition-opacity duration-300" id="radarRing"></span>
+<!-- Instant confirmation burst ring -->
+<span class="absolute -inset-2 rounded-full border-2 border-emerald-400 opacity-0 pointer-events-none" id="burstRing"></span>
+<!-- Fingerprint Icon with idle micro-pulse -->
+<span class="material-symbols-outlined text-xl transition-all duration-300 group-hover:scale-110" id="biometricIcon">fingerprint</span>
+<!-- Mini Laser Scan Line across Fingerprint Icon -->
+<div class="absolute inset-x-0 h-[2px] bg-cyan-300 shadow-[0_0_8px_#67e8f9] rounded-full pointer-events-none opacity-0" id="iconLaserBar"></div>
+</div>
+<!-- Button Text Label -->
+<span class="tracking-tight transition-all duration-200" id="btnLabel">Sign In as Arjun Iyer (CRO)</span>
+<!-- Status / Trailing Arrow or Checkmark -->
+<div class="flex items-center justify-center w-5 h-5 ml-0.5" id="btnTrailing">
+<span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-0.5" id="btnTrailingIcon">arrow_forward</span>
+</div>
+<!-- Bottom scanning progress bar -->
+<div class="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-cyan-400 via-secondary-fixed to-emerald-400 w-0 transition-all duration-700 ease-out pointer-events-none" id="authProgressBar"></div>
+</button>
+</div>
+<!-- Footer Understated Compliance & Links -->
+<div class="flex flex-wrap items-center justify-between gap-2 mt-5 pt-4 border-t border-surface-container text-xs text-outline">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span>RBI Directive Compliant · Enclave Prod-04</span>
+</div>
+<div class="flex items-center gap-3">
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#security">
+<span>Security Whitepaper</span>
+<span class="material-symbols-outlined text-[12px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</main>
+<!-- Sleek Floating Toast Notification -->
+<div aria-live="polite" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 transform opacity-0 translate-y-3" id="personaToast" role="status">
+<div class="pointer-events-auto flex items-center gap-3 bg-surface-container-lowest/95 backdrop-blur-md border border-outline-variant/40 shadow-xl rounded-full px-4 py-2 text-xs text-on-surface">
+<div class="w-2 h-2 rounded-full bg-primary animate-ping"></div>
+<span class="font-medium" id="toastMessage">Active Operator: <strong>Arjun Iyer</strong> (CRO)</span>
+<button aria-label="Close" class="text-outline hover:text-on-surface ml-1 p-0.5 rounded-full transition-colors" onclick="dismissToast()" type="button">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+</div>
+<script>
+  let toastTimer = null;
+  let audioContext = null;
+  let soundEnabled = true;
+  let isScanningAuth = false;
+  let currentSelectedPersona = {
+    name: 'Arjun Iyer',
+    role: 'CRO'
+  };
+
+  function initAudioContext() {
+    if (!audioContext) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) audioContext = new AudioCtx();
+    }
+    if (audioContext && audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+  }
+
+  function playEnterpriseChime() {
+    if (!soundEnabled) return;
+    try {
+      initAudioContext();
+      if (!audioContext) return;
+
+      const now = audioContext.currentTime;
+
+      // Crisp high-end neo-bank ping
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1046.5, now); // C6
+      osc.frequency.exponentialRampToValueAtTime(2093, now + 0.04); // C7
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.12, now + 0.006);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.18);
+
+      // Micro warm low pulse
+      const sub = audioContext.createOscillator();
+      const subGain = audioContext.createGain();
+      sub.type = 'triangle';
+      sub.frequency.setValueAtTime(180, now);
+      sub.frequency.exponentialRampToValueAtTime(80, now + 0.05);
+
+      subGain.gain.setValueAtTime(0.001, now);
+      subGain.gain.linearRampToValueAtTime(0.14, now + 0.005);
+      subGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+
+      sub.connect(subGain);
+      subGain.connect(audioContext.destination);
+
+      sub.start(now);
+      sub.stop(now + 0.1);
+    } catch (e) {
+      console.warn('Audio synthesis fallback:', e);
+    }
+  }
+
+  // Realistic synthesized WebAuthn biometric scan audio
+  function playBiometricScanAudio() {
+    if (!soundEnabled) return;
+    try {
+      initAudioContext();
+      if (!audioContext) return;
+
+      const now = audioContext.currentTime;
+
+      // Subtle high-tech electronic scan chirp / rising hum
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.4);
+      osc.frequency.exponentialRampToValueAtTime(1320, now + 0.85);
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.09, now + 0.08);
+      gain.gain.linearRampToValueAtTime(0.06, now + 0.5);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.88);
+
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.9);
+
+      // Micro resonant texture pulses
+      const tick = audioContext.createOscillator();
+      const tickGain = audioContext.createGain();
+      tick.type = 'triangle';
+      tick.frequency.setValueAtTime(1200, now);
+      tick.frequency.setValueAtTime(1800, now + 0.3);
+      tick.frequency.setValueAtTime(2400, now + 0.6);
+
+      tickGain.gain.setValueAtTime(0.001, now);
+      tickGain.gain.linearRampToValueAtTime(0.04, now + 0.02);
+      tickGain.gain.exponentialRampToValueAtTime(0.001, now + 0.7);
+
+      tick.connect(tickGain);
+      tickGain.connect(audioContext.destination);
+
+      tick.start(now);
+      tick.stop(now + 0.75);
+    } catch(e) {
+      console.warn('Biometric scan audio failed', e);
+    }
+  }
+
+  // Auth Success Confirmation Chime (two-tone harmonic success chord)
+  function playBiometricSuccessAudio() {
+    if (!soundEnabled) return;
+    try {
+      initAudioContext();
+      if (!audioContext) return;
+
+      const now = audioContext.currentTime;
+
+      // Note 1: E6 (1318.5 Hz)
+      const osc1 = audioContext.createOscillator();
+      const gain1 = audioContext.createGain();
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(1318.5, now);
+
+      gain1.gain.setValueAtTime(0.001, now);
+      gain1.gain.linearRampToValueAtTime(0.12, now + 0.01);
+      gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
+
+      osc1.connect(gain1);
+      gain1.connect(audioContext.destination);
+      osc1.start(now);
+      osc1.stop(now + 0.46);
+
+      // Note 2: B6 (1975.5 Hz) slightly delayed for rich sparkle
+      const osc2 = audioContext.createOscillator();
+      const gain2 = audioContext.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(1975.5, now + 0.07);
+
+      gain2.gain.setValueAtTime(0.0001, now);
+      gain2.gain.setValueAtTime(0.001, now + 0.06);
+      gain2.gain.linearRampToValueAtTime(0.15, now + 0.08);
+      gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.55);
+
+      osc2.connect(gain2);
+      gain2.connect(audioContext.destination);
+      osc2.start(now + 0.06);
+      osc2.stop(now + 0.58);
+    } catch(e) {
+      console.warn('Success audio error', e);
+    }
+  }
+
+  function triggerHapticPulse(duration = 18) {
+    if (!soundEnabled) return;
+    if (typeof navigator !== 'undefined' && navigator.vibrate) {
+      try { navigator.vibrate(duration); } catch (e) {}
+    }
+  }
+
+  function handleBiometricScan(event) {
+    if (isScanningAuth) return;
+    isScanningAuth = true;
+
+    const btn = document.getElementById('signInBtn');
+    const label = document.getElementById('btnLabel');
+    const icon = document.getElementById('biometricIcon');
+    const trailingIcon = document.getElementById('btnTrailingIcon');
+    const scanSweep = document.getElementById('btnScanSweep');
+    const radarRing = document.getElementById('radarRing');
+    const burstRing = document.getElementById('burstRing');
+    const iconLaserBar = document.getElementById('iconLaserBar');
+    const progressBar = document.getElementById('authProgressBar');
+
+    // Spawn ripple at click spot
+    spawnRipple(btn, event);
+
+    // Audio & Haptics Initiation
+    playBiometricScanAudio();
+    triggerHapticPulse(35);
+
+    // Phase 1: Initiating WebAuthn Challenge & Laser Sweep
+    btn.classList.add('cursor-wait');
+    btn.classList.remove('hover:bg-primary-container');
+    scanSweep.classList.remove('opacity-0');
+    scanSweep.classList.add('opacity-100');
+    radarRing.classList.remove('opacity-0');
+    radarRing.classList.add('pulse-radar');
+    iconLaserBar.classList.remove('opacity-0');
+    iconLaserBar.classList.add('laser-active');
+    icon.classList.add('text-cyan-300', 'scale-110');
+    
+    label.innerHTML = `<span class="inline-flex items-center gap-2">Verifying Sovereign Passkey<span class="flex gap-0.5"><span class="w-1 h-1 rounded-full bg-cyan-300 animate-bounce"></span><span class="w-1 h-1 rounded-full bg-cyan-300 animate-bounce [animation-delay:0.15s]"></span><span class="w-1 h-1 rounded-full bg-cyan-300 animate-bounce [animation-delay:0.3s]"></span></span></span>`;
+    trailingIcon.textContent = 'hourglass_top';
+    trailingIcon.classList.add('animate-spin');
+
+    progressBar.style.width = '65%';
+
+    // Phase 2: Biometric Match Verified (after ~900ms)
+    setTimeout(() => {
+      triggerHapticPulse([40, 60, 40]);
+      playBiometricSuccessAudio();
+
+      // UI changes to emerald/cyan verified state
+      btn.classList.remove('bg-primary');
+      btn.classList.add('bg-emerald-700', 'shadow-[0_8px_25px_-2px_rgba(16,185,129,0.45)]');
+
+      scanSweep.classList.remove('opacity-100');
+      scanSweep.classList.add('opacity-0');
+      iconLaserBar.classList.remove('laser-active');
+      iconLaserBar.classList.add('opacity-0');
+      radarRing.classList.remove('pulse-radar');
+      radarRing.classList.add('opacity-0');
+
+      // Checkmark & burst
+      icon.textContent = 'verified_user';
+      icon.classList.remove('text-cyan-300');
+      icon.classList.add('text-emerald-300', 'scale-125');
+
+      burstRing.classList.add('animate-burst-ring');
+
+      progressBar.style.width = '100%';
+      trailingIcon.classList.remove('animate-spin');
+      trailingIcon.textContent = 'check_circle';
+      trailingIcon.classList.add('text-emerald-300');
+
+      label.textContent = `Biometric Verified • ${currentSelectedPersona.name}`;
+
+      // Phase 3: Access Granted / Ready State (~1500ms total)
+      setTimeout(() => {
+        label.innerHTML = `<span>Access Granted</span> <span class="text-emerald-200 font-normal text-xs ml-1">· Enclave-04 Connected</span>`;
+        showToast(currentSelectedPersona.name, `${currentSelectedPersona.role} (Session Active)`);
+
+        // Revert back safely after demo sequence
+        setTimeout(() => {
+          btn.classList.remove('cursor-wait', 'bg-emerald-700', 'shadow-[0_8px_25px_-2px_rgba(16,185,129,0.45)]');
+          btn.classList.add('bg-primary', 'hover:bg-primary-container');
+          icon.textContent = 'fingerprint';
+          icon.classList.remove('text-emerald-300', 'scale-125', 'scale-110');
+          burstRing.classList.remove('animate-burst-ring');
+          progressBar.style.width = '0%';
+          trailingIcon.textContent = 'arrow_forward';
+          trailingIcon.classList.remove('text-emerald-300');
+          label.textContent = `Sign In as ${currentSelectedPersona.name} (${currentSelectedPersona.role})`;
+          isScanningAuth = false;
+        }, 2200);
+
+      }, 650);
+
+    }, 950);
+  }
+
+  function toggleSoundHaptic() {
+    soundEnabled = !soundEnabled;
+    const icon = document.getElementById('soundIcon');
+    if (icon) {
+      if (soundEnabled) {
+        icon.textContent = 'volume_up';
+        icon.classList.remove('text-outline');
+        playEnterpriseChime();
+      } else {
+        icon.textContent = 'volume_off';
+        icon.classList.add('text-outline');
+      }
+    }
+  }
+
+  function toggleTheme() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    const icon = document.getElementById('themeIcon');
+    if (icon) {
+      icon.textContent = isDark ? 'dark_mode' : 'light_mode';
+    }
+  }
+
+  function spawnRipple(element, event) {
+    if (!element) return;
+    const rect = element.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    const size = Math.max(rect.width, rect.height) * 1.2;
+
+    let x = rect.width / 2;
+    let y = rect.height / 2;
+    if (event && event.clientX && event.clientY) {
+      x = event.clientX - rect.left;
+      y = event.clientY - rect.top;
+    }
+
+    ripple.style.width = ripple.style.height = `${size}px`;
+    ripple.style.left = `${x - size / 2}px`;
+    ripple.style.top = `${y - size / 2}px`;
+    ripple.className = 'selection-ripple';
+
+    element.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+  }
+
+  function selectPersona(element, name, role, tier, event) {
+    if (isScanningAuth) return; // Prevent interruption during scan
+    playEnterpriseChime();
+    triggerHapticPulse();
+    spawnRipple(element, event);
+
+    currentSelectedPersona = { name, role };
+
+    const cards = document.querySelectorAll('.persona-card');
+    cards.forEach(card => {
+      card.classList.remove('selected-card', 'border-2', 'border-primary', 'bg-primary-fixed/20', 'shadow-sm');
+      card.classList.add('border', 'border-outline-variant/40', 'bg-surface-container-lowest');
+
+      const radio = card.querySelector('.persona-radio');
+      const dot = card.querySelector('.persona-dot');
+      if (radio && dot) {
+        radio.classList.remove('border-primary', 'bg-primary');
+        radio.classList.add('border-outline-variant/80', 'bg-transparent');
+        dot.classList.remove('bg-on-primary', 'scale-100');
+        dot.classList.add('bg-transparent');
+      }
+
+      const roleBadge = card.querySelector('.badge-role');
+      if (roleBadge) {
+        roleBadge.classList.remove('badge-role', 'bg-primary', 'text-on-primary');
+        roleBadge.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+      }
+    });
+
+    element.classList.remove('border', 'border-outline-variant/40', 'bg-surface-container-lowest');
+    element.classList.add('selected-card', 'border-2', 'border-primary', 'bg-primary-fixed/20', 'shadow-sm');
+
+    const radio = element.querySelector('.persona-radio');
+    const dot = element.querySelector('.persona-dot');
+    if (radio && dot) {
+      radio.classList.remove('border-outline-variant/80');
+      radio.classList.add('border-primary', 'bg-primary');
+      dot.classList.remove('bg-transparent');
+      dot.classList.add('bg-on-primary', 'scale-100');
+    }
+
+    const badge = element.querySelector('.rounded-md');
+    if (badge) {
+      badge.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+      badge.classList.add('badge-role', 'bg-primary', 'text-on-primary');
+    }
+
+    const btnLabel = document.getElementById('btnLabel');
+    if (btnLabel) {
+      btnLabel.textContent = `Sign In as ${name} (${role})`;
+    }
+
+    showToast(name, role);
+  }
+
+  function showToast(name, role) {
+    const toast = document.getElementById('personaToast');
+    const msg = document.getElementById('toastMessage');
+    if (!toast || !msg) return;
+
+    msg.innerHTML = `Active Operator: <strong>${name}</strong> (${role})`;
+
+    if (toastTimer) clearTimeout(toastTimer);
+
+    toast.classList.remove('opacity-0', 'translate-y-3');
+    toast.classList.add('opacity-100', 'translate-y-0');
+
+    toastTimer = setTimeout(() => {
+      dismissToast();
+    }, 2800);
+  }
+
+  function dismissToast() {
+    const toast = document.getElementById('personaToast');
+    if (!toast) return;
+    toast.classList.remove('opacity-100', 'translate-y-0');
+    toast.classList.add('opacity-0', 'translate-y-3');
+  }
+</script>
+</body></html>

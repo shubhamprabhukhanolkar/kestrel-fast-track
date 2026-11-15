@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><title>Final • FinOps &amp; API Health (Dark)</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #0a0a0d;
+        color: #e5e1e4;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .glass-card {
+      background: radial-gradient(130% 100% at 50% 0%, rgba(25, 25, 36, 0.7) 0%, rgba(17, 17, 23, 0.85) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card:hover {
+      border-color: rgba(171, 159, 242, 0.25);
+    }
+    .glow-purple {
+      box-shadow: 0 0 25px -4px rgba(171, 159, 242, 0.18);
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-deep": "#070709",
+            "surface-base": "#0a0a0d",
+            "surface-raised": "#111117",
+            "surface-overlay": "#181824",
+            "surface-bright": "#222232",
+            "accent-lavender": "#AB9FF2",
+            "accent-lavender-dim": "#7D72C7",
+            "accent-violet-deep": "#221438",
+            "neon-cyan": "#06B6D4",
+            "neon-mint": "#10B981",
+            "status-danger": "#EF4444",
+            "border-subtle": "rgba(255, 255, 255, 0.07)",
+            "border-highlight": "rgba(171, 159, 242, 0.3)"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            grotesk: ["Space Grotesk", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-[#0a0a0d] font-sans text-[#e5e1e4] antialiased selection:bg-accent-lavender/30 selection:text-white min-h-screen flex flex-col justify-between">
+<!-- Phantom-styled Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-[#0a0a0d]/85 backdrop-blur-xl border-b border-white/[0.06]">
+<div class="h-16 w-full px-6 flex items-center justify-between gap-4 max-w-[1720px] mx-auto">
+<div class="flex items-center gap-6">
+<!-- Logo & Badge -->
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-[#AB9FF2] to-[#6049e2] p-[1px] shadow-[0_0_16px_rgba(171,159,242,0.35)]">
+<div class="w-full h-full bg-[#111117] rounded-[11px] flex items-center justify-center">
+<span class="material-symbols-outlined text-[#AB9FF2] text-xl">token</span>
+</div>
+</div>
+<span class="font-grotesk text-lg tracking-tight font-bold text-white">Kestrel</span>
+<span class="px-2.5 py-0.5 rounded-full bg-[#1e1c2e] text-[#AB9FF2] text-xs font-grotesk font-medium border border-[#AB9FF2]/20">
+            &lt;₹25L Fast-Track
+          </span>
+</div>
+<!-- Navigation Tabs -->
+<nav class="hidden md:flex items-center gap-1 bg-[#13131a] p-1 rounded-xl border border-white/[0.05]">
+<a class="px-3.5 py-1.5 rounded-lg text-sm text-[#938f9d] hover:text-white hover:bg-white/[0.04] transition-all" data-path="intake-extraction" href="#">Intake &amp; Extraction</a>
+<a class="px-3.5 py-1.5 rounded-lg text-sm text-[#938f9d] hover:text-white hover:bg-white/[0.04] transition-all" data-path="verification-sign-off" href="#">Verification &amp; Sign-Off</a>
+<a class="px-3.5 py-1.5 rounded-lg text-sm text-[#938f9d] hover:text-white hover:bg-white/[0.04] transition-all" data-path="prompt-toner-studio" href="#">Prompt &amp; Toner</a>
+<a class="px-3.5 py-1.5 rounded-lg text-sm text-white font-medium bg-[#221f36] text-[#AB9FF2] border border-[#AB9FF2]/30 shadow-[0_0_12px_rgba(171,159,242,0.2)]" data-path="finops-api-health" href="#">
+            FinOps &amp; API Health
+          </a>
+</nav>
+</div>
+<!-- Right Header Actions -->
+<div class="flex items-center gap-4">
+<div class="hidden xl:flex items-center gap-2 bg-[#12121a] px-3.5 py-1.5 rounded-full border border-white/[0.08] text-xs font-mono">
+<span class="w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_8px_#10B981]"></span>
+<span class="text-[#c9c4d3]">Zero FE LLM</span>
+<span class="text-white/20">|</span>
+<span class="text-[#AB9FF2]">Gemini 2.5 (Online)</span>
+<span class="text-white/20">|</span>
+<span class="text-[#938f9d]">Groq (Standby)</span>
+<span class="text-white/20">|</span>
+<span class="text-white font-semibold">₹4.82</span>
+</div>
+<div class="flex items-center bg-[#13131a] p-1 rounded-full border border-white/[0.08] shadow-inner select-none" id="theme-toggle-pill" title="Toggle Color Theme"><button aria-label="Light Mode" class="w-7 h-7 rounded-full flex items-center justify-center text-[#938f9d] hover:text-white transition-all"><span class="material-symbols-outlined text-sm">light_mode</span></button><button aria-label="Dark Mode" class="w-7 h-7 rounded-full bg-[#221f36] border border-[#AB9FF2]/30 text-[#AB9FF2] shadow-[0_0_10px_rgba(171,159,242,0.25)] flex items-center justify-center transition-all"><span class="material-symbols-outlined text-sm">dark_mode</span></button></div><div class="flex items-center gap-3 pl-2 border-l border-white/[0.08]">
+<div class="text-right hidden sm:block">
+<div class="text-xs font-semibold text-white">Arjun Iyer</div>
+<div class="text-[11px] text-[#AB9FF2]">Credit Manager / CRO</div>
+</div>
+<div class="relative">
+<img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-[#AB9FF2]/50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZztgoy4hLC7cpANwv8gB-xSmU_aDvxQa_mJFhXwifkuV5BueL--z5ZYb1RzQC22EAKBWj6wM0rzlObg89wNCgraepugX_sRRMs9DfvuzpiggE5LiQQE8T4lekk4CWfp4Ni3imr7ZlHuumOSqQZKgNNX1lulwqdlJ8v7PU1NvNM84-KGhYClFKURwj9B35-joMvYeMmHUHBr46oZG8lNjLiqsVXsqTF7SqJgjnr30"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#10B981] ring-2 ring-[#0a0a0d]"></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Ledger Micro-bar -->
+<div class="h-7 w-full bg-[#070709] border-t border-white/[0.04] px-6 flex items-center justify-between text-[11px] font-mono text-[#938f9d]">
+<div class="flex items-center gap-2 max-w-[1720px] mx-auto w-full justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[13px] text-[#10B981]">verified_user</span>
+<span>Non-Repudiated Dual Ledger · Sovereign Indian Cloud (Mumbai VPC Enclave)</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1 text-[#c9c4d3]"><span class="material-symbols-outlined text-[13px] text-[#AB9FF2]">lock</span> SHA-256 Ledger Active</span>
+<span class="text-[#10B981] font-medium">RBI SME Compliant (&lt;₹25L)</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Container -->
+<main class="w-full pt-28 pb-12 px-6 max-w-[1720px] mx-auto flex-1">
+<div class="flex flex-col gap-6">
+<!-- Header Block with Role Context & Status Metatags -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="text-xs uppercase tracking-wider text-[#AB9FF2] font-grotesk font-semibold">FinOps Operations &amp; Enclave Reliability</span>
+<span class="w-1 h-1 rounded-full bg-white/20"></span>
+<span class="text-xs text-[#938f9d]">Azure India Central (Sovereign Gateway)</span>
+</div>
+<div class="flex items-center gap-3">
+<h1 class="text-2xl sm:text-3xl text-white font-bold tracking-tight">FinOps Cost &amp; Redundancy Sentinel</h1>
+<span class="px-2.5 py-1 rounded-full bg-[#10B981]/10 border border-[#10B981]/30 text-[#10B981] text-xs font-mono font-medium flex items-center gap-1.5 shadow-[0_0_12px_rgba(16,185,129,0.15)]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-ping"></span> Live Proxy Stream
+            </span>
+</div>
+</div>
+<!-- Admin Profile Context & Quick Actions -->
+<div class="flex items-center gap-3">
+<div class="px-3.5 py-1.5 rounded-xl bg-[#13131b] border border-white/[0.08] flex items-center gap-3 shadow-inner">
+<div class="flex flex-col text-right">
+<span class="text-[11px] text-[#938f9d] font-grotesk uppercase">FinOps Admin</span>
+<span class="text-xs text-white font-semibold leading-tight">Farhan Qureshi</span>
+</div>
+<div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#6049e2] to-[#AB9FF2] text-white flex items-center justify-center text-xs font-mono font-bold shadow-[0_0_10px_rgba(171,159,242,0.4)]">
+              FQ
+            </div>
+</div>
+<button class="px-3.5 py-2 rounded-xl bg-[#191925] border border-white/[0.1] text-white hover:bg-[#222234] hover:border-[#AB9FF2]/40 transition-all text-xs font-grotesk font-semibold flex items-center gap-2 active:scale-95 shadow-sm" id="refresh-telemetry-btn">
+<span class="material-symbols-outlined text-sm text-[#AB9FF2]">refresh</span>
+<span>Sync Metrics</span>
+</button>
+</div>
+</div>
+<!-- Top Row: Exactly 4 KPI Summary Cards (4-Column Grid) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+<!-- Card 1: Total Pilot Spend -->
+<div class="glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group">
+<div class="absolute -right-10 -top-10 w-28 h-28 bg-[#AB9FF2]/5 rounded-full blur-2xl group-hover:bg-[#AB9FF2]/10 transition-all"></div>
+<div class="flex items-center justify-between gap-2">
+<span class="text-xs text-[#938f9d] uppercase font-grotesk tracking-wider font-semibold">Total Pilot Spend</span>
+<div class="w-8 h-8 rounded-lg bg-[#221f36] border border-[#AB9FF2]/20 flex items-center justify-center text-[#AB9FF2]">
+<span class="material-symbols-outlined text-lg">account_balance_wallet</span>
+</div>
+</div>
+<div class="my-3">
+<div class="text-3xl font-bold tracking-tight text-white font-grotesk">₹1,420.50</div>
+<p class="text-xs text-[#938f9d] mt-1">Across 295 applications processed</p>
+</div>
+<div class="pt-2 border-t border-white/[0.06] flex items-center justify-between text-xs">
+<span class="text-[#c9c4d3] font-mono">Budget: ₹15k (9.4%)</span>
+<div class="w-20 h-1.5 bg-[#1b1b26] rounded-full overflow-hidden border border-white/[0.06]">
+<div class="h-full bg-gradient-to-r from-[#6049e2] to-[#AB9FF2] rounded-full shadow-[0_0_8px_#AB9FF2]" style="width: 9.4%;"></div>
+</div>
+</div>
+</div>
+<!-- Card 2: Avg Cost per Application -->
+<div class="glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group">
+<div class="absolute -right-10 -top-10 w-28 h-28 bg-[#10B981]/5 rounded-full blur-2xl group-hover:bg-[#10B981]/10 transition-all"></div>
+<div class="flex items-center justify-between gap-2">
+<span class="text-xs text-[#938f9d] uppercase font-grotesk tracking-wider font-semibold">Avg Cost / Application</span>
+<div class="w-8 h-8 rounded-lg bg-[#0e2720] border border-[#10B981]/25 flex items-center justify-center text-[#10B981]">
+<span class="material-symbols-outlined text-lg">savings</span>
+</div>
+</div>
+<div class="my-3">
+<div class="text-3xl font-bold tracking-tight text-white font-grotesk">₹4.81</div>
+<p class="text-xs text-[#938f9d] mt-1">Target ceiling &lt; ₹10.00</p>
+</div>
+<div class="pt-2 border-t border-white/[0.06] flex items-center justify-between text-xs">
+<span class="px-2 py-0.5 rounded-full bg-[#10B981]/15 text-[#10B981] font-mono text-[11px] border border-[#10B981]/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">trending_down</span>
+              51.9% below target
+            </span>
+<span class="text-[#938f9d] font-mono">Ceiling: ₹10</span>
+</div>
+</div>
+<!-- Card 3: Primary API Uptime -->
+<div class="glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group">
+<div class="absolute -right-10 -top-10 w-28 h-28 bg-[#06B6D4]/5 rounded-full blur-2xl group-hover:bg-[#06B6D4]/10 transition-all"></div>
+<div class="flex items-center justify-between gap-2">
+<span class="text-xs text-[#938f9d] uppercase font-grotesk tracking-wider font-semibold">Primary API Uptime</span>
+<div class="w-8 h-8 rounded-lg bg-[#0a2632] border border-[#06B6D4]/25 flex items-center justify-center text-[#06B6D4]">
+<span class="material-symbols-outlined text-lg">network_check</span>
+</div>
+</div>
+<div class="my-3">
+<div class="text-3xl font-bold tracking-tight text-white font-grotesk">99.4%</div>
+<p class="text-xs text-[#938f9d] mt-1 truncate">Google Gemini 2.5 Flash (Azure VPC)</p>
+</div>
+<div class="pt-2 border-t border-white/[0.06] flex items-center justify-between text-xs">
+<span class="px-2 py-0.5 rounded-full bg-[#06B6D4]/15 text-[#06B6D4] font-mono text-[11px] border border-[#06B6D4]/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+              SLA 99.0% Compliant
+            </span>
+<span class="text-[#938f9d] font-mono">30d Rolling</span>
+</div>
+</div>
+<!-- Card 4: Backup Failover Triggers -->
+<div class="glass-card rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group">
+<div class="absolute -right-10 -top-10 w-28 h-28 bg-[#AB9FF2]/5 rounded-full blur-2xl group-hover:bg-[#AB9FF2]/10 transition-all"></div>
+<div class="flex items-center justify-between gap-2">
+<span class="text-xs text-[#938f9d] uppercase font-grotesk tracking-wider font-semibold">Failover Triggers (Groq)</span>
+<div class="w-8 h-8 rounded-lg bg-[#271e3b] border border-[#AB9FF2]/25 flex items-center justify-center text-[#AB9FF2]">
+<span class="material-symbols-outlined text-lg">electric_bolt</span>
+</div>
+</div>
+<div class="my-3">
+<div class="text-3xl font-bold tracking-tight text-white font-grotesk">3 Cases</div>
+<p class="text-xs text-[#938f9d] mt-1">Zero dropped loan requests</p>
+</div>
+<div class="pt-2 border-t border-white/[0.06] flex items-center justify-between text-xs">
+<span class="px-2 py-0.5 rounded-full bg-[#AB9FF2]/15 text-[#AB9FF2] font-mono text-[11px] border border-[#AB9FF2]/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">speed</span>
+              Avg: 124ms
+            </span>
+<span class="text-[#10B981] font-mono font-medium">100% Resolved</span>
+</div>
+</div>
+</div>
+<!-- Main Content Area: Exactly 2 Panels Side-by-Side (55% Left / 45% Right) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-start">
+<!-- Left Panel: Agent Action Cost & Token Breakdown Table (7 cols on lg) -->
+<div class="lg:col-span-7 glass-card rounded-2xl p-6 shadow-xl flex flex-col justify-between min-w-0">
+<div>
+<!-- Panel Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 gap-3 border-b border-white/[0.06]">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#AB9FF2] text-xl">receipt_long</span>
+<h2 class="text-base font-bold text-white font-grotesk tracking-tight">Agent Action Cost &amp; Token Breakdown</h2>
+</div>
+<p class="text-xs text-[#938f9d] mt-0.5">Sub-cent micro-billing audit across multi-agent lending pipeline</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-lg bg-[#181824] border border-white/[0.08] font-mono text-xs text-[#c9c4d3]">
+                  Batch: #SME-295
+                </span>
+</div>
+</div>
+<!-- Token Density Micro-Visualization Graphic -->
+<div class="my-4 p-3.5 rounded-xl bg-[#111117] border border-white/[0.06] flex flex-col gap-2">
+<div class="flex items-center justify-between text-xs font-mono text-[#938f9d]">
+<span class="text-[#c9c4d3]">Token Distribution (Total: 10,550 tokens)</span>
+<span class="text-white font-medium">Gemini Pro: 71.1% · Flash: 18.0% · Groq: 10.9%</span>
+</div>
+<!-- Multi-color distribution bar -->
+<div class="w-full h-2 rounded-full overflow-hidden flex bg-[#1d1d28] border border-white/[0.04]">
+<div class="h-full bg-[#06B6D4] shadow-[0_0_6px_#06B6D4]" style="width: 9.2%;" title="Orchestrator (970 tok)"></div>
+<div class="h-full bg-[#AB9FF2] shadow-[0_0_6px_#AB9FF2]" style="width: 71.1%;" title="Extractor Agent (7,500 tok)"></div>
+<div class="h-full bg-[#818CF8]" style="width: 8.8%;" title="Critique Agent (2,650 tok)"></div>
+<div class="h-full bg-[#F59E0B]" style="width: 10.9%;" title="Toner Agent (1,480 tok)"></div>
+</div>
+</div>
+<!-- 5-Column Table -->
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left text-sm border-collapse">
+<thead>
+<tr class="bg-[#14141e] text-[#938f9d] font-grotesk text-xs uppercase tracking-wider border-b border-white/[0.06]">
+<th class="py-3 px-3.5 rounded-l-lg font-semibold">Agent Role</th>
+<th class="py-3 px-3.5 font-semibold">Provider / Model</th>
+<th class="py-3 px-3.5 font-semibold text-right">Tokens (In/Out)</th>
+<th class="py-3 px-3.5 font-semibold text-right">Avg Latency</th>
+<th class="py-3 px-3.5 rounded-r-lg font-semibold text-right">Cost / Run</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/[0.04] text-xs">
+<!-- Row 1 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="py-3.5 px-3.5 font-medium flex items-center gap-2.5 text-white">
+<span class="w-2 h-2 rounded-full bg-[#06B6D4] shadow-[0_0_6px_#06B6D4]"></span>
+<span class="truncate">Orchestrator Agent</span>
+</td>
+<td class="py-3.5 px-3.5 font-mono">
+<span class="px-2 py-0.5 rounded-md bg-[#06B6D4]/15 border border-[#06B6D4]/30 text-[#06B6D4] font-medium text-[11px]">
+                        Gemini 2.5 Flash
+                      </span>
+</td>
+<td class="py-3.5 px-3.5 text-right font-mono tabular-nums text-[#c9c4d3]">850 / 120</td>
+<td class="py-3.5 px-3.5 text-right font-mono tabular-nums text-[#938f9d]">0.4s</td>
+<td class="py-3.5 px-3.5 text-right font-grotesk text-sm font-semibold tabular-nums text-white">₹0.35</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="py-3.5 px-3.5 font-medium flex items-center gap-2.5 text-white">
+<span class="w-2 h-2 rounded-full bg-[#AB9FF2] shadow-[0_0_6px_#AB9FF2]"></span>
+<span class="truncate">Cited Extractor Agent (B1)</span>
+</td>
+<td class="py-3.5 px-3.5 font-mono">
+<span class="px-2 py-0.5 rounded-md bg-[#AB9FF2]/15 border border-[#AB9FF2]/30 text-[#AB9FF2] font-medium text-[11px]">
+                        Gemini 2.5 Pro
+                      </span>
+</td>
+<td class="py-3.5 px-3.5 text-right font-mono tabular-nums text-[#c9c4d3]">6,400 / 1,100</td>
+<td class="py-3.5 px-3.5 text-right font-mono tabular-nums text-[#938f9d]">2.8s</td>
+<td class="py-3.5 px-3.5 text-right font-grotesk text-sm font-semibold tabular-nums text-[#AB9FF2]">₹2.90</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="py-3.5 px-3.5 font-medium flex items-center gap-2.5 text-white">
+<span class="w-2 h-2 rounded-full bg-[#818CF8]"></span>
+<span class="truncate">Critique Agent (QA Verification)</span>
+</td>
+<td class="py-3.5 px-3.5 font-mono">
+<span class="px-2 py-0.5 rounded-md bg-[#818CF8]/15 border border-[#818CF8]/30 text-[#818CF8] font-medium text-[11px]">
+                        Gemini 2.5 Flash
+                      </span>
+</td>
+<td class="py-3.5 px-3.5 text-right font-mono tabular-nums text-[#c9c4d3]">2,200 / 450</td>
+<td class="py-3.5 px-3.5 text-right font-mono tabular-nums text-[#938f9d]">0.9s</td>
+<td class="py-3.5 px-3.5 text-right font-grotesk text-sm font-semibold tabular-nums text-white">₹0.96</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="py-3.5 px-3.5 font-medium flex items-center gap-2.5 text-white">
+<span class="w-2 h-2 rounded-full bg-[#F59E0B]"></span>
+<span class="truncate">Toner Agent (Memo Formatting)</span>
+</td>
+<td class="py-3.5 px-3.5 font-mono">
+<span class="px-2 py-0.5 rounded-md bg-[#F59E0B]/15 border border-[#F59E0B]/30 text-[#F59E0B] font-medium text-[11px]">
+                        Groq Llama-3.3-70B
+                      </span>
+</td>
+<td class="py-3.5 px-3.5 text-right font-mono tabular-nums text-[#c9c4d3]">1,100 / 380</td>
+<td class="py-3.5 px-3.5 text-right font-mono tabular-nums text-[#938f9d]">0.3s</td>
+<td class="py-3.5 px-3.5 text-right font-grotesk text-sm font-semibold tabular-nums text-white">₹0.60</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Summary Total Strip -->
+<div class="mt-6 p-4 rounded-xl bg-gradient-to-r from-[#181824] via-[#14141d] to-[#181824] border border-white/[0.08] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-[#10B981]/15 border border-[#10B981]/30 flex items-center justify-center text-[#10B981] flex-shrink-0">
+<span class="material-symbols-outlined text-xl">verified</span>
+</div>
+<div>
+<div class="text-sm text-white font-bold font-grotesk">
+                  Total Pipeline Cost: <span class="text-[#AB9FF2] text-base font-grotesk font-bold">₹4.81</span> <span class="text-[#938f9d] text-xs font-mono font-normal">(10,550 tokens)</span>
+</div>
+<div class="text-xs text-[#938f9d] mt-0.5">
+                  Savings vs. Legacy OCR: <span class="text-[#10B981] font-semibold">78.4%</span> (₹22.50 vs ₹4.81)
+                </div>
+</div>
+</div>
+<div class="px-3.5 py-2 rounded-xl bg-[#10B981]/10 border border-[#10B981]/30 text-[#10B981] text-xs font-mono font-bold flex items-center gap-1.5 whitespace-nowrap shadow-[0_0_12px_rgba(16,185,129,0.15)]">
+<span class="material-symbols-outlined text-sm">trending_down</span>
+              ₹17.69 Saved / File
+            </div>
+</div>
+</div>
+<!-- Right Panel: API Redundancy & Failover Controller (5 cols on lg) -->
+<div class="lg:col-span-5 glass-card rounded-2xl p-6 shadow-xl flex flex-col justify-between min-w-0">
+<div class="flex flex-col gap-4">
+<!-- Panel Header -->
+<div class="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#AB9FF2] text-xl">hub</span>
+<h2 class="text-base font-bold text-white font-grotesk tracking-tight">API Redundancy Controller</h2>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-[#181824] border border-white/[0.08] text-xs text-[#938f9d] font-mono">
+                Dual-Active Standby
+              </span>
+</div>
+<!-- Live Routing Status Banner -->
+<div class="bg-gradient-to-r from-[#10B981]/15 to-[#10B981]/5 border border-[#10B981]/30 text-white px-4 py-3 rounded-xl flex items-center gap-3 transition-all duration-300 shadow-[0_0_16px_rgba(16,185,129,0.1)]" id="routing-status-banner">
+<span class="w-2.5 h-2.5 rounded-full bg-[#10B981] shadow-[0_0_8px_#10B981] animate-pulse" id="routing-ping-dot"></span>
+<span class="text-xs font-mono text-[#e5e1e4] leading-relaxed" id="routing-banner-text">
+                Routing via Primary: <strong class="text-white">Google Gemini 2.5 Flash</strong> (Backend Latency: 420ms · Quota: Healthy)
+              </span>
+</div>
+<!-- Visual Architecture Diagram Box -->
+<div class="p-4 rounded-xl bg-[#0e0e13] border border-white/[0.06] flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="text-xs text-[#938f9d] uppercase font-grotesk tracking-wider font-bold">Encrypted Topology Flow</span>
+<span class="text-xs text-[#10B981] font-mono font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">shield</span> Zero Frontend Keys
+                </span>
+</div>
+<!-- Nodes Visual -->
+<div class="flex flex-col gap-2.5 font-mono text-xs">
+<!-- Tier 1: Client React UI -->
+<div class="flex items-center gap-2">
+<div class="w-36 py-1.5 px-2.5 rounded-lg bg-[#181824] border border-white/[0.08] text-white flex items-center gap-2 truncate shadow-sm">
+<span class="material-symbols-outlined text-xs text-[#AB9FF2]">desktop_windows</span>
+<span class="truncate">Client React UI</span>
+</div>
+<div class="flex-1 h-[1px] bg-gradient-to-r from-white/10 to-[#AB9FF2]/50 relative">
+<span class="material-symbols-outlined text-[10px] text-[#AB9FF2] absolute -top-1.5 right-0">arrow_forward</span>
+</div>
+<span class="text-[#938f9d] text-[10px]">mTLS / JWT</span>
+</div>
+<!-- Tier 2: FastAPI Sovereign Gateway -->
+<div class="p-2.5 rounded-xl bg-[#14141f] border border-[#AB9FF2]/20 flex flex-col gap-1 shadow-inner">
+<div class="flex items-center justify-between">
+<span class="font-grotesk text-xs font-bold text-white flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-[#AB9FF2]">dns</span>
+                      FastAPI Sovereign Gateway
+                    </span>
+<span class="px-2 py-0.5 rounded-md bg-[#221f36] border border-[#AB9FF2]/30 text-[10px] text-[#AB9FF2] font-semibold">
+                      Azure India Enclave
+                    </span>
+</div>
+<span class="text-[10px] text-[#938f9d]">Payload Scrubbing · SHA-256 Nonce · Instant Fallback</span>
+</div>
+<!-- Tier 3: Split Provider Targets -->
+<div class="grid grid-cols-2 gap-2 mt-1">
+<!-- Target A: Primary Gemini -->
+<div class="p-2.5 rounded-xl bg-[#10B981]/10 border border-[#10B981]/30 flex flex-col justify-between transition-all duration-300" id="node-gemini">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-grotesk text-[11px] font-bold text-white flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_6px_#10B981]" id="gemini-node-status-dot"></span>
+                        Primary
+                      </span>
+<span class="text-[9px] px-1.5 py-0.5 rounded bg-[#10B981]/20 border border-[#10B981]/40 text-[#10B981] font-mono font-bold" id="gemini-status-tag">Active 99.4%</span>
+</div>
+<div class="text-xs font-semibold text-white truncate font-grotesk">Google Gemini 2.5</div>
+<div class="text-[10px] text-[#938f9d] mt-1 truncate" id="gemini-latency-label">Direct VPC (420ms)</div>
+</div>
+<!-- Target B: Backup Groq -->
+<div class="p-2.5 rounded-xl bg-[#14141e] border border-white/[0.08] flex flex-col justify-between transition-all duration-300" id="node-groq">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-grotesk text-[11px] font-bold text-[#c9c4d3] flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-white/20" id="groq-node-status-dot"></span>
+                        Failover
+                      </span>
+<span class="text-[9px] px-1.5 py-0.5 rounded bg-white/[0.05] border border-white/[0.08] text-[#938f9d] font-mono font-bold" id="groq-status-tag">Standby Ready</span>
+</div>
+<div class="text-xs font-semibold text-white truncate font-grotesk">Groq Llama-3.3-70B</div>
+<div class="text-[10px] text-[#938f9d] mt-1 truncate" id="groq-latency-label">LPU Warm Pool</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Drill & Fault Injection Simulator -->
+<div class="p-4 rounded-xl bg-[#111118] border border-white/[0.06] flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="text-xs text-[#938f9d] uppercase font-grotesk tracking-wider font-bold">Drill &amp; Fault Simulator</span>
+<span class="text-[11px] font-mono text-[#AB9FF2]">Deterministic Test</span>
+</div>
+<div class="flex flex-col gap-2">
+<!-- Toggle 1: Simulate Gemini Service Outage -->
+<label class="flex items-center justify-between p-2.5 rounded-lg bg-[#161622] hover:bg-[#1c1c2b] border border-white/[0.04] transition-colors cursor-pointer select-none">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[#EF4444] text-base">cloud_off</span>
+<div class="flex flex-col">
+<span class="text-xs font-semibold text-white font-grotesk">Simulate Gemini Service Outage</span>
+<span class="text-[10px] text-[#938f9d] font-mono">Inject HTTP 503 Enclave Drop</span>
+</div>
+</div>
+<input class="w-4 h-4 rounded bg-[#0a0a0d] border-white/20 text-[#AB9FF2] focus:ring-[#AB9FF2] focus:ring-offset-[#111118]" id="sim-503-toggle" type="checkbox"/>
+</label>
+<!-- Toggle 2: Simulate Token Quota Exhaustion -->
+<label class="flex items-center justify-between p-2.5 rounded-lg bg-[#161622] hover:bg-[#1c1c2b] border border-white/[0.04] transition-colors cursor-pointer select-none">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[#F59E0B] text-base">hourglass_disabled</span>
+<div class="flex flex-col">
+<span class="text-xs font-semibold text-white font-grotesk">Simulate Gemini Quota Exhaustion</span>
+<span class="text-[10px] text-[#938f9d] font-mono">Inject HTTP 429 Rate Limit</span>
+</div>
+</div>
+<input class="w-4 h-4 rounded bg-[#0a0a0d] border-white/20 text-[#AB9FF2] focus:ring-[#AB9FF2] focus:ring-offset-[#111118]" id="sim-429-toggle" type="checkbox"/>
+</label>
+</div>
+<!-- Action Trigger Button -->
+<button class="w-full mt-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#6049e2] to-[#AB9FF2] text-[#0a0a0d] font-grotesk font-bold text-xs hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_18px_rgba(171,159,242,0.35)] active:scale-[0.98]" id="trigger-failover-ping-btn">
+<span class="material-symbols-outlined text-base">wifi_tethering</span>
+<span>Trigger Test Failover Ping (Mock 100 Tokens)</span>
+</button>
+</div>
+<!-- Audit Trail Log Box -->
+<div class="p-3.5 rounded-xl bg-[#07070a] border border-white/[0.08] flex flex-col gap-2 font-mono text-xs">
+<div class="flex items-center justify-between pb-1 border-b border-white/[0.04]">
+<span class="flex items-center gap-1.5 text-xs text-[#c9c4d3]">
+<span class="material-symbols-outlined text-sm text-[#AB9FF2]">terminal</span>
+                  Tamper-Evident SHA-256 Audit Log
+                </span>
+<span class="text-[10px] text-[#AB9FF2] font-semibold">Ledger: #AZ-MUM-991</span>
+</div>
+<div class="flex flex-col gap-1.5 overflow-y-auto max-h-24 text-[11px] leading-relaxed pt-1" id="audit-log-container">
+<div class="flex items-start gap-2">
+<span class="text-[#938f9d] select-none">11:42:01</span>
+<span class="text-[#10B981]">Health probe OK: Gemini Primary response 200 (180ms)</span>
+</div>
+<div class="flex items-start gap-2">
+<span class="text-[#938f9d] select-none">09:14:22</span>
+<span class="text-[#AB9FF2]">Auto-failover drill: 1 request routed to Groq backup in 118ms (Zero drop)</span>
+</div>
+<div class="flex items-start gap-2">
+<span class="text-[#938f9d] select-none">08:00:00</span>
+<span class="text-[#c9c4d3]">Daily cryptographic signature verification passed.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Phantom Footer -->
+<footer class="w-full bg-[#070709] border-t border-white/[0.05] py-4 mt-8">
+<div class="max-w-[1720px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-2 text-xs font-mono text-[#938f9d]">
+<div>© 2025 Kestrel Finance Technologies Ltd. Regulated NBFC Lending Partner Integration Core.</div>
+<div class="flex items-center gap-4 text-[11px]">
+<span>Policy: v4.2.1-Prod</span>
+<span class="text-white/20">|</span>
+<span>Enclave Key: HSM-KMS-0091</span>
+<span class="text-white/20">|</span>
+<span class="text-[#10B981] font-semibold">Status: All Systems Nominal</span>
+</div>
+</div>
+</footer>
+<script>
+    (function initFinOpsDashboard() {
+      const sim503 = document.getElementById('sim-503-toggle');
+      const sim429 = document.getElementById('sim-429-toggle');
+      const pingBtn = document.getElementById('trigger-failover-ping-btn');
+      const banner = document.getElementById('routing-status-banner');
+      const bannerText = document.getElementById('routing-banner-text');
+      const pingDot = document.getElementById('routing-ping-dot');
+      const nodeGemini = document.getElementById('node-gemini');
+      const nodeGroq = document.getElementById('node-groq');
+      const geminiStatusTag = document.getElementById('gemini-status-tag');
+      const groqStatusTag = document.getElementById('groq-status-tag');
+      const geminiDot = document.getElementById('gemini-node-status-dot');
+      const groqDot = document.getElementById('groq-node-status-dot');
+      const auditContainer = document.getElementById('audit-log-container');
+      const refreshBtn = document.getElementById('refresh-telemetry-btn');
+
+      function appendAuditLog(message, isWarning) {
+        const now = new Date();
+        const timeStr = [
+          String(now.getHours()).padStart(2, '0'),
+          String(now.getMinutes()).padStart(2, '0'),
+          String(now.getSeconds()).padStart(2, '0')
+        ].join(':');
+
+        const entry = document.createElement('div');
+        entry.className = 'flex items-start gap-2';
+        
+        const timeSpan = document.createElement('span');
+        timeSpan.className = 'text-[#938f9d] select-none';
+        timeSpan.textContent = timeStr;
+
+        const textSpan = document.createElement('span');
+        textSpan.className = isWarning ? 'text-[#EF4444] font-medium' : 'text-[#10B981]';
+        textSpan.textContent = message;
+
+        entry.appendChild(timeSpan);
+        entry.appendChild(textSpan);
+
+        auditContainer.insertBefore(entry, auditContainer.firstChild);
+      }
+
+      function updateRoutingState() {
+        const isFaultInjected = sim503.checked || sim429.checked;
+
+        if (isFaultInjected) {
+          const faultReason = sim503.checked ? 'HTTP 503 Enclave Drop' : 'HTTP 429 Rate Limit';
+          // Switch banner to failover mode (Phantom Lavender / Orange glow)
+          banner.className = 'bg-gradient-to-r from-[#AB9FF2]/20 via-[#6049e2]/20 to-[#AB9FF2]/10 border border-[#AB9FF2]/50 text-white px-4 py-3 rounded-xl flex items-center gap-3 transition-all duration-300 shadow-[0_0_20px_rgba(171,159,242,0.2)]';
+          bannerText.innerHTML = '<strong class="text-[#AB9FF2]">FAILOVER ACTIVE:</strong> Routed to Groq Llama-3.3-70B (' + faultReason + ' · Fallback: 112ms)';
+          pingDot.className = 'w-2.5 h-2.5 rounded-full bg-[#AB9FF2] shadow-[0_0_8px_#AB9FF2] animate-ping';
+
+          // Update Gemini Node (Degraded)
+          nodeGemini.className = 'p-2.5 rounded-xl bg-[#14141e] border border-[#EF4444]/40 flex flex-col justify-between opacity-60 transition-all duration-300';
+          geminiStatusTag.textContent = 'Degraded (' + (sim503.checked ? '503' : '429') + ')';
+          geminiStatusTag.className = 'text-[9px] px-1.5 py-0.5 rounded bg-[#EF4444]/20 border border-[#EF4444]/40 text-[#EF4444] font-mono font-bold';
+          geminiDot.className = 'w-2 h-2 rounded-full bg-[#EF4444] shadow-[0_0_6px_#EF4444]';
+
+          // Update Groq Node (Active)
+          nodeGroq.className = 'p-2.5 rounded-xl bg-[#AB9FF2]/15 border border-[#AB9FF2]/50 flex flex-col justify-between transition-all duration-300 shadow-[0_0_14px_rgba(171,159,242,0.15)]';
+          groqStatusTag.textContent = 'Serving Live Traffic';
+          groqStatusTag.className = 'text-[9px] px-1.5 py-0.5 rounded bg-[#AB9FF2]/30 border border-[#AB9FF2]/50 text-white font-mono font-bold';
+          groqDot.className = 'w-2 h-2 rounded-full bg-[#AB9FF2] shadow-[0_0_6px_#AB9FF2]';
+
+          appendAuditLog('Anomaly detected: ' + faultReason + ' - Instant proxy failover routed to Groq LPU cluster (112ms)', true);
+        } else {
+          // Return to normal primary state
+          banner.className = 'bg-gradient-to-r from-[#10B981]/15 to-[#10B981]/5 border border-[#10B981]/30 text-white px-4 py-3 rounded-xl flex items-center gap-3 transition-all duration-300 shadow-[0_0_16px_rgba(16,185,129,0.1)]';
+          bannerText.innerHTML = 'Routing via Primary: <strong class="text-white">Google Gemini 2.5 Flash</strong> (Backend Latency: 420ms · Quota: Healthy)';
+          pingDot.className = 'w-2.5 h-2.5 rounded-full bg-[#10B981] shadow-[0_0_8px_#10B981] animate-pulse';
+
+          // Restore Gemini Node
+          nodeGemini.className = 'p-2.5 rounded-xl bg-[#10B981]/10 border border-[#10B981]/30 flex flex-col justify-between transition-all duration-300';
+          geminiStatusTag.textContent = 'Active 99.4%';
+          geminiStatusTag.className = 'text-[9px] px-1.5 py-0.5 rounded bg-[#10B981]/20 border border-[#10B981]/40 text-[#10B981] font-mono font-bold';
+          geminiDot.className = 'w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_6px_#10B981]';
+
+          // Restore Groq Node
+          nodeGroq.className = 'p-2.5 rounded-xl bg-[#14141e] border border-white/[0.08] flex flex-col justify-between transition-all duration-300';
+          groqStatusTag.textContent = 'Standby Ready';
+          groqStatusTag.className = 'text-[9px] px-1.5 py-0.5 rounded bg-white/[0.05] border border-white/[0.08] text-[#938f9d] font-mono font-bold';
+          groqDot.className = 'w-2 h-2 rounded-full bg-white/20';
+
+          appendAuditLog('Normal routing restored: Gemini 2.5 Flash operational via Azure India Enclave', false);
+        }
+      }
+
+      if (sim503) {
+        sim503.addEventListener('change', () => {
+          if (sim503.checked && sim429) sim429.checked = false;
+          updateRoutingState();
+        });
+      }
+
+      if (sim429) {
+        sim429.addEventListener('change', () => {
+          if (sim429.checked && sim503) sim503.checked = false;
+          updateRoutingState();
+        });
+      }
+
+      if (pingBtn) {
+        pingBtn.addEventListener('click', () => {
+          const originalText = pingBtn.innerHTML;
+          pingBtn.disabled = true;
+          pingBtn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">refresh</span> <span>Executing Micro-Ping (100 tokens)...</span>';
+
+          setTimeout(() => {
+            pingBtn.disabled = false;
+            pingBtn.innerHTML = originalText;
+            if (sim503.checked || sim429.checked) {
+              appendAuditLog('Mock ping (100 tokens) dispatched to Groq Llama-3.3-70B. Response: 200 OK (Latency: 98ms, Cost: ₹0.04)', true);
+            } else {
+              appendAuditLog('Mock ping (100 tokens) dispatched to Gemini 2.5 Flash. Response: 200 OK (Latency: 172ms, Cost: ₹0.02)', false);
+            }
+          }, 600);
+        });
+      }
+
+      if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+          const icon = refreshBtn.querySelector('.material-symbols-outlined');
+          if (icon) icon.classList.add('animate-spin');
+          setTimeout(() => {
+            if (icon) icon.classList.remove('animate-spin');
+            appendAuditLog('Telemetry ledger synchronized with Mumbai HSM storage nodes.', false);
+          }, 500);
+        });
+      }
+    })();
+  </script>
+</body></html>

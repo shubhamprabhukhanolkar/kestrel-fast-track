@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }
+@keyframes pulse-ripple {
+  0% {
+    transform: scale(0.96);
+    box-shadow: 0 0 0 0 rgba(153, 138, 235, 0.65), 0 0 25px rgba(171, 159, 242, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(153, 138, 235, 0.25), 0 0 35px rgba(171, 159, 242, 0.35);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 16px rgba(153, 138, 235, 0), 0 0 20px rgba(153, 138, 235, 0.18);
+  }
+}
+@keyframes dot-radar {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}
+.animate-pulse-ripple {
+  animation: pulse-ripple 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.radar-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  border: 1.5px solid #ab9ff2;
+  pointer-events: none;
+  animation: dot-radar 0.6s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-primary": "#ffffff", "outline": "#747685", "on-surface-variant": "#434654", "on-surface": "#0b1c30", "primary-fixed-dim": "#b5c4ff", "surface-tint": "#2555cb", "secondary-fixed": "#97f3e4", "secondary-fixed-dim": "#7ad7c8", "on-tertiary-fixed": "#091b37", "on-tertiary-fixed-variant": "#374765", "inverse-on-surface": "#ebf1ff", "surface-container-high": "#dde9ff", "surface-container-lowest": "#ffffff", "tertiary": "#3c4c6a", "on-secondary-fixed": "#00201c", "surface": "#f8f9ff", "tertiary-fixed-dim": "#b7c7eb", "secondary-container": "#94f0e1", "primary-container": "#2d5bd1", "on-secondary": "#ffffff", "surface-variant": "#d3e3ff", "on-primary-fixed-variant": "#003dab", "on-error": "#ffffff", "inverse-surface": "#213146", "primary-fixed": "#dbe1ff", "on-secondary-fixed-variant": "#005048", "on-primary-container": "#d9e0ff", "surface-container-low": "#eff4ff", "error-container": "#ffdad6", "secondary": "#006a60", "surface-container": "#e6eeff", "outline-variant": "#c4c6d6", "on-secondary-container": "#006f64", "tertiary-fixed": "#d7e2ff", "surface-dim": "#cbdbf7", "on-primary-fixed": "#00174d", "primary": "#0041b6", "inverse-primary": "#b5c4ff", "on-background": "#0b1c30", "background": "#f8f9ff", "error": "#ba1a1a", "surface-bright": "#f8f9ff", "tertiary-container": "#546483", "on-error-container": "#93000a", "on-tertiary": "#ffffff", "surface-container-highest": "#d3e3ff", "on-tertiary-container": "#d5e1ff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "margin": "1.5rem", "space-xs": "0.25rem", "space-xl": "2rem", "space-md": "1rem", "space-sm": "0.5rem", "gutter": "1.25rem", "space-lg": "1.5rem" }, "fontFamily": { "label-md": ["Inter"], "title-md": ["Inter"], "headline-lg": ["Inter"], "headline-md": ["Inter"], "body-sm": ["Inter"], "label-sm": ["Inter"], "metric-num": ["Inter"], "body-md": ["Inter"], "headline-xl-mobile": ["Inter"], "title-sm": ["Inter"], "headline-xl": ["Inter"] }, "fontSize": { "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "title-md": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }], "metric-num": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-xl-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "title-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "600" }], "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }] } } } };</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/></head><body class="bg-[#0c0c0e] font-body-md text-[#e5e1e4] antialiased min-h-screen flex items-center justify-center relative selection:bg-[#998aeb]/30"><main class="w-full"><div class="flex flex-col w-full items-center justify-center p-gutter md:p-space-xl">
+<!-- Elevated Modal Security Gate -->
+<div class="w-full max-w-3xl bg-[#131316] border border-[#2d2b38] rounded-xl shadow-2xl p-space-md sm:p-space-xl relative overflow-hidden">
+<!-- Top Decorative Brand Line -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#7a6bf5] via-[#998aeb] to-[#10b981]"></div>
+<!-- Header Lockup -->
+<div class="flex flex-col gap-space-sm mb-space-lg"><div class="flex flex-wrap items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm"><img alt="Kestrel Finance Logo" class="w-9 h-9 object-contain rounded-lg bg-[#1a1922] border border-[#2d2b38] p-1 shadow-sm" src="https://lh3.googleusercontent.com/aida/ALJJyrC6OyM5Yqr7V9us6sLiv84PNVNTtE9UiilyQn8kDyAphT5gJL7WU7tZ1Fz5eppHVLCN7aokxahwNWkzD9RZc7x9MBP-Of1C7LbV1RVnpNrevuVNJP-603EI85zmTe06zLt0ZiiAJ6O65bCM65rspb6itL4IwYCYoAdwJ9ov6hhw6_koG6PrjVI4xE6lhFK4fIkhfxvY-qLLaF75t33DkkWDnPwRtE09bVQiWje2wDM"/><div class="flex flex-col"><span class="font-label-sm text-label-sm uppercase text-[#938f9d] tracking-wider">Enterprise Access Gateway</span><span class="font-title-md text-title-md text-[#f0edf7] font-semibold">Kestrel Finance · India Azure Tenancy Portal</span></div></div><div class="flex items-center gap-3"><div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#003824]/60 border border-[#10b981]/40 text-[#4edea3] shadow-sm"><span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified_user</span><span class="font-label-sm text-label-sm uppercase font-semibold tracking-wide">RBI Directive Compliant</span></div><div class="flex items-center bg-[#1a1924] border border-[#2d2b38] rounded-full p-1 gap-1"><button class="w-6 h-6 flex items-center justify-center rounded-full text-[#716e7f] hover:text-[#c9c4d3] transition-colors" type="button"><span class="material-symbols-outlined text-xs">light_mode</span></button><button class="w-6 h-6 flex items-center justify-center rounded-full bg-[#2a2444] text-[#c9beff] shadow-sm" type="button"><span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">dark_mode</span></button></div></div></div><p class="font-body-md text-body-md text-[#9e9aa8] max-w-2xl mt-1">Deterministic SME Underwriting &amp; Multi-Agent Verification Platform for &lt;₹25L Fast-Track Slices.</p></div>
+<!-- Active Persona Selection Subheading with Audio/Haptic Controls -->
+<div class="flex items-center justify-between mb-space-sm flex-wrap gap-2"><span class="font-label-sm text-label-sm uppercase text-[#b8b3c7] font-semibold tracking-wider flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#998aeb]"></span>Select Verified Operator Persona</span><div class="flex items-center gap-3"><button class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1b1928] hover:bg-[#252236] border border-[#37334d] text-xs font-mono text-[#c9beff] transition-all cursor-pointer shadow-sm group" id="hapticAudioToggle" onclick="toggleHapticsAudio()" title="Toggle audio chime and haptic feedback" type="button"><span class="material-symbols-outlined text-sm text-[#998aeb] group-hover:scale-110 transition-transform" id="hapticIcon">volume_up</span><span class="tracking-tight text-[11px] font-medium" id="hapticLabel">Haptics &amp; Audio: ON</span></button><span class="font-label-sm text-label-sm text-[#797585] font-mono hidden sm:inline">Role-Based Security Policy 4.2</span></div></div>
+<!-- Role Selector 2x2 Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm mb-space-lg" id="roleGrid"><div class="role-card cursor-pointer rounded-lg p-space-md transition-all duration-150 relative bg-[#18171d] hover:bg-[#201e28] border border-[#292735] hover:border-[#3d3a4e] text-[#e5e1e4]" onclick="selectRole(this, 'Vikram Rao', 'RM / Sales', 'Frontline Ingestion - L1', 'Frontline Ingestion')"><div class="flex items-start justify-between gap-space-xs mb-space-xs"><div class="flex items-center gap-2"><div class="w-4 h-4 rounded-full bg-[#121116] border border-[#383548] flex items-center justify-center role-radio shadow-inner relative"><span class="w-2 h-2 rounded-full bg-transparent role-dot"></span></div><span class="font-title-sm text-title-sm text-[#e5e1e4]">Vikram Rao</span></div><span class="px-2 py-0.5 rounded bg-[#252330] text-[#a9a5b6] font-label-sm text-label-sm border border-[#343144]">Frontline Ingestion</span></div><p class="font-body-sm text-body-sm text-[#938f9d] pl-6">Uploads borrower PDFs &amp; runs A1 completeness check. Generates customer chaser notes.</p></div><div class="role-card cursor-pointer rounded-lg p-space-md transition-all duration-150 relative bg-[#18171d] hover:bg-[#201e28] border border-[#292735] hover:border-[#3d3a4e] text-[#e5e1e4]" onclick="selectRole(this, 'Meena Pillai', 'Senior Credit Analyst', 'Underwriting QA - L2', 'Underwriting QA')"><div class="flex items-start justify-between gap-space-xs mb-space-xs"><div class="flex items-center gap-2"><div class="w-4 h-4 rounded-full bg-[#121116] border border-[#383548] flex items-center justify-center role-radio shadow-inner relative"><span class="w-2 h-2 rounded-full bg-transparent role-dot"></span></div><span class="font-title-sm text-title-sm text-[#e5e1e4]">Meena Pillai</span></div><span class="px-2 py-0.5 rounded bg-[#252330] text-[#a9a5b6] font-label-sm text-label-sm border border-[#343144]">Underwriting QA</span></div><p class="font-body-sm text-body-sm text-[#938f9d] pl-6">Verifies B1 cited extractions, reconciles 10% GST gaps, &amp; calibrates toner memo.</p></div><div class="role-card selected-role cursor-pointer rounded-lg p-space-md transition-all duration-150 relative bg-[#201c30] border-2 border-[#998aeb] shadow-[0_0_20px_rgba(153,138,235,0.18)] text-[#f0edf7]" onclick="selectRole(this, 'Arjun Iyer', 'CRO', 'CRO / Policy Sign-Off - L3', 'Final Sign-Off Authority')"><div class="flex items-start justify-between gap-space-xs mb-space-xs"><div class="flex items-center gap-2"><div class="w-4 h-4 rounded-full bg-[#998aeb] flex items-center justify-center role-radio shadow-sm relative"><span class="w-2 h-2 rounded-full bg-[#1b0063] role-dot"></span></div><span class="font-title-sm text-title-sm text-[#ffffff] font-bold">Arjun Iyer</span></div><span class="px-2 py-0.5 rounded bg-[#003824]/80 border border-[#10b981]/50 text-[#6ffbbe] font-label-sm text-label-sm font-semibold">Final Sign-Off Authority</span></div><p class="font-body-sm text-body-sm text-[#c9c4d3] pl-6">Reviews 1-page evidence dossier &amp; records mandatory final human credit signature.</p><span class="persona-selected-badge absolute top-2 right-2 text-[#998aeb] font-bold text-xs flex items-center gap-1"><span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span></span></div><div class="role-card cursor-pointer rounded-lg p-space-md transition-all duration-150 relative bg-[#18171d] hover:bg-[#201e28] border border-[#292735] hover:border-[#3d3a4e] text-[#e5e1e4]" onclick="selectRole(this, 'Farhan Qureshi', 'CIO / FinOps Admin', 'DevOps / Enclave Admin - L4', 'System Infrastructure')"><div class="flex items-start justify-between gap-space-xs mb-space-xs"><div class="flex items-center gap-2"><div class="w-4 h-4 rounded-full bg-[#121116] border border-[#383548] flex items-center justify-center role-radio shadow-inner relative"><span class="w-2 h-2 rounded-full bg-transparent role-dot"></span></div><span class="font-title-sm text-title-sm text-[#e5e1e4]">Farhan Qureshi</span></div><span class="px-2 py-0.5 rounded bg-[#252330] text-[#a9a5b6] font-label-sm text-label-sm border border-[#343144]">System Infrastructure</span></div><p class="font-body-sm text-body-sm text-[#938f9d] pl-6">Monitors backend LLM costs, token latency, &amp; Gemini-to-Groq failover redundancy.</p></div></div>
+<!-- Security & Architectural Guarantee Callout Box -->
+<div class="rounded-lg bg-[#16151c] border border-[#2b2938] p-space-sm mb-space-lg shadow-inner"><div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm"><div class="flex flex-col"><span class="font-label-sm text-label-sm uppercase text-[#7a7687] font-semibold">Tenancy Cluster</span><span class="font-body-sm text-body-sm font-semibold text-[#e5e1e4] font-mono mt-0.5">Azure-Central-India (Prod-Enclave-04)</span></div><div class="flex flex-col"><span class="font-label-sm text-label-sm uppercase text-[#7a7687] font-semibold">Sovereign Enclave ID</span><span class="font-body-sm text-body-sm font-semibold text-[#e5e1e4] font-mono mt-0.5">ENC-IN-8821-VNET</span></div><div class="flex flex-col"><span class="font-label-sm text-label-sm uppercase text-[#7a7687] font-semibold">Auth Method</span><span class="font-body-sm text-body-sm font-semibold text-[#e5e1e4] mt-0.5 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>FIDO2 Biometrics + YubiKey</span></div></div></div>
+<!-- Actions & CTA Section -->
+<div class="flex flex-col items-center gap-space-md"><button class="w-full py-3 px-8 rounded-lg bg-gradient-to-r from-[#7a6bf5] to-[#998aeb] hover:from-[#897bf8] hover:to-[#a99cf0] text-white font-title-sm text-title-sm font-semibold flex items-center justify-center gap-2 shadow-[0_4px_24px_rgba(122,107,245,0.35)] transition-all duration-150 active:scale-[0.99] focus:outline-none cursor-pointer" id="signInBtn"><span class="material-symbols-outlined text-lg">fingerprint</span><span id="btnLabel">Sign In to Workspace as Arjun Iyer (CRO)</span><span class="material-symbols-outlined text-lg">arrow_forward</span></button><div class="flex flex-wrap items-center justify-center gap-4 text-center"><a class="font-label-md text-label-md text-[#c9beff] hover:text-white transition-colors underline-offset-4 hover:underline" href="#request-override">Request Elevated Policy Override Privileges</a><span class="text-[#484555]">•</span><a class="font-label-md text-label-md text-[#938f9d] hover:text-[#e5e1e4] transition-colors flex items-center gap-1" href="#whitepaper"><span class="material-symbols-outlined text-sm">description</span> View Security Whitepaper</a></div></div>
+</div>
+</div>
+<!-- Floating Toast Container -->
+<div class="fixed bottom-6 right-6 z-50 transition-all duration-300 transform translate-y-6 opacity-0 pointer-events-none max-w-md w-full sm:w-auto" id="toastNotification">
+<div class="flex items-start gap-3.5 p-4 rounded-xl bg-[#161421]/95 backdrop-blur-md border border-[#3e3956] shadow-[0_12px_32px_rgba(0,0,0,0.6),0_0_24px_rgba(153,138,235,0.22)] text-[#e5e1e4]">
+<div class="w-9 h-9 rounded-lg bg-[#272144] border border-[#4d427d] flex items-center justify-center text-[#c9beff] shrink-0 mt-0.5 shadow-inner">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">badge</span>
+</div>
+<div class="flex flex-col gap-1.5 pr-1 flex-1">
+<div class="flex items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#10b981] animate-pulse"></span>
+<span class="font-title-sm text-sm text-[#ffffff] font-semibold tracking-tight">Active Persona Switched</span>
+</div>
+<span class="px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-[#2a2444] border border-[#4a3e7a] text-[#c9beff]" id="toastTierBadge">CRO / Policy Sign-Off - L3</span>
+</div>
+<p class="text-xs text-[#a9a4b8] leading-relaxed" id="toastMessage">
+        Loaded security policy &amp; permissions for <strong class="text-[#f0edf7] font-medium">Arjun Iyer</strong> (CRO) · Sovereign Enclave session mapped
+      </p>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-[#1d1930] border border-[#3d335f] text-[#c9beff]">
+<span class="material-symbols-outlined text-[12px] text-[#4edea3]">sensors</span>
+        Haptic Pulse: 42ms · Audio Ack: 880Hz
+      </span>
+</div>
+</div>
+<button aria-label="Dismiss toast" class="text-[#7d798e] hover:text-[#e5e1e4] transition-colors p-0.5 -mr-1 -mt-1 cursor-pointer" onclick="dismissToast()" type="button">
+<span class="material-symbols-outlined text-base">close</span>
+</button>
+</div>
+</div>
+<script>
+  let toastTimeout = null;
+  let audioHapticsEnabled = true;
+  let audioCtx = null;
+
+  function initAudioContext() {
+    if (!audioCtx) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass) {
+        audioCtx = new AudioContextClass();
+      }
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  }
+
+  function playCyberChime() {
+    if (!audioHapticsEnabled) return;
+    try {
+      initAudioContext();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime;
+
+      // Master gain node with swift exponential decay
+      const masterGain = audioCtx.createGain();
+      masterGain.gain.setValueAtTime(0.18, now);
+      masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.085);
+      masterGain.connect(audioCtx.destination);
+
+      // Primary tone: Sine wave frequency ramp 620Hz -> 1240Hz
+      const osc1 = audioCtx.createOscillator();
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(620, now);
+      osc1.frequency.exponentialRampToValueAtTime(1240, now + 0.045);
+
+      // Secondary tone: Soft triangle harmonic for crisp metallic cyber click
+      const osc2 = audioCtx.createOscillator();
+      osc2.type = 'triangle';
+      osc2.frequency.setValueAtTime(880, now);
+      osc2.frequency.exponentialRampToValueAtTime(1760, now + 0.04);
+
+      const osc2Gain = audioCtx.createGain();
+      osc2Gain.gain.setValueAtTime(0.12, now);
+      osc2Gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+
+      osc1.connect(masterGain);
+      osc2.connect(osc2Gain);
+      osc2Gain.connect(masterGain);
+
+      osc1.start(now);
+      osc2.start(now);
+      osc1.stop(now + 0.085);
+      osc2.stop(now + 0.085);
+    } catch (e) {
+      console.warn('Audio playback error', e);
+    }
+
+    // Native mobile haptic feedback fallback
+    if ('vibrate' in navigator) {
+      try {
+        navigator.vibrate([12, 25, 15]);
+      } catch (err) {}
+    }
+  }
+
+  function toggleHapticsAudio() {
+    audioHapticsEnabled = !audioHapticsEnabled;
+    const icon = document.getElementById('hapticIcon');
+    const label = document.getElementById('hapticLabel');
+    const toggleBtn = document.getElementById('hapticAudioToggle');
+
+    if (audioHapticsEnabled) {
+      if (icon) icon.textContent = 'volume_up';
+      if (label) label.textContent = 'Haptics & Audio: ON';
+      if (toggleBtn) {
+        toggleBtn.classList.remove('opacity-60');
+      }
+      playCyberChime();
+    } else {
+      if (icon) icon.textContent = 'volume_off';
+      if (label) label.textContent = 'Haptics & Audio: MUTED';
+      if (toggleBtn) {
+        toggleBtn.classList.add('opacity-60');
+      }
+    }
+  }
+
+  function dismissToast() {
+    const toast = document.getElementById('toastNotification');
+    if (!toast) return;
+    toast.classList.add('opacity-0', 'translate-y-6', 'pointer-events-none');
+    toast.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+    if (toastTimeout) {
+      clearTimeout(toastTimeout);
+      toastTimeout = null;
+    }
+  }
+
+  function showToast(name, roleTitle, clearanceTier) {
+    const toast = document.getElementById('toastNotification');
+    const toastBadge = document.getElementById('toastTierBadge');
+    const toastMsg = document.getElementById('toastMessage');
+    if (!toast) return;
+
+    if (toastTimeout) {
+      clearTimeout(toastTimeout);
+    }
+
+    if (toastBadge) {
+      toastBadge.textContent = clearanceTier;
+    }
+    if (toastMsg) {
+      toastMsg.innerHTML = `Loaded security policy &amp; permissions for <strong class="text-[#f0edf7] font-medium">${name}</strong> (${roleTitle}) · Sovereign Enclave session mapped`;
+    }
+
+    // Trigger animation
+    toast.classList.remove('opacity-0', 'translate-y-6', 'pointer-events-none');
+    toast.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+
+    toastTimeout = setTimeout(() => {
+      dismissToast();
+    }, 3500);
+  }
+
+  function selectRole(element, name, roleTitle, clearanceTier, categoryLabel) {
+    // Fire synthetic chime and haptic feedback
+    playCyberChime();
+
+    const cards = document.querySelectorAll('.role-card');
+    cards.forEach(card => {
+      card.classList.remove('selected-role', 'bg-[#201c30]', 'border-2', 'border-[#998aeb]', 'shadow-[0_0_20px_rgba(153,138,235,0.18)]', 'text-[#f0edf7]', 'animate-pulse-ripple');
+      card.classList.add('bg-[#18171d]', 'border', 'border-[#292735]', 'text-[#e5e1e4]');
+      
+      const badgeIcon = card.querySelector('.persona-selected-badge');
+      if (badgeIcon) badgeIcon.remove();
+
+      const existingRings = card.querySelectorAll('.radar-ring');
+      existingRings.forEach(r => r.remove());
+
+      const radio = card.querySelector('.role-radio');
+      const dot = card.querySelector('.role-dot');
+      if (radio && dot) {
+        radio.className = 'w-4 h-4 rounded-full bg-[#121116] border border-[#383548] flex items-center justify-center role-radio shadow-inner relative';
+        dot.className = 'w-2 h-2 rounded-full bg-transparent role-dot';
+      }
+
+      const title = card.querySelector('.font-title-sm');
+      if (title) {
+        title.classList.remove('font-bold', 'text-[#ffffff]');
+        title.classList.add('text-[#e5e1e4]');
+      }
+    });
+
+    element.classList.remove('bg-[#18171d]', 'border', 'border-[#292735]');
+    element.classList.add('selected-role', 'bg-[#201c30]', 'border-2', 'border-[#998aeb]', 'shadow-[0_0_20px_rgba(153,138,235,0.18)]', 'text-[#f0edf7]', 'animate-pulse-ripple');
+
+    const radio = element.querySelector('.role-radio');
+    const dot = element.querySelector('.role-dot');
+    if (radio && dot) {
+      radio.className = 'w-4 h-4 rounded-full bg-[#998aeb] flex items-center justify-center role-radio shadow-sm relative';
+      dot.className = 'w-2 h-2 rounded-full bg-[#1b0063] role-dot';
+
+      // Inject visual radar ring on selection dot
+      const radar = document.createElement('span');
+      radar.className = 'radar-ring';
+      radio.appendChild(radar);
+    }
+
+    const title = element.querySelector('.font-title-sm');
+    if (title) {
+      title.classList.add('font-bold', 'text-[#ffffff]');
+      title.classList.remove('text-[#e5e1e4]');
+    }
+
+    const badge = document.createElement('span');
+    badge.className = 'persona-selected-badge absolute top-2 right-2 text-[#998aeb] font-bold text-xs flex items-center gap-1';
+    badge.innerHTML = '<span class="material-symbols-outlined text-sm" style="font-variation-settings: \'FILL\' 1;">check_circle</span>';
+    element.appendChild(badge);
+
+    const btnLabel = document.getElementById('btnLabel');
+    if (btnLabel) {
+      btnLabel.textContent = `Sign In to Workspace as ${name} (${roleTitle})`;
+    }
+
+    // Trigger the enterprise floating toast
+    showToast(name, roleTitle, clearanceTier);
+  }
+</script></main></body></html>

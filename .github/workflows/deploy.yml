@@ -1,0 +1,117 @@
+name: Test and deploy Kestrel Fast-Track to Cloud Run
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+env:
+  PROJECT_ID: slabspro-slabsuser37
+  REGION: asia-south1
+  GAR_REPOSITORY: omnistream-repo
+  SERVICE_NAME: kestrel-fast-track
+  IMAGE_NAME: asia-south1-docker.pkg.dev/slabspro-slabsuser37/omnistream-repo/kestrel-fast-track
+concurrency:
+  group: kestrel-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: kestrel_test
+          POSTGRES_USER: kestrel_test
+          POSTGRES_PASSWORD: isolated-ci-test-password
+        ports:
+          - 5432:5432
+        options: --health-cmd="pg_isready -U kestrel_test -d kestrel_test" --health-interval=5s --health-timeout=5s --health-retries=10
+    env:
+      TEST_DATABASE_URL: postgresql+psycopg://kestrel_test:isolated-ci-test-password@127.0.0.1:5432/kestrel_test
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: '0.13.7'
+          enable-cache: true
+      - run: uv python install 3.12
+      - run: uv sync --frozen
+      - run: uv run pytest -q
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+        working-directory: frontend
+      - run: npm run build
+        working-directory: frontend
+  deploy:
+    if: ${{ vars.DEPLOY_ENABLED == 'true' }}
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      RUNTIME_SERVICE_ACCOUNT: ${{ vars.RUNTIME_SERVICE_ACCOUNT }}
+      TASK_SERVICE_ACCOUNT: ${{ vars.TASK_SERVICE_ACCOUNT }}
+      DOCUMENTS_BUCKET: ${{ vars.DOCUMENTS_BUCKET }}
+      CLOUD_SQL_CONNECTION: ${{ vars.CLOUD_SQL_CONNECTION }}
+      SERVICE_URL: ${{ vars.SERVICE_URL }}
+      IAP_AUDIENCE: ${{ vars.IAP_AUDIENCE }}
+      IAP_ROLE_MAP: ${{ vars.IAP_ROLE_MAP }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate live deployment configuration
+        run: |
+          python - <<'PY'
+          import json, os
+          required = ['RUNTIME_SERVICE_ACCOUNT','TASK_SERVICE_ACCOUNT','DOCUMENTS_BUCKET','CLOUD_SQL_CONNECTION','SERVICE_URL','IAP_AUDIENCE','IAP_ROLE_MAP']
+          missing = [key for key in required if not os.environ.get(key)]
+          if missing:
+              raise SystemExit('Live deployment requires repository variables: ' + ', '.join(missing))
+          json.loads(os.environ['IAP_ROLE_MAP'])
+          values = {key: os.environ[key] for key in ['TASK_SERVICE_ACCOUNT','DOCUMENTS_BUCKET','SERVICE_URL','IAP_AUDIENCE','IAP_ROLE_MAP']}
+          values.update(GCP_PROJECT='slabspro-slabsuser37',GCP_REGION='asia-south1',VERTEX_LOCATION='asia-south1',VERTEX_MODEL_NAME='gemini-3-flash-preview',DEMO_MODE='false',AUTH_MODE='iap',APP_ENV='production',SECURE_COOKIES='true',SEED_SAMPLE_CASES='true',SEED_TELEMETRY='false',TASK_BACKEND='cloud_tasks',TASKS_QUEUE='kestrel-pipeline',STATIC_DIR='/app/static')
+          with open('.runtime-env.yml','w') as f: json.dump(values,f)
+          PY
+      # Mirrors p1.yml exactly: service-account JSON, not invented WIF identifiers.
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS || secrets.GCP_SA_KEY }}
+      - uses: google-github-actions/setup-gcloud@v2
+        with:
+          version: '>= 460.0.0'
+      - name: Configure Artifact Registry Docker auth
+        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
+      - name: Ensure existing lab registry
+        run: |
+          gcloud artifacts repositories describe "$GAR_REPOSITORY" --location="$REGION" --project="$PROJECT_ID" --quiet || \
+          gcloud artifacts repositories create "$GAR_REPOSITORY" --repository-format=docker --location="$REGION" --project="$PROJECT_ID" --quiet
+      - name: Build and push unified image
+        run: |
+          docker build --tag "$IMAGE_NAME:${{ github.sha }}" --tag "$IMAGE_NAME:latest" --file Dockerfile .
+          docker push "$IMAGE_NAME:${{ github.sha }}"
+          docker push "$IMAGE_NAME:latest"
+      - name: Deploy live authenticated workbench
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+          service: ${{ env.SERVICE_NAME }}
+          region: ${{ env.REGION }}
+          image: ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          flags: '--no-allow-unauthenticated --ingress=internal-and-cloud-load-balancing --service-account=${{ env.RUNTIME_SERVICE_ACCOUNT }} --add-cloudsql-instances=${{ env.CLOUD_SQL_CONNECTION }} --port=8080 --min-instances=1 --max-instances=3 --concurrency=8 --memory=2Gi --cpu=2 --no-cpu-throttling --timeout=600s'
+          env_vars_file: .runtime-env.yml
+          secrets: |
+            DATABASE_URL=kestrel-database-url:latest
+            GROQ_API_KEY=kestrel-groq-api-key:latest
+      - name: Grant authenticated task invocation
+        run: gcloud run services add-iam-policy-binding "$SERVICE_NAME" --region="$REGION" --project="$PROJECT_ID" --member="serviceAccount:$TASK_SERVICE_ACCOUNT" --role=roles/run.invoker --quiet
+      - name: Report service URL
+        env:
+          SERVICE_URL: ${{ steps.deploy.outputs.url }}
+        run: echo "Kestrel live service deployed to $SERVICE_URL; use the configured IAP gateway for operator access"

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><title>Final • Verification &amp; Sign-Off (Dark)</title><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><style>
+  @layer base { 
+    html, body { margin: 0; padding: 0; background-color: #0A0A0E; } 
+    body { overscroll-behavior: none; } 
+    main > :first-child { margin-top: 0 !important; } 
+    main > :last-child { margin-bottom: 0 !important; } 
+  } 
+  ::-webkit-scrollbar { display: none; }
+  .phantom-glass {
+    background: rgba(22, 22, 31, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .phantom-card {
+    background: #12121A;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .phantom-glow-btn {
+    background: linear-gradient(135deg, #AB9FF2 0%, #7A6BF5 50%, #6350E8 100%);
+    box-shadow: 0 0 24px -2px rgba(122, 107, 245, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  }
+  .phantom-glow-btn:hover {
+    box-shadow: 0 0 32px 0px rgba(122, 107, 245, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  }
+</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-bright": "#39393b",
+          "primary-fixed": "#e6deff",
+          "surface-container": "#201f21",
+          "surface-container-low": "#16161f",
+          "surface-raised": "#18181F",
+          "on-secondary": "#1000a9",
+          "surface-base": "#111116",
+          "on-secondary-container": "#b0b2ff",
+          "tertiary-container": "#00ac77",
+          "tertiary-fixed": "#6ffbbe",
+          "surface-tint": "#c9beff",
+          "on-primary": "#1b0d5c",
+          "background": "#0a0a0e",
+          "accent-lavender-glow": "#AB9FF2",
+          "phantom-purple": "#7A6BF5",
+          "on-background": "#e5e1e4",
+          "secondary": "#c0c1ff",
+          "neon-cyan": "#06B6D4",
+          "outline": "#938f9d",
+          "surface-overlay": "#22222B",
+          "on-secondary-fixed-variant": "#2f2ebe",
+          "surface-deep": "#07070a",
+          "secondary-fixed": "#e1e0ff",
+          "border-subtle": "#252533",
+          "primary-container": "#7a6bf5",
+          "inverse-on-surface": "#313032",
+          "error-container": "#3f1418",
+          "on-surface": "#f1eff7",
+          "inverse-surface": "#e5e1e4",
+          "on-tertiary-fixed-variant": "#005236",
+          "primary-fixed-dim": "#c9beff",
+          "surface": "#0d0d12",
+          "surface-container-high": "#222129",
+          "on-tertiary": "#003824",
+          "on-surface-variant": "#9e9aab",
+          "border-highlight": "#38364D",
+          "on-primary-container": "#f4f1ff",
+          "accent-violet-deep": "#221438",
+          "tertiary": "#4edea3",
+          "surface-container-lowest": "#0b0b0f",
+          "inverse-primary": "#5f50ad",
+          "outline-variant": "#2d2c38",
+          "secondary-fixed-dim": "#c0c1ff",
+          "on-error": "#690005",
+          "error": "#ff6b81",
+          "primary": "#AB9FF2",
+          "surface-dim": "#131315",
+          "status-danger": "#EF4444",
+          "neon-mint": "#10B981",
+          "surface-variant": "#1c1b24",
+          "on-tertiary-fixed": "#002113",
+          "on-tertiary-container": "#003723",
+          "on-secondary-fixed": "#07006c",
+          "surface-container-highest": "#282733",
+          "secondary-container": "#3131c0",
+          "on-error-container": "#ffb4ab",
+          "tertiary-fixed-dim": "#4edea3",
+          "on-primary-fixed": "#1b0063",
+          "on-primary-fixed-variant": "#473793"
+        },
+        borderRadius: {
+          "DEFAULT": "0.75rem",
+          "lg": "1.25rem",
+          "xl": "1.75rem",
+          "full": "9999px"
+        },
+        spacing: {
+          "gutter": "1.25rem",
+          "space-xl": "2.25rem",
+          "gutter-lg": "2rem",
+          "gutter-md": "1.5rem",
+          "margin-lg": "3rem",
+          "margin": "1.5rem",
+          "margin-md": "2rem",
+          "space-sm": "0.5rem",
+          "space-xs": "0.25rem",
+          "space-md": "1rem",
+          "space-lg": "1.5rem"
+        },
+        fontFamily: {
+          "body-md": ["Plus Jakarta Sans", "sans-serif"],
+          "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+          "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+          "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+          "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+          "headline-xl": ["Plus Jakarta Sans", "sans-serif"],
+          "label-lg": ["Space Grotesk", "sans-serif"],
+          "label-md": ["Space Grotesk", "sans-serif"],
+          "label-sm": ["Space Grotesk", "sans-serif"],
+          "title-md": ["Plus Jakarta Sans", "sans-serif"],
+          "title-sm": ["Plus Jakarta Sans", "sans-serif"],
+          "metric-num": ["Space Grotesk", "monospace"],
+          "mono": ["JetBrains Mono", "monospace"]
+        }
+      }
+    }
+  };</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-phantom-purple selection:text-white min-h-screen flex flex-col"><header class="fixed top-0 left-0 w-full z-50 bg-[#0a0a0e]/85 backdrop-blur-xl border-b border-white/[0.07]"><div class="h-16 w-full px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#AB9FF2] to-[#6350E8] p-0.5 shadow-[0_0_16px_rgba(171,159,242,0.4)] flex items-center justify-center"><img alt="Kestrel Finance Logo" class="h-6 w-auto object-contain brightness-0 invert" src="https://lh3.googleusercontent.com/aida/ALJJyrC6OyM5Yqr7V9us6sLiv84PNVNTtE9UiilyQn8kDyAphT5gJL7WU7tZ1Fz5eppHVLCN7aokxahwNWkzD9RZc7x9MBP-Of1C7LbV1RVnpNrevuVNJP-603EI85zmTe06zLt0ZiiAJ6O65bCM65rspb6itL4IwYCYoAdwJ9ov6hhw6_koG6PrjVI4xE6lhFK4fIkhfxvY-qLLaF75t33DkkWDnPwRtE09bVQiWje2wDM"/></div><span class="font-title-md text-[17px] text-white tracking-tight font-extrabold flex items-center gap-1.5">Kestrel<span class="text-accent-lavender-glow font-normal">Finance</span></span><span class="px-2.5 py-0.5 rounded-full bg-[#1e1b33] text-accent-lavender-glow font-label-sm text-[11px] border border-accent-lavender-glow/30 shadow-[0_0_10px_rgba(171,159,242,0.15)]">&lt;₹25L Fast-Track Pilot</span></div><nav class="flex items-center gap-1 bg-[#14141d] p-1 rounded-xl border border-white/[0.05]" data-active-classes="bg-gradient-to-r from-[#AB9FF2] to-[#7A6BF5] text-[#12082b] font-semibold shadow-md"><a class="px-3.5 py-1.5 rounded-lg font-title-sm text-[13px] text-on-surface-variant hover:text-white hover:bg-white/[0.04] transition-all" data-path="intake-extraction" href="#">Intake &amp; Extraction</a><a class="px-3.5 py-1.5 rounded-lg font-title-sm text-[13px] bg-[#221f36] text-accent-lavender-glow border border-accent-lavender-glow/30 font-semibold shadow-[0_0_12px_rgba(171,159,242,0.15)]" data-path="verification-sign-off" href="#">Verification &amp; Sign-Off</a><a class="px-3.5 py-1.5 rounded-lg font-title-sm text-[13px] text-on-surface-variant hover:text-white hover:bg-white/[0.04] transition-all" data-path="prompt-toner-studio" href="#">Prompt &amp; Toner Studio</a><a class="px-3.5 py-1.5 rounded-lg font-title-sm text-[13px] text-on-surface-variant hover:text-white hover:bg-white/[0.04] transition-all" data-path="finops-api-health" href="#">FinOps &amp; API Health</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden xl:flex items-center gap-space-xs bg-[#12121a] px-3.5 py-1.5 rounded-full border border-white/[0.08] text-white"><span class="w-2 h-2 rounded-full bg-neon-mint shadow-[0_0_8px_#10B981] animate-pulse"></span><span class="font-label-sm text-[11px] text-on-surface-variant font-medium">Backend Proxy Active (Zero Frontend LLM Calls) · Primary: Gemini 2.5 Flash <span class="text-neon-mint font-semibold">(Online)</span> · Backup: Groq Llama-3.3-70B <span class="text-on-surface-variant">(Standby)</span> · Session: <span class="text-accent-lavender-glow font-semibold font-mono">₹4.82</span></span></div><div class="flex items-center bg-[#14141d] p-1 rounded-xl border border-white/[0.06] shadow-sm mr-2.5"><button aria-label="Switch to light mode" class="flex items-center justify-center w-6 h-6 rounded-lg text-on-surface-variant hover:text-white transition-colors" title="Light Mode" type="button"><span class="material-symbols-outlined text-xs">light_mode</span></button><button aria-label="Dark mode active" class="flex items-center justify-center w-6 h-6 rounded-lg bg-[#221f36] text-accent-lavender-glow border border-accent-lavender-glow/30 shadow-[0_0_10px_rgba(171,159,242,0.2)] transition-colors" title="Dark Mode" type="button"><span class="material-symbols-outlined text-xs">dark_mode</span></button></div><div class="flex items-center gap-space-sm pl-space-sm border-l border-white/[0.08]"><div class="flex items-center gap-space-xs text-right"><div class="flex flex-col"><span class="font-label-md text-[13px] text-white font-semibold leading-none">Arjun Iyer</span><span class="font-label-sm text-[11px] text-accent-lavender-glow/80 leading-none mt-1">Credit Manager / CRO</span></div><button class="flex items-center text-on-surface-variant hover:text-white transition-colors p-0.5"><span class="material-symbols-outlined text-sm">arrow_drop_down</span></button></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-accent-lavender-glow/60 shadow-[0_0_12px_rgba(171,159,242,0.3)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZztgoy4hLC7cpANwv8gB-xSmU_aDvxQa_mJFhXwifkuV5BueL--z5ZYb1RzQC22EAKBWj6wM0rzlObg89wNCgraepugX_sRRMs9DfvuzpiggE5LiQQE8T4lekk4CWfp4Ni3imr7ZlHuumOSqQZKgNNX1lulwqdlJ8v7PU1NvNM84-KGhYClFKURwj9B35-joMvYeMmHUHBr46oZG8lNjLiqsVXsqTF7SqJgjnr30"/></div></div></div><div class="h-8 w-full bg-[#0d0d14]/90 backdrop-blur-md border-t border-white/[0.05] px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm font-label-sm text-[11px] text-on-surface-variant"><span class="material-symbols-outlined text-[13px] text-neon-mint">verified_user</span><span>Underwriting Environment: Non-Repudiated Dual Ledger · Indian Sovereign Cloud (Mumbai Data Isolation)</span></div><div class="flex items-center gap-space-md font-label-sm text-[11px] text-on-surface-variant"><span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px] text-accent-lavender-glow">lock</span>Tamper-Evident SHA-256 Enabled</span><span class="text-neon-mint font-medium px-2 py-0.5 rounded bg-neon-mint/10 border border-neon-mint/20">RBI SME Compliant (&lt;₹25L)</span></div></div></header><main class="w-full pt-24 bg-background min-h-[calc(100vh-80px)] flex-1"><div class="flex flex-col w-full">
+<div class="w-full px-margin py-3.5 bg-gradient-to-r from-[#111118] via-[#141420] to-[#111118] border-b border-white/[0.06]">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#2a2254] to-[#181430] border border-accent-lavender-glow/30 flex items-center justify-center text-accent-lavender-glow shadow-[0_0_18px_rgba(171,159,242,0.25)] flex-shrink-0">
+<span class="material-symbols-outlined text-2xl">account_balance</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-xl md:text-2xl text-white font-extrabold tracking-tight truncate">Shree Ganesh Surgicals</span>
+<span class="font-body-sm text-sm text-on-surface-variant font-medium">(Prop. Rajesh V. Patil)</span>
+<span class="px-2 py-0.5 rounded-full bg-accent-lavender-glow/10 text-accent-lavender-glow border border-accent-lavender-glow/20 font-label-sm text-[10px] uppercase font-bold tracking-wider">Fast-Track Pilot</span>
+</div>
+<div class="flex items-center gap-space-sm font-label-md text-xs text-on-surface-variant mt-1">
+<span>Ticket: <strong class="font-metric-num text-sm text-white font-semibold">₹18,50,000</strong></span>
+<span class="text-white/20">·</span>
+<span class="flex items-center gap-1 text-neon-mint font-medium">
+<span class="material-symbols-outlined text-xs">verified</span>
+              Step 3–5 Verification &amp; Sign-Off
+            </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-md flex-shrink-0">
+<div class="flex items-center gap-2.5 bg-[#14141e] px-4 py-2 rounded-xl border border-white/[0.08] shadow-sm">
+<div class="flex flex-col text-right">
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase font-medium tracking-wider">Risk Grade</span>
+<span class="font-title-sm text-sm text-neon-mint font-bold flex items-center justify-end gap-1">B+ <span class="text-[11px] font-normal text-on-surface-variant">(Low Delinquency)</span></span>
+</div>
+<div class="w-8 h-8 rounded-lg bg-neon-mint/15 border border-neon-mint/30 flex items-center justify-center text-neon-mint shadow-[0_0_12px_rgba(16,185,129,0.25)]">
+<span class="material-symbols-outlined text-sm">shield</span>
+</div>
+</div>
+<div class="hidden lg:flex items-center gap-2.5 bg-[#14141e] px-4 py-2 rounded-xl border border-white/[0.08] shadow-sm">
+<div class="flex flex-col text-right">
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase font-medium tracking-wider">Sign-Off SLA</span>
+<span class="font-title-sm text-sm text-accent-lavender-glow font-bold font-mono">04m : 18s elapsed</span>
+</div>
+<div class="w-8 h-8 rounded-lg bg-accent-lavender-glow/15 border border-accent-lavender-glow/30 flex items-center justify-center text-accent-lavender-glow shadow-[0_0_12px_rgba(171,159,242,0.25)]">
+<span class="material-symbols-outlined text-sm">timer</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full px-margin py-space-md">
+<div class="grid grid-cols-1 lg:grid-cols-10 gap-gutter items-start">
+<section class="lg:col-span-5 flex flex-col gap-space-md">
+<div class="phantom-card rounded-2xl shadow-xl overflow-hidden flex flex-col">
+<div class="px-space-md py-3 bg-[#161622] border-b border-white/[0.06] flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-lavender-glow text-lg">table_chart</span>
+<h2 class="font-title-sm text-sm font-semibold text-white">Steps 3 &amp; 4 · Cited Spreading Sheet &amp; 10% GST Reconciliation</h2>
+</div>
+<span class="font-label-sm text-[11px] bg-[#222232] text-accent-lavender-glow border border-accent-lavender-glow/20 px-2 py-0.5 rounded-full font-medium">4 Core Metrics</span>
+</div>
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-[#0e0e15] font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wider border-b border-white/[0.05]">
+<th class="py-3 px-space-md font-semibold">Field / Month</th>
+<th class="py-3 px-space-sm font-semibold">Extracted Value</th>
+<th class="py-3 px-space-sm font-semibold">Source Citation</th>
+<th class="py-3 px-space-sm font-semibold">Critique Agent Status</th>
+<th class="py-3 px-space-md text-right font-semibold">Analyst Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/[0.04] font-body-sm text-[13px] text-on-surface">
+<tr class="bg-[#171724]/70 hover:bg-[#1a1a2b] transition-colors cursor-pointer group" id="row-1">
+<td class="py-3.5 px-space-md">
+<div class="font-title-sm text-[13px] font-semibold text-white">Avg Monthly Bank Credit</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant">HDFC Primary A/c #4902</div>
+</td>
+<td class="py-3.5 px-space-sm font-metric-num text-sm text-white font-semibold">
+                    ₹14,20,000
+                  </td>
+<td class="py-3.5 px-space-sm">
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#272147] border border-[#AB9FF2]/40 text-accent-lavender-glow font-label-sm text-[11px] font-medium shadow-[0_0_10px_rgba(171,159,242,0.15)] hover:bg-[#342c61] transition-all" type="button">
+<span class="material-symbols-outlined text-[13px]">description</span>
+<span>Bank PDF · p.4, L18</span>
+</button>
+</td>
+<td class="py-3.5 px-space-sm">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-950/60 border border-neon-mint/30 text-neon-mint font-label-sm text-[11px] font-medium shadow-[0_0_10px_rgba(16,185,129,0.15)]">
+<span class="material-symbols-outlined text-[12px]">check_circle</span>
+                      Verified · 99% Conf
+                    </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#142921] border border-neon-mint/40 text-neon-mint font-label-sm text-[11px] font-semibold hover:bg-neon-mint/20 transition-all shadow-xs" type="button">
+<span class="material-symbols-outlined text-xs">done_all</span>
+                      Approved
+                    </button>
+</td>
+</tr>
+<tr class="hover:bg-[#161622] transition-colors cursor-pointer group" id="row-2">
+<td class="py-3.5 px-space-md">
+<div class="font-title-sm text-[13px] font-semibold text-white">GSTR-3B Reported Turnover</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant">Q2 FY25 Consolidated</div>
+</td>
+<td class="py-3.5 px-space-sm font-metric-num text-sm text-white font-semibold">
+                    ₹12,45,000
+                  </td>
+<td class="py-3.5 px-space-sm">
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#1e1e2b] border border-white/[0.08] text-on-surface-variant hover:text-white font-label-sm text-[11px] hover:bg-[#28283a] transition-all" type="button">
+<span class="material-symbols-outlined text-[13px]">receipt_long</span>
+<span>GST PDF · p.2, B4</span>
+</button>
+</td>
+<td class="py-3.5 px-space-sm">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-950/60 border border-amber-500/40 text-amber-400 font-label-sm text-[11px] font-semibold shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+<span class="material-symbols-outlined text-[12px]">warning</span>
+                      12.3% Variance (&gt;10% Rule)
+                    </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#2e1d15] border border-amber-500/40 text-amber-300 font-label-sm text-[11px] font-semibold hover:bg-amber-500/20 transition-all shadow-xs" type="button">
+<span class="material-symbols-outlined text-xs">tune</span>
+                      Edit / Confirm
+                    </button>
+</td>
+</tr>
+<tr class="hover:bg-[#161622] transition-colors cursor-pointer group" id="row-3">
+<td class="py-3.5 px-space-md">
+<div class="font-title-sm text-[13px] font-semibold text-white">Average Monthly Balance (AMB)</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant">Trailing 6 Months Mean</div>
+</td>
+<td class="py-3.5 px-space-sm font-metric-num text-sm text-white font-semibold">
+                    ₹3,85,000
+                  </td>
+<td class="py-3.5 px-space-sm">
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#1e1e2b] border border-white/[0.08] text-on-surface-variant hover:text-white font-label-sm text-[11px] hover:bg-[#28283a] transition-all" type="button">
+<span class="material-symbols-outlined text-[13px]">description</span>
+<span>Bank PDF · p.12, L42</span>
+</button>
+</td>
+<td class="py-3.5 px-space-sm">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-950/60 border border-neon-mint/30 text-neon-mint font-label-sm text-[11px] font-medium shadow-[0_0_10px_rgba(16,185,129,0.15)]">
+<span class="material-symbols-outlined text-[12px]">check_circle</span>
+                      Verified · 98% Conf
+                    </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#142921] border border-neon-mint/40 text-neon-mint font-label-sm text-[11px] font-semibold hover:bg-neon-mint/20 transition-all shadow-xs" type="button">
+<span class="material-symbols-outlined text-xs">done_all</span>
+                      Approved
+                    </button>
+</td>
+</tr>
+<tr class="hover:bg-[#161622] transition-colors cursor-pointer group" id="row-4">
+<td class="py-3.5 px-space-md">
+<div class="font-title-sm text-[13px] font-semibold text-white">Inward Cheque Bounces</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant">CTS Clearance Log</div>
+</td>
+<td class="py-3.5 px-space-sm font-metric-num text-sm text-error font-semibold">
+                    1 (Oct 2025)
+                  </td>
+<td class="py-3.5 px-space-sm">
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#1e1e2b] border border-white/[0.08] text-on-surface-variant hover:text-white font-label-sm text-[11px] hover:bg-[#28283a] transition-all" type="button">
+<span class="material-symbols-outlined text-[13px]">description</span>
+<span>Bank PDF · p.7, L09</span>
+</button>
+</td>
+<td class="py-3.5 px-space-sm">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#201d2d] border border-accent-lavender-glow/30 text-accent-lavender-glow font-label-sm text-[11px] font-medium">
+<span class="material-symbols-outlined text-[12px]">flag</span>
+                      Technical Bounce
+                    </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1e1e2b] border border-white/[0.1] text-on-surface-variant hover:text-white font-label-sm text-[11px] font-semibold hover:bg-[#28283a] transition-all" type="button">
+<span class="material-symbols-outlined text-xs">rule</span>
+                      Override / Log
+                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-space-md py-3 bg-[#0d0d14] border-t border-white/[0.05] flex flex-col md:flex-row md:items-center justify-between gap-space-xs text-on-surface-variant font-label-sm text-[11px]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-xs text-accent-lavender-glow">insights</span>
+<span>Analyst Correction Rate: <strong class="text-white font-medium">1 of 12 fields adjusted (8.3%)</strong> · Est. Time Saved: <strong class="text-neon-mint font-semibold">3.1 hrs</strong></span>
+</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant/80 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-accent-lavender-glow">fingerprint</span>
+<span>SHA256: <code class="font-mono text-accent-lavender-glow/90 bg-[#161622] px-1.5 py-0.5 rounded border border-white/[0.06]">9b4f7e2a...31a</code></span>
+</div>
+</div>
+</div>
+<div class="phantom-card rounded-2xl p-space-md shadow-xl">
+<div class="flex items-center justify-between mb-3">
+<span class="font-title-sm text-sm font-semibold text-white flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-lavender-glow"></span>
+                Reconciliation Delta Heatmap
+              </span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">GST vs Banking Velocity</span>
+</div>
+<div class="grid grid-cols-6 gap-2">
+<div class="p-2.5 rounded-xl bg-[#171722] border border-white/[0.04] flex flex-col items-center">
+<span class="font-label-sm text-[11px] text-on-surface-variant">May</span>
+<span class="font-title-sm text-sm text-neon-mint font-bold font-mono">+2.1%</span>
+</div>
+<div class="p-2.5 rounded-xl bg-[#171722] border border-white/[0.04] flex flex-col items-center">
+<span class="font-label-sm text-[11px] text-on-surface-variant">Jun</span>
+<span class="font-title-sm text-sm text-neon-mint font-bold font-mono">+4.0%</span>
+</div>
+<div class="p-2.5 rounded-xl bg-[#171722] border border-white/[0.04] flex flex-col items-center">
+<span class="font-label-sm text-[11px] text-on-surface-variant">Jul</span>
+<span class="font-title-sm text-sm text-neon-mint font-bold font-mono">+1.8%</span>
+</div>
+<div class="p-2.5 rounded-xl bg-[#171722] border border-white/[0.04] flex flex-col items-center">
+<span class="font-label-sm text-[11px] text-on-surface-variant">Aug</span>
+<span class="font-title-sm text-sm text-neon-mint font-bold font-mono">+3.2%</span>
+</div>
+<div class="p-2.5 rounded-xl bg-[#171722] border border-white/[0.04] flex flex-col items-center">
+<span class="font-label-sm text-[11px] text-on-surface-variant">Sep</span>
+<span class="font-title-sm text-sm text-neon-mint font-bold font-mono">+5.1%</span>
+</div>
+<div class="p-2.5 rounded-xl bg-amber-950/40 border border-amber-500/30 flex flex-col items-center shadow-[0_0_12px_rgba(245,158,11,0.15)]">
+<span class="font-label-sm text-[11px] text-amber-400 font-semibold">Oct</span>
+<span class="font-title-sm text-sm text-amber-300 font-bold font-mono">+12.3%</span>
+</div>
+</div>
+<div class="mt-3 flex items-center justify-between text-on-surface-variant font-label-sm text-xs">
+<span>Historical threshold (±10.0%) breached only in festival month (Diwali prep).</span>
+<span class="text-accent-lavender-glow font-medium cursor-pointer hover:underline flex items-center gap-1">View 12-Month Matrix →</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-md">
+<div class="p-space-md rounded-2xl phantom-card shadow-xl flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-[#1b2b22] border border-neon-mint/30 flex items-center justify-center text-neon-mint shadow-[0_0_14px_rgba(16,185,129,0.2)]">
+<span class="material-symbols-outlined text-xl">trending_up</span>
+</div>
+<div>
+<div class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">Calc. DSCR Ratio</div>
+<div class="font-metric-num text-xl text-white font-bold">1.84x</div>
+<div class="font-label-sm text-[11px] text-neon-mint font-medium">≥ 1.35x Min Required</div>
+</div>
+</div>
+<div class="p-space-md rounded-2xl phantom-card shadow-xl flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-[#251e44] border border-accent-lavender-glow/30 flex items-center justify-center text-accent-lavender-glow shadow-[0_0_14px_rgba(171,159,242,0.2)]">
+<span class="material-symbols-outlined text-xl">monetization_on</span>
+</div>
+<div>
+<div class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">Recommended Cap</div>
+<div class="font-metric-num text-xl text-white font-bold">₹22.40L</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant">Capped to Ticket: ₹18.50L</div>
+</div>
+</div>
+</div>
+</section>
+<section class="lg:col-span-5 flex flex-col gap-space-md">
+<div class="phantom-card rounded-2xl shadow-xl overflow-hidden flex flex-col">
+<div class="px-space-md py-3 bg-[#161622] border-b border-white/[0.06] flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-lavender-glow text-lg">find_in_page</span>
+<h3 class="font-title-sm text-sm font-semibold text-white">PDF Source Traceability Preview · Bank Statement</h3>
+</div>
+<span class="font-label-sm text-[11px] px-2.5 py-0.5 rounded-full bg-[#272147] border border-accent-lavender-glow/40 text-accent-lavender-glow font-mono font-bold shadow-[0_0_10px_rgba(171,159,242,0.2)]">p.4, L18</span>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-[11px] pb-2 border-b border-white/[0.05]">
+<span class="font-mono text-accent-lavender-glow">HDFC_Bank_12M_Statement.pdf</span>
+<span>Page 4 of 38 · OCR Match: <span class="text-neon-mint font-semibold font-mono">99.4%</span></span>
+</div>
+<div class="p-4 rounded-xl bg-[#09090d] border border-white/[0.06] font-mono text-[12px] leading-relaxed overflow-x-auto relative">
+<div class="text-white/30 text-[11px] mb-1.5 select-none font-mono">... [Lines 14-17: Supplier RTGS &amp; Tax Deductions] ...</div>
+<div class="py-1 text-on-surface-variant/80">
+                12-Oct-2025 | CHQ CLG-MEDIKIT LABS | DR ₹1,20,400.00 | Bal: ₹4,25,210.50
+              </div>
+<div class="my-1.5 py-1.5 px-3 rounded-lg bg-[#241e44]/80 border border-accent-lavender-glow/50 text-white flex items-center justify-between shadow-[0_0_16px_rgba(171,159,242,0.25)] ring-1 ring-accent-lavender-glow/30">
+<span class="font-semibold text-white tracking-tight">
+                  15-Oct-2025 | NEFT CR-MEDISURG PHARMA-SALES REC | ₹14,20,000.00 | Bal: ₹18,45,210.50
+                </span>
+<span class="material-symbols-outlined text-sm text-accent-lavender-glow flex-shrink-0 ml-2">verified</span>
+</div>
+<div class="py-1 text-on-surface-variant/80">
+                18-Oct-2025 | UPI-COLLECTION HOSP DISP | CR ₹84,500.00 | Bal: ₹19,29,710.50
+              </div>
+<div class="text-white/30 text-[11px] mt-1.5 select-none font-mono">... [Lines 20-32: Utility Payments &amp; Merchant settlements] ...</div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-[11px] text-on-surface-variant bg-[#14141e] px-3 py-2 rounded-lg border border-white/[0.04]">
+<div class="flex items-center gap-1.5 font-mono">
+<span class="material-symbols-outlined text-xs text-accent-lavender-glow">crop_free</span>
+<span class="text-white/90">Box: [x:120, y:340, w:480, h:24]</span>
+</div>
+<span class="text-neon-mint font-medium flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-neon-mint"></span>Exact String Match · Token Latency 142ms</span>
+</div>
+</div>
+</div>
+<div class="phantom-card rounded-2xl shadow-xl overflow-hidden flex flex-col">
+<div class="px-space-md py-3 bg-[#161622] border-b border-white/[0.06] flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-lavender-glow text-lg">draw</span>
+<h3 class="font-title-sm text-sm font-semibold text-white">Step 5 · One-Page Evidence Dossier &amp; Human Credit Decision</h3>
+</div>
+<span class="font-label-sm text-[11px] bg-neon-mint/15 text-neon-mint border border-neon-mint/30 px-2.5 py-0.5 rounded-full font-bold shadow-[0_0_10px_rgba(16,185,129,0.15)]">Dual-Sign Off</span>
+</div>
+<div class="p-space-md flex flex-col gap-space-md">
+<div class="p-3.5 rounded-xl bg-error-container/40 border border-error/30 text-white flex items-start gap-3 shadow-[0_0_12px_rgba(255,107,129,0.1)]">
+<span class="material-symbols-outlined text-error text-xl mt-0.5 flex-shrink-0">policy</span>
+<div>
+<div class="font-label-sm text-[10px] text-error uppercase font-bold tracking-wider">Mandatory Regulatory Guardrail</div>
+<div class="font-body-sm text-[13px] font-semibold text-white mt-0.5 leading-snug">
+                  NO MODEL APPROVES CREDIT. Named human credit manager signature required under RBI SME Lending Circular Guidelines 2024.
+                </div>
+</div>
+</div>
+<div class="p-3.5 rounded-xl bg-[#14141f] border border-white/[0.05] flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-xs text-accent-lavender-glow uppercase font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-accent-lavender-glow">auto_awesome</span>
+                  Toner-Formatted Summary Note
+                </span>
+<span class="font-label-sm text-[11px] text-on-surface-variant font-mono">Analyst: Meena Pillai (Pre-cleared)</span>
+</div>
+<p class="font-body-sm text-[13px] text-on-surface-variant leading-relaxed mt-1">
+<strong class="text-white">Reconciliation finding:</strong> 12.3% variance between Bank Inflows (₹14.2L/mo) and GSTR-3B (₹12.45L/mo) is substantiated by 15% counter cash receipts documented in RM gap notes. Cash flow debt service coverage ratio (DSCR) remains healthy at <strong class="text-white font-mono">1.84x</strong>. Inward cheque bounce of Oct 2025 flagged as CTS clearing technical issue (Drawer stamp missing; re-presented and cleared on 17-Oct-2025).
+              </p>
+</div>
+<form class="flex flex-col gap-space-md" onsubmit="event.preventDefault(); showAuditConfirmation();">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-[11px] text-on-surface-variant uppercase font-semibold tracking-wider">Credit Manager Determination</label>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+<label class="relative flex items-center p-3 rounded-xl bg-[#161622] border border-neon-mint/40 cursor-pointer hover:border-neon-mint transition-all group shadow-[0_0_12px_rgba(16,185,129,0.15)]">
+<input checked="" class="w-4 h-4 text-accent-lavender-glow accent-accent-lavender-glow mr-2.5 bg-black/40 border-white/20" name="credit_decision" type="radio" value="approve"/>
+<div class="flex flex-col">
+<span class="font-title-sm text-xs text-neon-mint font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+                        Approve Policy
+                      </span>
+<span class="font-label-sm text-[11px] text-on-surface-variant font-mono font-medium">Ticket: ₹18.50L</span>
+</div>
+</label>
+<label class="relative flex items-center p-3 rounded-xl bg-[#161622] border border-white/[0.08] cursor-pointer hover:border-white/[0.2] transition-all group">
+<input class="w-4 h-4 text-accent-lavender-glow accent-accent-lavender-glow mr-2.5 bg-black/40 border-white/20" name="credit_decision" type="radio" value="query"/>
+<div class="flex flex-col">
+<span class="font-title-sm text-xs text-white font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-accent-lavender-glow">help</span>
+                        Return to RM
+                      </span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Raise Query</span>
+</div>
+</label>
+<label class="relative flex items-center p-3 rounded-xl bg-[#161622] border border-white/[0.08] cursor-pointer hover:border-white/[0.2] transition-all group">
+<input class="w-4 h-4 text-accent-lavender-glow accent-accent-lavender-glow mr-2.5 bg-black/40 border-white/20" name="credit_decision" type="radio" value="decline"/>
+<div class="flex flex-col">
+<span class="font-title-sm text-xs text-error font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">cancel</span>
+                        Decline
+                      </span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Breach limits</span>
+</div>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-[11px] text-on-surface-variant uppercase font-semibold tracking-wider" for="rationale">Mandatory Underwriting Rationale (CRO Audit Record)</label>
+<span class="font-label-sm text-[11px] text-accent-lavender-glow font-medium flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-lavender-glow"></span>
+                    Key Verification Anchors Linked
+                  </span>
+</div>
+<textarea class="w-full p-3 rounded-xl bg-[#0e0e15] border border-white/[0.08] text-white font-body-sm text-[13px] leading-relaxed focus:outline-none focus:border-accent-lavender-glow/70 focus:ring-1 focus:ring-accent-lavender-glow/50 shadow-inner resize-none transition-all" id="rationale" rows="3">Verified against HDFC statement p.4 &amp; GSTR-3B p.2. Variance within acceptable cash-receipt policy exception for surgical distributors in Maharashtra region. Technical CTS bounce cleared. Approved for ₹18,50,000 at 13.25% ROI.</textarea>
+</div>
+<div class="pt-1 flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-[11px]">
+<span class="material-symbols-outlined text-accent-lavender-glow text-sm">key</span>
+<span>HSM Key: <code class="font-mono text-accent-lavender-glow bg-[#171724] px-1.5 py-0.5 rounded border border-white/[0.05]">0x9E11..C204</code> · Sovereign Enclave</span>
+</div>
+<button class="w-full md:w-auto px-6 py-3 rounded-xl phantom-glow-btn text-white font-title-sm text-sm font-bold transition-all flex items-center justify-center gap-2" id="sign-btn" type="submit">
+<span class="material-symbols-outlined text-base">lock_open</span>
+<span>Sign &amp; Record Audit Outcome (Arjun Iyer, CRO)</span>
+</button>
+</div>
+</form>
+<div class="hidden p-3.5 rounded-xl bg-neon-mint/15 border border-neon-mint/40 text-neon-mint font-label-md text-xs flex items-center justify-between shadow-[0_0_18px_rgba(16,185,129,0.2)]" id="confirmation-banner">
+<span class="flex items-center gap-2 font-medium">
+<span class="material-symbols-outlined text-base">verified</span>
+                Audit event logged permanently to dual ledger · Docket #KF-2025-0912 dispatched to LMS.
+              </span>
+<span class="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-neon-mint/20 border border-neon-mint/30">BLOCK #819441</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<script>
+    function showAuditConfirmation() {
+      const banner = document.getElementById('confirmation-banner');
+      const btn = document.getElementById('sign-btn');
+      if (banner && btn) {
+        btn.innerHTML = '<span class="material-symbols-outlined text-base">lock</span><span>Signed & Verified (Immutable)</span>';
+        btn.classList.remove('phantom-glow-btn');
+        btn.classList.add('bg-[#1a2d24]', 'border', 'border-neon-mint/50', 'text-neon-mint', 'cursor-not-allowed', 'opacity-90', 'shadow-[0_0_16px_rgba(16,185,129,0.2)]');
+        btn.disabled = true;
+        banner.classList.remove('hidden');
+      }
+    }
+  </script>
+</div></main><footer class="w-full bg-[#0a0a0d] border-t border-white/[0.06] py-space-md"><div class="w-full px-margin flex flex-col md:flex-row items-center justify-between gap-space-sm font-label-sm text-[11px] text-on-surface-variant"><div>© 2025 Kestrel Finance Technologies Ltd. Regulated NBFC Lending Partner Integration Core.</div><div class="flex items-center gap-space-md"><span>Policy Framework: <span class="text-white font-mono">v4.2.1-Prod</span></span><span>Enclave Key: <span class="text-accent-lavender-glow font-mono">HSM-KMS-0091</span></span><span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-neon-mint"></span>Status: All Systems Nominal</span></div></div></footer>
+</body></html>

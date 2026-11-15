@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            obsidian: "#0F172A",
+            indigo: {
+              primary: "#4F46E5",
+              hover: "#4338CA",
+              soft: "#E0E7FF",
+              text: "#4338CA"
+            },
+            mint: {
+              accent: "#10B981",
+              soft: "#D1FAE5",
+              text: "#059669"
+            },
+            peach: {
+              soft: "#FFEDD5",
+              text: "#C2410C"
+            },
+            canvas: "#F8FAFC",
+            card: "#FFFFFF",
+            borderSlate: "#E2E8F0"
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          borderRadius: {
+            'xl': '12px'
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-[#F8FAFC] font-sans text-slate-800 antialiased selection:bg-[#4F46E5]/15 selection:text-[#4F46E5]">
+<!-- Header: Obsidian Black (#0F172A) with crisp white text -->
+<header class="fixed top-0 left-0 w-full z-50 bg-[#0F172A] border-b border-slate-800 shadow-md">
+<div class="h-16 w-full px-6 flex items-center justify-between gap-4">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<img alt="Kestrel Finance Logo" class="h-7 w-auto object-contain brightness-110" src="https://lh3.googleusercontent.com/aida/ALJJyrC6OyM5Yqr7V9us6sLiv84PNVNTtE9UiilyQn8kDyAphT5gJL7WU7tZ1Fz5eppHVLCN7aokxahwNWkzD9RZc7x9MBP-Of1C7LbV1RVnpNrevuVNJP-603EI85zmTe06zLt0ZiiAJ6O65bCM65rspb6itL4IwYCYoAdwJ9ov6hhw6_koG6PrjVI4xE6lhFK4fIkhfxvY-qLLaF75t33DkkWDnPwRtE09bVQiWje2wDM"/>
+<span class="text-base text-white tracking-tight font-bold">Kestrel Finance</span>
+<span class="px-2 py-0.5 rounded-full bg-[#10B981]/20 text-[#10B981] text-xs font-semibold border border-[#10B981]/30">₹25L Fast-Track Pilot</span>
+</div>
+<nav class="hidden md:flex items-center gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800">
+<a class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all" data-path="intake-extraction" href="#">Intake &amp; Extraction</a>
+<a class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#4F46E5] text-white shadow-sm transition-all" data-path="verification-sign-off" href="#">Verification &amp; Sign-Off</a>
+<a class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all" data-path="prompt-toner-studio" href="#">Prompt &amp; Toner Studio</a>
+<a class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all" data-path="finops-api-health" href="#">FinOps &amp; API Health</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden xl:flex items-center gap-2 bg-slate-900/90 px-3.5 py-1.5 rounded-full border border-slate-700/60 text-white">
+<span class="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
+<span class="text-xs text-slate-300 font-medium">
+            Backend Proxy Active · GenAI: Gemini 2.5 Flash <span class="text-[#10B981] font-semibold">(Online)</span> · Backup: Groq Llama-3.3 <span class="text-slate-400">(Standby)</span> · Session: <span class="text-white font-semibold">₹4.82</span>
+</span>
+</div>
+<div class="flex items-center gap-2.5 pl-2 border-l border-slate-800">
+<div class="flex items-center gap-1 text-right">
+<div class="flex flex-col">
+<span class="text-xs text-white font-semibold leading-tight">Arjun Iyer</span>
+<span class="text-[11px] text-slate-400 leading-tight">Credit Manager / CRO</span>
+</div>
+<button class="text-slate-400 hover:text-white transition-colors p-0.5" type="button">
+<span class="material-symbols-outlined text-base">arrow_drop_down</span>
+</button>
+</div>
+<img alt="Arjun Iyer Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-[#4F46E5]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZztgoy4hLC7cpANwv8gB-xSmU_aDvxQa_mJFhXwifkuV5BueL--z5ZYb1RzQC22EAKBWj6wM0rzlObg89wNCgraepugX_sRRMs9DfvuzpiggE5LiQQE8T4lekk4CWfp4Ni3imr7ZlHuumOSqQZKgNNX1lulwqdlJ8v7PU1NvNM84-KGhYClFKURwj9B35-joMvYeMmHUHBr46oZG8lNjLiqsVXsqTF7SqJgjnr30"/>
+</div>
+</div>
+</div>
+<!-- Sub-bar -->
+<div class="h-7 w-full bg-slate-900/95 border-t border-slate-800/80 px-6 flex items-center justify-between text-xs text-slate-400">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px] text-[#10B981]">verified_user</span>
+<span>Dual Ledger Underwriting Environment · Sovereign Enclave (Mumbai Region)</span>
+</div>
+<div class="flex items-center gap-4 text-[11px]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">lock</span>Tamper-Evident SHA-256</span>
+<span class="text-[#10B981] font-medium">RBI SME Compliant (&lt;₹25L)</span>
+</div>
+</div>
+</header>
+<!-- Main Canvas: Pearl White (#F8FAFC) -->
+<main class="w-full pt-24 bg-[#F8FAFC] min-h-[calc(100vh-60px)] pb-12">
+<div class="flex flex-col w-full">
+<!-- Borrower Context Header -->
+<div class="w-full px-6 py-4 bg-white border-b border-[#E2E8F0]">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-10 h-10 rounded-xl bg-[#4F46E5] flex items-center justify-center text-white shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-xl">account_balance</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="text-xl text-slate-900 font-bold truncate">Shree Ganesh Surgicals</span>
+<span class="text-xs text-slate-500 font-medium">(Prop. Rajesh V. Patil)</span>
+<span class="px-2 py-0.5 rounded-full bg-[#E0E7FF] text-[#4338CA] text-xs font-semibold uppercase tracking-wide">Fast-Track Pilot</span>
+</div>
+<div class="flex items-center gap-2.5 text-xs text-slate-500 mt-1">
+<span>Facility Ticket: <strong class="text-slate-900 font-bold font-mono text-sm">₹18,50,000</strong></span>
+<span>•</span>
+<span class="flex items-center gap-1 text-[#059669] font-medium">
+<span class="material-symbols-outlined text-xs">verified</span>
+                  Step 3–5 Verification &amp; Sign-Off
+                </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 flex-shrink-0">
+<div class="flex items-center gap-2.5 bg-white border border-[#E2E8F0] px-3.5 py-1.5 rounded-xl shadow-xs">
+<div class="flex flex-col text-right">
+<span class="text-[10px] text-slate-400 uppercase font-semibold tracking-wider">Risk Grade</span>
+<span class="text-xs text-[#059669] font-bold">B+ (Low Delinquency)</span>
+</div>
+<div class="w-7 h-7 rounded-lg bg-[#D1FAE5] flex items-center justify-center text-[#059669]">
+<span class="material-symbols-outlined text-sm">shield</span>
+</div>
+</div>
+<div class="hidden sm:flex items-center gap-2.5 bg-white border border-[#E2E8F0] px-3.5 py-1.5 rounded-xl shadow-xs">
+<div class="flex flex-col text-right">
+<span class="text-[10px] text-slate-400 uppercase font-semibold tracking-wider">Sign-Off SLA</span>
+<span class="text-xs text-[#4F46E5] font-semibold font-mono">04m : 18s elapsed</span>
+</div>
+<div class="w-7 h-7 rounded-lg bg-[#E0E7FF] flex items-center justify-center text-[#4F46E5]">
+<span class="material-symbols-outlined text-sm">timer</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Layout Columns -->
+<div class="w-full px-6 py-6">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Left Column (Spreadsheet, Heatmap, Metrics) -->
+<section class="lg:col-span-6 flex flex-col gap-6">
+<!-- 5-Column Spreading Table Card -->
+<div class="bg-white rounded-xl border border-[#E2E8F0] shadow-sm overflow-hidden flex flex-col">
+<div class="px-5 py-3.5 bg-slate-50/80 border-b border-[#E2E8F0] flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#4F46E5] text-lg">table_chart</span>
+<h2 class="text-sm font-semibold text-slate-900">Steps 3 &amp; 4 · Cited Spreading Sheet &amp; 10% GST Reconciliation</h2>
+</div>
+<span class="text-[11px] bg-white border border-[#E2E8F0] text-slate-600 px-2 py-0.5 rounded-md font-medium">4 Core Metrics</span>
+</div>
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50/50 border-b border-[#E2E8F0] text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+<th class="py-2.5 px-4">Field / Month</th>
+<th class="py-2.5 px-3">Extracted Value</th>
+<th class="py-2.5 px-3">Source Citation</th>
+<th class="py-2.5 px-3">Critique Agent Status</th>
+<th class="py-2.5 px-4 text-right">Analyst Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#E2E8F0] text-xs text-slate-700">
+<!-- Row 1: Passed -->
+<tr class="hover:bg-slate-50/70 transition-colors" id="row-1">
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">Avg Monthly Bank Credit</div>
+<div class="text-[11px] text-slate-400">HDFC Primary A/c #4902</div>
+</td>
+<td class="py-3.5 px-3 font-mono font-semibold text-slate-900">
+                        ₹14,20,000
+                      </td>
+<td class="py-3.5 px-3">
+<button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#E0E7FF] text-[#4338CA] text-xs font-medium hover:bg-[#c7d2fe] transition-all" type="button">
+<span class="material-symbols-outlined text-xs">description</span>
+<span>Bank PDF · p.4, L18</span>
+</button>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#D1FAE5] text-[#059669] text-xs font-semibold">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+                          Verified · 99% Conf
+                        </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-[#059669] text-white text-xs font-medium shadow-xs hover:bg-[#047857] transition-all" type="button">
+<span class="material-symbols-outlined text-xs">done_all</span>
+                          Approved
+                        </button>
+</td>
+</tr>
+<!-- Row 2: Flagged / Variance -->
+<tr class="hover:bg-slate-50/70 transition-colors bg-amber-50/20" id="row-2">
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">GSTR-3B Reported Turnover</div>
+<div class="text-[11px] text-slate-400">Q2 FY25 Consolidated</div>
+</td>
+<td class="py-3.5 px-3 font-mono font-semibold text-slate-900">
+                        ₹12,45,000
+                      </td>
+<td class="py-3.5 px-3">
+<button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#E0E7FF] text-[#4338CA] text-xs font-medium hover:bg-[#c7d2fe] transition-all" type="button">
+<span class="material-symbols-outlined text-xs">receipt_long</span>
+<span>GST PDF · p.2, B4</span>
+</button>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FFEDD5] text-[#C2410C] text-xs font-semibold">
+<span class="material-symbols-outlined text-xs">warning</span>
+                          12.3% Variance (&gt;10% Rule)
+                        </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FFEDD5] text-[#C2410C] border border-[#FED7AA] text-xs font-medium shadow-2xs hover:bg-[#FDBA74]/30 transition-all" type="button">
+<span class="material-symbols-outlined text-xs">tune</span>
+                          Edit / Confirm
+                        </button>
+</td>
+</tr>
+<!-- Row 3: Passed -->
+<tr class="hover:bg-slate-50/70 transition-colors" id="row-3">
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">Average Monthly Balance (AMB)</div>
+<div class="text-[11px] text-slate-400">Trailing 6 Months Mean</div>
+</td>
+<td class="py-3.5 px-3 font-mono font-semibold text-slate-900">
+                        ₹3,85,000
+                      </td>
+<td class="py-3.5 px-3">
+<button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#E0E7FF] text-[#4338CA] text-xs font-medium hover:bg-[#c7d2fe] transition-all" type="button">
+<span class="material-symbols-outlined text-xs">description</span>
+<span>Bank PDF · p.12, L42</span>
+</button>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#D1FAE5] text-[#059669] text-xs font-semibold">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+                          Verified · 98% Conf
+                        </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-[#059669] text-white text-xs font-medium shadow-xs hover:bg-[#047857] transition-all" type="button">
+<span class="material-symbols-outlined text-xs">done_all</span>
+                          Approved
+                        </button>
+</td>
+</tr>
+<!-- Row 4: Flagged -->
+<tr class="hover:bg-slate-50/70 transition-colors" id="row-4">
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">Inward Cheque Bounces</div>
+<div class="text-[11px] text-slate-400">CTS Clearance Log</div>
+</td>
+<td class="py-3.5 px-3 font-mono font-semibold text-[#C2410C]">
+                        1 (Oct 2025)
+                      </td>
+<td class="py-3.5 px-3">
+<button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#E0E7FF] text-[#4338CA] text-xs font-medium hover:bg-[#c7d2fe] transition-all" type="button">
+<span class="material-symbols-outlined text-xs">description</span>
+<span>Bank PDF · p.7, L09</span>
+</button>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-xs font-medium border border-slate-200">
+<span class="material-symbols-outlined text-xs">flag</span>
+                          Technical Bounce
+                        </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-200 text-xs font-medium hover:bg-slate-200/80 transition-all" type="button">
+<span class="material-symbols-outlined text-xs">rule</span>
+                          Override / Log
+                        </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Spreading Table Footer -->
+<div class="px-5 py-2.5 bg-slate-50/80 border-t border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-600">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-[#4F46E5]">insights</span>
+<span>Analyst Correction Rate: <strong class="text-slate-900">1 of 12 fields adjusted (8.3%)</strong> · Est. Time Saved: <strong class="text-[#059669] font-semibold">3.1 hrs</strong></span>
+</div>
+<div class="flex items-center gap-1 text-[11px] text-slate-400 font-mono">
+<span class="material-symbols-outlined text-xs">fingerprint</span>
+<span>SHA256: 9b4f7e2a...31a</span>
+</div>
+</div>
+</div>
+<!-- Reconciliation Delta Heatmap -->
+<div class="bg-white rounded-xl border border-[#E2E8F0] p-5 shadow-sm">
+<div class="flex items-center justify-between mb-3.5">
+<span class="text-sm font-semibold text-slate-900">Reconciliation Delta Heatmap</span>
+<span class="text-xs text-slate-400">GST vs Banking Velocity</span>
+</div>
+<div class="grid grid-cols-6 gap-2.5">
+<div class="p-2.5 rounded-lg bg-slate-50 border border-[#E2E8F0] flex flex-col items-center">
+<span class="text-[11px] text-slate-500 font-medium">May</span>
+<span class="text-sm text-[#059669] font-bold font-mono">+2.1%</span>
+</div>
+<div class="p-2.5 rounded-lg bg-slate-50 border border-[#E2E8F0] flex flex-col items-center">
+<span class="text-[11px] text-slate-500 font-medium">Jun</span>
+<span class="text-sm text-[#059669] font-bold font-mono">+4.0%</span>
+</div>
+<div class="p-2.5 rounded-lg bg-slate-50 border border-[#E2E8F0] flex flex-col items-center">
+<span class="text-[11px] text-slate-500 font-medium">Jul</span>
+<span class="text-sm text-[#059669] font-bold font-mono">+1.8%</span>
+</div>
+<div class="p-2.5 rounded-lg bg-slate-50 border border-[#E2E8F0] flex flex-col items-center">
+<span class="text-[11px] text-slate-500 font-medium">Aug</span>
+<span class="text-sm text-[#059669] font-bold font-mono">+3.2%</span>
+</div>
+<div class="p-2.5 rounded-lg bg-slate-50 border border-[#E2E8F0] flex flex-col items-center">
+<span class="text-[11px] text-slate-500 font-medium">Sep</span>
+<span class="text-sm text-[#059669] font-bold font-mono">+5.1%</span>
+</div>
+<div class="p-2.5 rounded-lg bg-[#FFEDD5] border border-[#FED7AA] flex flex-col items-center">
+<span class="text-[11px] text-[#C2410C] font-semibold">Oct</span>
+<span class="text-sm text-[#C2410C] font-bold font-mono">+12.3%</span>
+</div>
+</div>
+<div class="mt-3.5 flex items-center justify-between text-xs text-slate-500">
+<span>Historical threshold (±10.0%) breached only in festival month (Diwali prep).</span>
+<a class="text-[#4F46E5] font-semibold hover:underline flex items-center gap-0.5" href="#">
+                  View 12-Month Matrix →
+                </a>
+</div>
+</div>
+<!-- Mini Metric Cards -->
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 rounded-xl bg-white border border-[#E2E8F0] shadow-sm flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-lg bg-[#D1FAE5] flex items-center justify-center text-[#059669] flex-shrink-0">
+<span class="material-symbols-outlined text-2xl">trending_up</span>
+</div>
+<div>
+<div class="text-[11px] text-slate-400 uppercase font-semibold">Calc. DSCR Ratio</div>
+<div class="text-xl font-bold font-mono text-slate-900">1.84x</div>
+<div class="text-[11px] text-[#059669] font-semibold">≥ 1.35x Min Required</div>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-white border border-[#E2E8F0] shadow-sm flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-lg bg-[#E0E7FF] flex items-center justify-center text-[#4F46E5] flex-shrink-0">
+<span class="material-symbols-outlined text-2xl">monetization_on</span>
+</div>
+<div>
+<div class="text-[11px] text-slate-400 uppercase font-semibold">Recommended Cap</div>
+<div class="text-xl font-bold font-mono text-slate-900">₹22.40L</div>
+<div class="text-[11px] text-slate-500">Capped to Ticket: ₹18.50L</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column (PDF Source Traceability & Step 5 Human Sign-Off Dossier) -->
+<section class="lg:col-span-6 flex flex-col gap-6">
+<!-- PDF Source Traceability Preview -->
+<div class="bg-white rounded-xl border border-[#E2E8F0] shadow-sm overflow-hidden flex flex-col">
+<div class="px-5 py-3.5 bg-slate-50/80 border-b border-[#E2E8F0] flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#4F46E5] text-lg">find_in_page</span>
+<h3 class="text-sm font-semibold text-slate-900">PDF Source Traceability Preview · Bank Statement</h3>
+</div>
+<span class="text-xs px-2.5 py-0.5 rounded-full bg-[#4F46E5] text-white font-mono font-medium">p.4, L18</span>
+</div>
+<div class="p-5 flex flex-col gap-3">
+<div class="flex items-center justify-between text-xs text-slate-500 pb-1.5 border-b border-[#E2E8F0]">
+<span class="font-mono text-slate-600">HDFC_Bank_12M_Statement.pdf</span>
+<span>Page 4 of 38 · OCR Match: <span class="text-[#059669] font-bold font-mono">99.4%</span></span>
+</div>
+<div class="p-3.5 rounded-lg bg-slate-900 text-slate-200 font-mono text-xs leading-relaxed overflow-x-auto relative">
+<div class="text-slate-500 text-[11px] mb-1 select-none">... [Lines 14-17: Supplier RTGS &amp; Tax Deductions] ...</div>
+<div class="py-1 text-slate-400">
+                    12-Oct-2025 | CHQ CLG-MEDIKIT LABS | DR ₹1,20,400.00 | Bal: ₹4,25,210.50
+                  </div>
+<div class="py-1.5 px-2.5 rounded bg-[#4F46E5]/25 border border-[#4F46E5]/50 text-white flex items-center justify-between shadow-xs">
+<span class="font-bold text-white">
+                      15-Oct-2025 | NEFT CR-MEDISURG PHARMA-SALES REC | ₹14,20,000.00 | Bal: ₹18,45,210.50
+                    </span>
+<span class="material-symbols-outlined text-sm text-[#10B981] flex-shrink-0 ml-2">verified</span>
+</div>
+<div class="py-1 text-slate-400">
+                    18-Oct-2025 | UPI-COLLECTION HOSP DISP | CR ₹84,500.00 | Bal: ₹19,29,710.50
+                  </div>
+<div class="text-slate-500 text-[11px] mt-1 select-none">... [Lines 20-32: Utility Payments &amp; Merchant settlements] ...</div>
+</div>
+<div class="flex items-center justify-between text-xs text-slate-500 bg-slate-50 px-3 py-2 rounded-lg border border-[#E2E8F0]">
+<div class="flex items-center gap-1.5 font-mono text-[11px]">
+<span class="material-symbols-outlined text-xs text-[#4F46E5]">crop_free</span>
+<span>Box: [x:120, y:340, w:480, h:24]</span>
+</div>
+<span class="text-[#059669] font-medium flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span> Exact String Match · Token Latency 142ms
+                  </span>
+</div>
+</div>
+</div>
+<!-- Step 5 Dossier & Credit Sign-Off -->
+<div class="bg-white rounded-xl border border-[#E2E8F0] shadow-sm overflow-hidden flex flex-col">
+<div class="px-5 py-3.5 bg-slate-50/80 border-b border-[#E2E8F0] flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#4F46E5] text-lg">draw</span>
+<h3 class="text-sm font-semibold text-slate-900">Step 5 · One-Page Evidence Dossier &amp; Human Credit Decision</h3>
+</div>
+<span class="text-xs bg-[#D1FAE5] text-[#059669] px-2.5 py-0.5 rounded-full font-bold border border-[#A7F3D0]">Dual-Sign Off</span>
+</div>
+<div class="p-5 flex flex-col gap-4">
+<!-- Mandatory Guardrail -->
+<div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-slate-800 flex items-start gap-3">
+<span class="material-symbols-outlined text-amber-600 text-xl mt-0.5 flex-shrink-0">gavel</span>
+<div>
+<div class="text-xs text-amber-800 uppercase font-bold tracking-wider">Mandatory Regulatory Guardrail</div>
+<div class="text-xs font-semibold text-slate-800 mt-0.5 leading-snug">
+                      NO MODEL APPROVES CREDIT. Named human credit manager signature required under RBI SME Lending Circular Guidelines 2024.
+                    </div>
+</div>
+</div>
+<!-- GenAI Toner-Formatted Summary Note -->
+<div class="p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="text-xs text-[#4338CA] font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-[#10B981]">auto_awesome</span>
+                      Toner-Formatted Summary Note
+                    </span>
+<span class="text-[11px] text-slate-400">Analyst: Meena Pillai (Pre-cleared)</span>
+</div>
+<p class="text-xs text-slate-700 leading-relaxed mt-1">
+<strong>Reconciliation finding:</strong> 12.3% variance between Bank Inflows (₹14.2L/mo) and GSTR-3B (₹12.45L/mo) is substantiated by 15% counter cash receipts documented in RM gap notes. Cash flow debt service coverage ratio (DSCR) remains healthy at <strong>1.84x</strong>. Inward cheque bounce of Oct 2025 flagged as CTS clearing technical issue (Drawer stamp missing; re-presented and cleared on 17-Oct-2025).
+                  </p>
+</div>
+<!-- Decision Form -->
+<form class="flex flex-col gap-4" onsubmit="event.preventDefault(); showAuditConfirmation();">
+<div class="flex flex-col gap-1.5">
+<label class="text-xs text-slate-700 uppercase font-bold tracking-wider">Credit Manager Determination</label>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+<label class="relative flex items-center p-3 rounded-xl border-2 border-[#4F46E5] bg-[#E0E7FF]/20 cursor-pointer transition-all">
+<input checked="" class="w-4 h-4 text-[#4F46E5] accent-[#4F46E5] mr-2.5" name="credit_decision" type="radio" value="approve"/>
+<div class="flex flex-col">
+<span class="text-xs text-[#059669] font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+                            Approve Policy
+                          </span>
+<span class="text-[11px] text-slate-500 font-medium">Ticket: ₹18.50L</span>
+</div>
+</label>
+<label class="relative flex items-center p-3 rounded-xl border border-[#E2E8F0] bg-white cursor-pointer hover:border-slate-300 transition-all">
+<input class="w-4 h-4 text-[#4F46E5] accent-[#4F46E5] mr-2.5" name="credit_decision" type="radio" value="query"/>
+<div class="flex flex-col">
+<span class="text-xs text-slate-800 font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">help</span>
+                            Return to RM
+                          </span>
+<span class="text-[11px] text-slate-400">Raise Query</span>
+</div>
+</label>
+<label class="relative flex items-center p-3 rounded-xl border border-[#E2E8F0] bg-white cursor-pointer hover:border-slate-300 transition-all">
+<input class="w-4 h-4 text-[#4F46E5] accent-[#4F46E5] mr-2.5" name="credit_decision" type="radio" value="decline"/>
+<div class="flex flex-col">
+<span class="text-xs text-rose-600 font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">cancel</span>
+                            Decline
+                          </span>
+<span class="text-[11px] text-slate-400">Breach limits</span>
+</div>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="text-xs text-slate-700 uppercase font-bold tracking-wider" for="rationale">Mandatory Underwriting Rationale (CRO Audit Record)</label>
+<span class="text-[11px] text-[#059669] font-semibold">Key Anchors Linked</span>
+</div>
+<textarea class="w-full p-3 rounded-xl bg-slate-50 border border-[#E2E8F0] text-slate-800 text-xs leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#4F46E5] focus:bg-white resize-none transition-all" id="rationale" rows="3">Verified against HDFC statement p.4 &amp; GSTR-3B p.2. Variance within acceptable cash-receipt policy exception for surgical distributors in Maharashtra region. Technical CTS bounce cleared. Approved for ₹18,50,000 at 13.25% ROI.</textarea>
+</div>
+<div class="pt-1 flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-1.5 text-slate-500 text-xs font-mono">
+<span class="material-symbols-outlined text-[#10B981] text-base">key</span>
+<span>HSM Key: <code>0x9E11..C204</code></span>
+</div>
+<button class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#4F46E5] text-white text-xs font-bold shadow-md hover:bg-[#4338CA] hover:shadow-lg transition-all flex items-center justify-center gap-2" id="sign-btn" type="submit">
+<span class="material-symbols-outlined text-base">lock_open</span>
+<span>Sign &amp; Record Audit Outcome (Arjun Iyer, CRO)</span>
+</button>
+</div>
+</form>
+<!-- Immutable Confirmation Banner -->
+<div class="hidden p-3.5 rounded-xl bg-[#D1FAE5] border border-[#A7F3D0] text-[#059669] text-xs font-medium flex items-center justify-between shadow-xs" id="confirmation-banner">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base text-[#10B981]">verified</span>
+                    Audit event logged permanently to dual ledger • Docket #KF-2025-0912 dispatched to LMS.
+                  </span>
+<span class="font-mono text-[11px] font-bold">BLOCK #819441</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<script>
+    function showAuditConfirmation() {
+      const banner = document.getElementById('confirmation-banner');
+      const btn = document.getElementById('sign-btn');
+      if (banner && btn) {
+        btn.innerHTML = '<span class="material-symbols-outlined text-base">lock</span><span>Signed & Verified (Immutable)</span>';
+        btn.classList.remove('bg-[#4F46E5]', 'hover:bg-[#4338CA]');
+        btn.classList.add('bg-[#059669]', 'cursor-not-allowed', 'opacity-95');
+        btn.disabled = true;
+        banner.classList.remove('hidden');
+      }
+    }
+  </script>
+<!-- Footer -->
+<footer class="w-full bg-white border-t border-[#E2E8F0] py-4">
+<div class="w-full px-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+<div>© 2025 Kestrel Finance Technologies Ltd. Regulated NBFC Lending Partner Integration Core.</div>
+<div class="flex items-center gap-4 text-[11px] font-mono">
+<span>Policy Framework: v4.2.1-Prod</span>
+<span>Enclave Key: HSM-KMS-0091</span>
+<span class="text-[#059669] font-medium flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span> Systems Nominal
+        </span>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { 
+  darkMode: "class", 
+  theme: { 
+    extend: { 
+      colors: { 
+        primary: "#4F46E5",
+        "primary-hover": "#4338CA",
+        "obsidian": "#0F172A",
+        "canvas": "#F8FAFC",
+        "card-bg": "#FFFFFF",
+        "slate-border": "#E2E8F0",
+        "mint-accent": "#10B981",
+        "status-pass-bg": "#D1FAE5",
+        "status-pass-text": "#059669",
+        "status-flag-bg": "#FFEDD5",
+        "status-flag-text": "#C2410C",
+        "genai-soft": "#E0E7FF",
+        "genai-text": "#4338CA"
+      }, 
+      borderRadius: { 
+        "xl": "12px" 
+      }, 
+      spacing: { 
+        "margin": "1.5rem", 
+        "space-xs": "0.25rem", 
+        "space-xl": "2rem", 
+        "space-md": "1rem", 
+        "space-sm": "0.5rem", 
+        "gutter": "1.25rem", 
+        "space-lg": "1.5rem" 
+      }, 
+      fontFamily: { 
+        sans: ["Inter", "sans-serif"],
+        mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "monospace"]
+      } 
+    } 
+  } 
+};</script></head><body class="bg-canvas font-sans text-slate-800 antialiased"><header class="fixed top-0 left-0 w-full z-50 bg-obsidian shadow-[0_1px_8px_rgba(0,0,0,0.15)]"><div class="h-16 w-full px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="Kestrel Finance Logo" class="h-8 w-auto object-contain rounded-md" src="https://lh3.googleusercontent.com/aida/ALJJyrC6OyM5Yqr7V9us6sLiv84PNVNTtE9UiilyQn8kDyAphT5gJL7WU7tZ1Fz5eppHVLCN7aokxahwNWkzD9RZc7x9MBP-Of1C7LbV1RVnpNrevuVNJP-603EI85zmTe06zLt0ZiiAJ6O65bCM65rspb6itL4IwYCYoAdwJ9ov6hhw6_koG6PrjVI4xE6lhFK4fIkhfxvY-qLLaF75t33DkkWDnPwRtE09bVQiWje2wDM"/><span class="text-base text-white tracking-tight font-bold">Kestrel Finance</span><span class="px-2.5 py-0.5 rounded-full bg-status-pass-bg text-status-pass-text text-xs font-semibold border border-mint-accent/20">&lt;₹25L Fast-Track Pilot</span></div><nav class="flex items-center gap-1 bg-slate-800/80 p-1 rounded-lg border border-slate-700/50"><a class="px-3 py-1.5 rounded-md text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 transition-all" data-path="intake-extraction" href="#">Intake &amp; Extraction</a><a class="px-3 py-1.5 rounded-md text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 transition-all" data-path="verification-sign-off" href="#">Verification &amp; Sign-Off</a><a class="px-3 py-1.5 rounded-md text-xs font-semibold bg-primary text-white shadow-sm" data-path="prompt-toner-studio" href="#">Prompt &amp; Toner Studio</a><a class="px-3 py-1.5 rounded-md text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 transition-all" data-path="finops-api-health" href="#">FinOps &amp; API Health</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden xl:flex items-center gap-2 bg-slate-800/90 px-3 py-1.5 rounded-full border border-slate-700 text-white"><span class="w-2 h-2 rounded-full bg-mint-accent animate-pulse"></span><span class="text-xs text-slate-300 font-medium">Backend Proxy Active (Zero LLM Calls) · Primary: Gemini 2.5 Flash <span class="text-mint-accent font-semibold">(Online)</span> · Backup: Groq Llama-3.3-70B <span class="text-slate-400">(Standby)</span> · Session: <span class="text-white font-semibold">₹4.82</span></span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="flex items-center gap-1.5 text-right"><div class="flex flex-col"><span class="text-xs text-white font-semibold leading-none">Arjun Iyer</span><span class="text-[11px] text-slate-400 leading-none mt-1">Credit Manager / CRO</span></div><button class="flex items-center text-slate-400 hover:text-white transition-colors p-0.5"><span class="material-symbols-outlined text-sm">arrow_drop_down</span></button></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZztgoy4hLC7cpANwv8gB-xSmU_aDvxQa_mJFhXwifkuV5BueL--z5ZYb1RzQC22EAKBWj6wM0rzlObg89wNCgraepugX_sRRMs9DfvuzpiggE5LiQQE8T4lekk4CWfp4Ni3imr7ZlHuumOSqQZKgNNX1lulwqdlJ8v7PU1NvNM84-KGhYClFKURwj9B35-joMvYeMmHUHBr46oZG8lNjLiqsVXsqTF7SqJgjnr30"/></div></div></div><div class="h-8 w-full bg-slate-900 border-t border-slate-800 px-margin flex items-center justify-between text-xs text-slate-400"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-xs text-mint-accent">verified_user</span><span>Underwriting Environment: Non-Repudiated Dual Ledger · Indian Sovereign Cloud (Mumbai Data Isolation)</span></div><div class="flex items-center gap-space-md"><span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs text-slate-400">lock</span>Tamper-Evident SHA-256 Enabled</span><span class="text-mint-accent font-medium">RBI SME Compliant (&lt;₹25L)</span></div></div></header><main class="w-full pt-24 bg-canvas min-h-[calc(100vh-80px)]"><div class="flex flex-col w-full">
+<div class="w-full px-margin py-space-md flex flex-col gap-space-lg">
+<!-- Top Governance Header Pill Banner -->
+<div class="w-full rounded-xl bg-card-bg border border-slate-border p-space-md shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-lg">sync_alt</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="text-sm font-semibold text-slate-900">Two-Way Door Governance Active</span>
+<span class="px-2 py-0.5 rounded-full bg-status-pass-bg text-status-pass-text text-xs font-semibold">Hot-Swap Staging</span>
+</div>
+<p class="text-xs text-slate-500 truncate mt-0.5">
+            Prompt modifications take effect in real-time staging without code deployment or backend redeployments.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-space-lg shrink-0 self-start lg:self-auto bg-slate-50 border border-slate-border px-space-md py-1.5 rounded-lg shadow-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-mint-accent animate-pulse"></span>
+<span class="text-xs text-slate-500">Active Version:</span>
+<span class="text-xs text-slate-900 font-semibold">v1.4.2 (Production Staging)</span>
+</div>
+<div class="h-3.5 w-px bg-slate-border"></div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-slate-400">schedule</span>
+<span class="text-xs text-slate-500">Last Modified: Today, 11:20 AM by <span class="font-semibold text-slate-800">M. Pillai</span></span>
+</div>
+</div>
+</div>
+<!-- Strict Two-Panel Core Layout (50% Left / 50% Right) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter w-full items-start">
+<!-- LEFT PANEL: Critical System Prompt Editor -->
+<section class="bg-card-bg rounded-xl border border-slate-border p-space-lg shadow-sm flex flex-col gap-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-xs">
+<div>
+<span class="text-xs font-bold uppercase tracking-wider text-primary">Policy Logic Layer</span>
+<h2 class="text-xl font-bold text-slate-900 tracking-tight mt-0.5">Critical System Prompt Editor</h2>
+</div>
+<div class="flex items-center gap-1.5 bg-status-pass-bg text-status-pass-text px-2.5 py-1 rounded-full self-start border border-mint-accent/20">
+<span class="w-1.5 h-1.5 rounded-full bg-status-pass-text"></span>
+<span class="text-xs font-semibold">Two-Way Door Compliant</span>
+</div>
+</div>
+<!-- Agent Selector Segmented Control -->
+<div class="grid grid-cols-3 gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200">
+<button class="py-1.5 px-space-xs text-center rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 transition-colors truncate" type="button">
+            Extractor Agent
+          </button>
+<button class="py-1.5 px-space-xs text-center rounded-md text-xs bg-primary text-white shadow-sm font-semibold truncate" type="button">
+            Critique Guardrail
+          </button>
+<button class="py-1.5 px-space-xs text-center rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 transition-colors truncate" type="button">
+            Toner Agent
+          </button>
+</div>
+<!-- Model & Parameter Bar -->
+<div class="bg-slate-50 border border-slate-border rounded-lg p-2.5 flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-primary">cloud_lock</span>
+<span class="text-xs text-slate-500">Provider:</span>
+<span class="text-xs text-slate-900 font-semibold">Gemini 2.5 Flash (Proxy)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="text-xs text-slate-500">Temp:</span>
+<span class="text-xs text-slate-900 font-mono font-semibold">0.1 (Strict)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="text-xs text-slate-500">Tag:</span>
+<span class="text-xs px-2 py-0.5 rounded bg-genai-soft text-genai-text font-mono font-medium">v1.4-critique</span>
+</div>
+</div>
+<!-- Clean Editable Code/Prompt Textarea Container -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-xs text-slate-500 px-1">
+<span class="flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-xs text-primary">terminal</span> System Directives (Zero-Shot Chain of Thought)
+            </span>
+<span class="font-mono text-[11px] text-slate-400">384 Tokens · UTF-8</span>
+</div>
+<div class="relative bg-slate-950 border border-slate-800 rounded-lg p-space-md shadow-inner">
+<textarea class="w-full bg-transparent font-mono text-xs leading-relaxed text-slate-100 outline-none resize-none selection:bg-primary/40" id="prompt-editor" rows="11" spellcheck="false">You are the Kestrel Finance Critique Agent. Your mandate is to enforce zero-hallucination compliance on extracted SME financial figures (&lt;₹25L slice).
+
+RULES:
+1. Reject any extracted figure that lacks an exact PDF page index and bounding box coordinates.
+2. Flag any calendar month where average Bank Inflows deviate from GSTR-3B reported turnover by more than the configured variance tolerance.
+3. Explicitly check for inward cheque bounce remarks (Codes: 01, 02, 05) and classify as 'Technical' vs 'Insufficient Funds'.
+4. Format all flagged variances with formula: ((Bank_Credits - GST_Sales) / GST_Sales) * 100.</textarea>
+</div>
+</div>
+<!-- Policy Threshold Control -->
+<div class="bg-slate-50 border border-slate-border rounded-lg p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base text-primary">tune</span>
+<label class="text-xs font-semibold text-slate-900" for="tolerance-slider">Bank vs. GST Variance Tolerance</label>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="text-xl font-bold font-mono text-primary" id="tolerance-val">10.0%</span>
+<span class="text-xs text-slate-500">(Default)</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<input class="w-full accent-primary h-1.5 bg-slate-200 rounded-lg cursor-pointer" id="tolerance-slider" max="25" min="5" step="0.5" type="range" value="10.0"/>
+<div class="flex items-center gap-1 shrink-0 bg-card-bg border border-slate-border px-2 py-1 rounded shadow-sm">
+<button class="text-slate-500 hover:text-slate-800 font-bold text-sm px-1.5" id="step-down">-</button>
+<span class="text-xs font-mono font-semibold text-slate-900 w-8 text-center" id="stepper-box">10.0</span>
+<button class="text-slate-500 hover:text-slate-800 font-bold text-sm px-1.5" id="step-up">+</button>
+</div>
+</div>
+<p class="text-xs text-slate-500">
+            Flags above this threshold require Senior Credit Analyst approval before dossier sign-off.
+          </p>
+</div>
+<!-- Action Button Group & Validation Signal -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex flex-col sm:flex-row items-center gap-space-sm">
+<button class="w-full sm:w-auto flex-1 bg-primary hover:bg-primary-hover text-white py-2.5 px-space-lg rounded-lg text-sm font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm" id="save-prompt-btn" type="button">
+<span class="material-symbols-outlined text-base">save</span>
+<span>Save Prompt Version (v1.4)</span>
+</button>
+<button class="w-full sm:w-auto bg-card-bg hover:bg-slate-50 border border-slate-border text-slate-700 py-2.5 px-space-md rounded-lg text-sm font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm" id="reset-baseline-btn" type="button">
+<span class="material-symbols-outlined text-base text-slate-500">restart_alt</span>
+<span>Reset to CRO Baseline</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 justify-center text-status-pass-text text-xs font-medium">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span>Auto-validated against 40 benchmark gold-set PDF test suites in sandboxed VM.</span>
+</div>
+</div>
+</section>
+<!-- RIGHT PANEL: Toner Agent Live Preview & Calibration -->
+<section class="bg-card-bg rounded-xl border border-slate-border p-space-lg shadow-sm flex flex-col gap-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-xs">
+<div>
+<span class="text-xs font-bold uppercase tracking-wider text-mint-accent">Autonomous Adaptation</span>
+<h2 class="text-xl font-bold text-slate-900 tracking-tight mt-0.5">Persona Tone Calibration &amp; Live Transformer</h2>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-pass-bg text-status-pass-text text-xs font-semibold border border-mint-accent/20">
+<span class="w-1.5 h-1.5 rounded-full bg-mint-accent animate-ping"></span>
+            Streaming Ready
+          </div>
+</div>
+<!-- Tone Preset Segmented Pills -->
+<div class="flex flex-col gap-space-xs">
+<span class="text-xs font-medium text-slate-600">Recipient Persona &amp; Tone Preset</span>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200">
+<button class="preset-btn py-2 px-space-xs rounded-md text-xs bg-primary text-white shadow-sm font-semibold flex flex-col items-center justify-center transition-all text-center" id="btn-preset-audit" type="button">
+<span>Strict Regulatory</span>
+<span class="text-[10px] font-normal text-indigo-100 truncate">Audit Memo (Arjun/CRO)</span>
+</button>
+<button class="preset-btn py-2 px-space-xs rounded-md text-xs text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 flex flex-col items-center justify-center transition-all text-center" id="btn-preset-analyst" type="button">
+<span>Concise Dossier</span>
+<span class="text-[10px] font-normal text-slate-400 truncate">Variance Math (Meena)</span>
+</button>
+<button class="preset-btn py-2 px-space-xs rounded-md text-xs text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 flex flex-col items-center justify-center transition-all text-center" id="btn-preset-rm" type="button">
+<span>Actionable RM Chaser</span>
+<span class="text-[10px] font-normal text-slate-400 truncate">Borrower Fix (Vikram)</span>
+</button>
+</div>
+</div>
+<!-- Before vs. After Live Preview Box -->
+<div class="flex flex-col gap-space-md">
+<!-- Top Sub-Box: Raw Critique Engine Output -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-xs text-slate-500 px-1">
+<span class="flex items-center gap-1.5 font-semibold text-slate-700">
+<span class="material-symbols-outlined text-xs text-slate-500">code_blocks</span> 1. Raw Engine JSON Assertion
+              </span>
+<span class="text-[11px] bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-slate-500 font-mono">Payload Checksum: 0x9AF4</span>
+</div>
+<div class="bg-slate-900 rounded-lg p-space-md font-mono text-xs text-slate-200 shadow-inner overflow-x-auto leading-relaxed border border-slate-800">
+<pre class="m-0 text-xs text-slate-300 font-mono">{
+  "rule_id": "GST_VAR_01",
+  "variance_pct": 12.3,
+  "bank_credit_sum": 1420000,
+  "gst_turnover": 1245000,
+  "rm_cash_note": true,
+  "severity": "AMBER_FLAG"
+}</pre>
+</div>
+</div>
+<!-- Bottom Sub-Box: Toned Output -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-xs text-slate-500 px-1">
+<span class="flex items-center gap-1.5 font-semibold text-primary">
+<span class="material-symbols-outlined text-xs text-primary">psychology</span> 2. Synthesized Recipient Memo (Live Toned)
+              </span>
+<span class="px-2 py-0.5 rounded-full bg-genai-soft text-genai-text text-xs font-semibold" id="tone-badge">Audit Memo Format</span>
+</div>
+<div class="bg-slate-50 border border-slate-border rounded-lg p-space-md shadow-sm transition-all" id="toned-preview-card">
+<div class="text-sm text-slate-800 space-y-2" id="toned-content">
+<div class="text-xs font-bold text-primary tracking-wider uppercase">Regulatory Audit Memorandum (Ref: KF-2026-0892)</div>
+<div class="text-xs leading-relaxed text-slate-700 space-y-1.5 pt-1">
+<p class="flex items-start gap-1.5">
+<span class="font-bold text-slate-900 shrink-0">• Finding:</span>
+<span>Turnover variance of <span class="font-semibold text-status-flag-text bg-status-flag-bg px-1.5 py-0.5 rounded">12.3%</span> observed between HDFC bank credits (<span class="font-semibold text-slate-900">₹14.20L/m</span>, p.4, L18) and GSTR-3B filings (<span class="font-semibold text-slate-900">₹12.45L/m</span>, p.2, B4).</span>
+</p>
+<p class="flex items-start gap-1.5">
+<span class="font-bold text-slate-900 shrink-0">• Reconciliation:</span>
+<span>Discrepancy is mitigated by verified 15% counter cash receipts recorded in RM A2 checklist.</span>
+</p>
+<p class="flex items-start gap-1.5">
+<span class="font-bold text-slate-900 shrink-0">• Recommendation:</span>
+<span class="text-status-pass-text font-semibold">Case qualified for credit approval subject to standard working capital covenants.</span>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Telemetry Details & Execution Bar -->
+<div class="bg-slate-50 border border-slate-border rounded-lg p-2.5 flex items-center justify-between gap-space-sm flex-wrap">
+<div class="flex items-center gap-1.5 text-xs text-slate-500">
+<span class="material-symbols-outlined text-sm text-mint-accent">bolt</span>
+<span>Latency: <strong class="text-slate-800 font-mono">280ms</strong> (Groq Llama-3.3-70B backend)</span>
+</div>
+<div class="flex items-center gap-1.5 text-xs text-slate-500">
+<span class="material-symbols-outlined text-sm text-primary">payments</span>
+<span>Inference Cost: <strong class="text-slate-800 font-mono">₹0.04</strong></span>
+</div>
+</div>
+<!-- Primary Action Button -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<button class="w-full bg-primary hover:bg-primary-hover text-white py-3 px-space-lg rounded-lg text-sm font-semibold flex items-center justify-center gap-2 transition-all shadow-sm" id="apply-tone-btn" type="button">
+<span class="material-symbols-outlined text-base text-mint-accent">auto_fix_high</span>
+<span>Apply Tone to Active Dossier</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 text-slate-400 text-xs mt-1">
+<span class="material-symbols-outlined text-xs">lock_clock</span>
+<span>State synchronized with Underwriting Queue #KF-892</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Audit Trace Benchmarking Accordion Strip -->
+<div class="w-full bg-card-bg border border-slate-border rounded-xl p-space-md shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-lg bg-genai-soft flex items-center justify-center text-primary border border-primary/10">
+<span class="material-symbols-outlined text-lg">rule</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-900">Regression Protection: 40 Benchmark Gold Sets</span>
+<span class="text-xs text-slate-500">Zero hallucinations detected across latest ₹25L fast-track pilot test suites.</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<span class="px-2.5 py-1 rounded-full bg-status-pass-bg text-status-pass-text text-xs font-semibold border border-mint-accent/20">100% Deterministic Pass</span>
+<button class="text-xs font-semibold text-primary hover:text-primary-hover flex items-center gap-1 transition-colors" type="button">
+<span>Inspect Log Ledger</span>
+<span class="material-symbols-outlined text-xs">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    // Slider & Stepper synchronization
+    const slider = document.getElementById('tolerance-slider');
+    const valDisplay = document.getElementById('tolerance-val');
+    const boxDisplay = document.getElementById('stepper-box');
+    const stepUp = document.getElementById('step-up');
+    const stepDown = document.getElementById('step-down');
+
+    function updateTolerance(val) {
+      const num = parseFloat(val).toFixed(1);
+      slider.value = num;
+      valDisplay.textContent = num + '%';
+      boxDisplay.textContent = num;
+    }
+
+    if (slider) {
+      slider.addEventListener('input', (e) => updateTolerance(e.target.value));
+    }
+    if (stepUp) {
+      stepUp.addEventListener('click', () => {
+        let cur = parseFloat(slider.value) || 10.0;
+        if (cur < 25) updateTolerance(cur + 0.5);
+      });
+    }
+    if (stepDown) {
+      stepDown.addEventListener('click', () => {
+        let cur = parseFloat(slider.value) || 10.0;
+        if (cur > 5) updateTolerance(cur - 0.5);
+      });
+    }
+
+    // Persona Tone Calibration Interactive Switcher
+    const btnAudit = document.getElementById('btn-preset-audit');
+    const btnAnalyst = document.getElementById('btn-preset-analyst');
+    const btnRm = document.getElementById('btn-preset-rm');
+    const toneBadge = document.getElementById('tone-badge');
+    const contentBox = document.getElementById('toned-content');
+    const allPresets = [btnAudit, btnAnalyst, btnRm];
+
+    const presetsData = {
+      audit: {
+        badge: "Audit Memo Format",
+        html: `
+          <div class="text-xs font-bold text-primary tracking-wider uppercase">Regulatory Audit Memorandum (Ref: KF-2026-0892)</div>
+          <div class="text-xs leading-relaxed text-slate-700 space-y-1.5 pt-1">
+            <p class="flex items-start gap-1.5">
+              <span class="font-bold text-slate-900 shrink-0">• Finding:</span>
+              <span>Turnover variance of <span class="font-semibold text-status-flag-text bg-status-flag-bg px-1.5 py-0.5 rounded">12.3%</span> observed between HDFC bank credits (<span class="font-semibold text-slate-900">₹14.20L/m</span>, p.4, L18) and GSTR-3B filings (<span class="font-semibold text-slate-900">₹12.45L/m</span>, p.2, B4).</span>
+            </p>
+            <p class="flex items-start gap-1.5">
+              <span class="font-bold text-slate-900 shrink-0">• Reconciliation:</span>
+              <span>Discrepancy is mitigated by verified 15% counter cash receipts recorded in RM A2 checklist.</span>
+            </p>
+            <p class="flex items-start gap-1.5">
+              <span class="font-bold text-slate-900 shrink-0">• Recommendation:</span>
+              <span class="text-status-pass-text font-semibold">Case qualified for credit approval subject to standard working capital covenants.</span>
+            </p>
+          </div>
+        `
+      },
+      analyst: {
+        badge: "Analyst Dossier Bullets",
+        html: `
+          <div class="text-xs font-bold text-primary tracking-wider uppercase">Exceptions & Variance Calculation (KF-2026-0892)</div>
+          <div class="text-xs leading-relaxed text-slate-700 space-y-1 pt-1 font-mono">
+            <p class="text-xs bg-slate-200/60 p-2 rounded text-slate-800 border border-slate-300/60">
+              Δ_TURNOVER = ((₹14.20L - ₹12.45L) / ₹12.45L) * 100 = <span class="text-status-flag-text font-bold bg-status-flag-bg px-1 rounded">+12.3%</span> [Amber Flag: >10% Tol]
+            </p>
+            <p class="text-xs text-slate-600 pt-1">
+              - Primary cause: Retail OTC cash deposits in current account without GST line item.<br>
+              - Cash verification: Verified via branch physical register upload (Ref Doc #A2-88).<br>
+              - DSCR impact: Negligible (Projected DSCR remains 1.74x).
+            </p>
+          </div>
+        `
+      },
+      rm: {
+        badge: "RM Action Checklist",
+        html: `
+          <div class="text-xs font-bold text-status-pass-text tracking-wider uppercase">Borrower Action Checklist (Sales RM Follow-up)</div>
+          <div class="text-xs leading-relaxed text-slate-700 space-y-2 pt-1">
+            <p class="font-medium text-slate-900">Hi Vikram, please obtain the following quick declaration from Shri Krishna Traders to clear the ₹18.5L disbursement:</p>
+            <ul class="list-disc pl-5 text-xs space-y-1 text-slate-600">
+              <li>Sign simple counter-receipt declaration form for cash deposits totaling ₹1.75L in October 2025.</li>
+              <li>Confirm turnover reconciliation aligns with CA-attested provisional run-rate.</li>
+            </ul>
+          </div>
+        `
+      }
+    };
+
+    function selectPreset(type, activeBtn) {
+      allPresets.forEach(b => {
+        if (!b) return;
+        b.className = "preset-btn py-2 px-space-xs rounded-md text-xs text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 flex flex-col items-center justify-center transition-all text-center";
+        const subtext = b.querySelectorAll('span')[1];
+        if (subtext) subtext.className = "text-[10px] font-normal text-slate-400 truncate";
+      });
+      activeBtn.className = "preset-btn py-2 px-space-xs rounded-md text-xs bg-primary text-white shadow-sm font-semibold flex flex-col items-center justify-center transition-all text-center";
+      const activeSub = activeBtn.querySelectorAll('span')[1];
+      if (activeSub) activeSub.className = "text-[10px] font-normal text-indigo-100 truncate";
+      
+      const p = presetsData[type];
+      if (p && toneBadge && contentBox) {
+        toneBadge.textContent = p.badge;
+        contentBox.innerHTML = p.html;
+      }
+    }
+
+    if (btnAudit) btnAudit.addEventListener('click', () => selectPreset('audit', btnAudit));
+    if (btnAnalyst) btnAnalyst.addEventListener('click', () => selectPreset('analyst', btnAnalyst));
+    if (btnRm) btnRm.addEventListener('click', () => selectPreset('rm', btnRm));
+
+    // Save Feedback interaction
+    const saveBtn = document.getElementById('save-prompt-btn');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', function() {
+        const original = this.innerHTML;
+        this.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">refresh</span> Staging Deployment Active...';
+        setTimeout(() => {
+          this.innerHTML = '<span class="material-symbols-outlined text-sm">check_circle</span> Saved to Hot-Staging!';
+          setTimeout(() => { this.innerHTML = original; }, 2000);
+        }, 600);
+      });
+    }
+
+    // Apply Tone interaction
+    const applyBtn = document.getElementById('apply-tone-btn');
+    if (applyBtn) {
+      applyBtn.addEventListener('click', function() {
+        const original = this.innerHTML;
+        this.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">sync</span> Syncing with Active Case...';
+        setTimeout(() => {
+          this.innerHTML = '<span class="material-symbols-outlined text-sm text-mint-accent">done_all</span> Applied to Dossier #KF-892';
+          setTimeout(() => { this.innerHTML = original; }, 2200);
+        }, 500);
+      });
+    }
+  })();
+</script></main><footer class="w-full bg-card-bg border-t border-slate-border py-space-md"><div class="w-full px-margin flex flex-col md:flex-row items-center justify-between gap-space-sm text-xs text-slate-500"><div>© 2025 Kestrel Finance Technologies Ltd. Regulated NBFC Lending Partner Integration Core.</div><div class="flex items-center gap-space-md"><span>Policy Framework: v4.2.1-Prod</span><span>Enclave Key: HSM-KMS-0091</span><span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-mint-accent"></span> Status: All Systems Nominal</span></div></div></footer></body></html>

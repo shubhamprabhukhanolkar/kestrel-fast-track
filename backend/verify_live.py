@@ -17,7 +17,7 @@ def main():
     mode.add_argument(
         "--primary-pipeline",
         action="store_true",
-        help="Verify actual primary inference, extraction, critique and dossier without requiring backup credentials",
+        help="Verify normal live routing without injected failures; configured backup may handle real primary outages",
     )
     mode.add_argument(
         "--backup-pipeline",
@@ -38,7 +38,10 @@ def main():
     report = {
         "timestamp": now(),
         "project": settings.gcp_project,
-        "vertex_location": settings.vertex_location,
+        "deployment_region": settings.vertex_location,
+        "inference_location": settings.vertex_location
+        if llm.primary_provider == "vertex_gemini"
+        else "provider-managed",
         "primary_provider": llm.primary_provider,
         "model": llm.primary_model,
         "providers": llm.probe(include_backup=not args.primary_pipeline),
@@ -81,7 +84,7 @@ def main():
                 "attempts": run["attempts"],
                 "simulation": "Primary 503 is injected; all Groq model responses are LIVE"
                 if args.backup_pipeline
-                else "None. All primary model responses are LIVE.",
+                else "None. Normal live routing; provider_attempts records any real failover.",
             }
             report["provider_attempts"] = [
                 dict(r)

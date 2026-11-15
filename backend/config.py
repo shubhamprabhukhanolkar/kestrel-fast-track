@@ -20,9 +20,9 @@ class Settings(BaseSettings):
     # Illustrative Flash-Lite paid-tier estimates at assumed INR 90/USD, not a live FX quote.
     gemini_input_inr: float = 9
     gemini_output_inr: float = 36
-    groq_api_key: str = ""
+    groq_api_key: SecretStr = SecretStr("")
     groq_secret_name: str = ""
-    groq_model: str = "llama-3.3-70b-versatile"
+    groq_model: str = "openai/gpt-oss-120b"
     # Offline simulation is explicit, never a fallback for missing credentials.
     demo_mode: bool = False
     auth_mode: Literal["password", "iap", "demo"] = "password"
@@ -52,8 +52,8 @@ class Settings(BaseSettings):
     # Explicit estimated rates, INR per million tokens; configure to contracted prices.
     vertex_input_inr: float = 44
     vertex_output_inr: float = 264
-    groq_input_inr: float = 52
-    groq_output_inr: float = 69
+    groq_input_inr: float = 13.5
+    groq_output_inr: float = 54
 
     @field_validator("vertex_model_name")
     @classmethod

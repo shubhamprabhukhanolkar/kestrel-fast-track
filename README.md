@@ -45,13 +45,13 @@ The primary provider is now **Gemini Developer API**, selected with `PRIMARY_PRO
 
 Vertex is retained only as an optional legacy provider. Earlier Vertex tests returned 404 for the 2.5 family and an organization-model-policy error for 3.5 Flash-Lite. Those Vertex-specific checks do not establish Gemini Developer API availability. Current readiness checks only the selected provider and model, and never silently substitute Vertex or offline templates.
 
-With the local key supplied on 15 November 2026, the Developer API returned a real successful connectivity response and a 60-cell extraction. The full graph subsequently encountered Google 503 high-demand errors; automatic Groq fallback also requires the configured secret's read permission. Those failed runs are recorded honestly, and no completed end-to-end run is inferred from connectivity alone. Transport schemas are simplified for Google compatibility while full Pydantic, completeness and citation constraints remain enforced in the backend.
+On 15 November 2026, a complete live run using the locally configured Gemini `gemini-3.5-flash-lite` passed extraction, critique and dossier generation without injected failures or fallback: 60 cited fields, zero citation issues and one reconciliation exception month. A separate outage test injected primary 503 responses and completed all three agents using real Groq `openai/gpt-oss-120b` calls. Groq throttling recovered using bounded Retry-After waits. Both runs used labelled synthetic borrower PDFs; analyst verification and credit sign-off remained pending. This verifies live inference locally, not a deployed Cloud Run service. Transport schemas are simplified for Google compatibility while full Pydantic, completeness and citation constraints remain enforced in the backend.
 
 Gemini cost defaults are illustrative paid-tier estimates based on the [listed Flash-Lite prices](https://ai.google.dev/gemini-api/docs/pricing) and an assumed INR 90/USD conversion, not a live exchange quote or your invoice. Set GEMINI_INPUT_INR/GEMINI_OUTPUT_INR to your contracted billing rates, especially when changing models or using a free tier.
 
 For a cloud deployment, place the Gemini key in the approved backend secret `kestrel-gemini-api-key` and grant the runtime identity access. The workflow references the secret; no key value is stored in source or the frontend. API-key authentication changes the Google API service being used; hosting remains in Mumbai. See the [Google Gen AI SDK authentication documentation](https://googleapis.github.io/python-genai/).
 
-The Groq key was stored with explicit approval at `projects/slabspro-slabsuser37/secrets/kestrel-groq-api-key`, replicated in asia-south1. The authenticated backend identity needs the Secret Accessor role on that secret. A stored secret alone does not prove provider connectivity.
+For local fallback, add `GROQ_API_KEY` privately to the ignored `.env`. The default backup is `openai/gpt-oss-120b`, using JSON mode and low reasoning effort. Compact agent inputs retain all extracted fields and independent source evidence to fit provider limits. A Groq key was also stored with explicit approval at `projects/slabspro-slabsuser37/secrets/kestrel-groq-api-key`, replicated in asia-south1; cloud runtime access still requires Secret Accessor on that secret. Direct local keys do not require Secret Manager permissions.
 
 Farhan's **Check live providers** independently calls the selected Gemini provider and Groq with a small diagnostic prompt and meters both attempts. `/api/v1/health` is process liveness; `/api/v1/ready` requires configured authentication and recent successful live provider checks. It does not claim readiness solely because environment variables exist.
 
@@ -61,7 +61,7 @@ For an explicitly billable verification using isolated synthetic PDFs:
 uv run python -m backend.verify_live --primary-pipeline
 ```
 
-This creates a separate database/report under `artifacts/live-verification-*/` and verifies actual primary extraction, critique and dossier generation using synthetic PDFs. It requires only the primary API key. To test actual Groq failover under a labelled injected primary 503, use `--backup-pipeline` instead. Reports preserve genuine success or failure; neither path can approve credit.
+This creates a separate database/report under `artifacts/live-verification-*/` and verifies extraction, critique and dossier generation using normal live routing and synthetic PDFs. No outage is injected; configured Groq fallback can handle real primary errors, and the report identifies the provider used for every attempt. To test actual Groq failover under a labelled injected primary 503, use `--backup-pipeline` instead. Reports preserve genuine success or failure; neither path can approve credit.
 
 ## Workflow
 

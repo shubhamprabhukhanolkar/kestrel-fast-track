@@ -386,7 +386,7 @@ export default function FinOpsDashboard({ active, user, notify, health }) {
                     {chaos ? "Next action routed here" : "Standby"}
                   </Badge>
                 </div>
-                <code>llama-3.3-70b-versatile</code>
+                <code>{health?.backup_model||'Loading backup model…'}</code>
                 <small>Backend secret only · no frontend API keys</small>
               </div>
             </div>

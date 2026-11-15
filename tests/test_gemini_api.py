@@ -21,7 +21,9 @@ def use_api(monkeypatch):
     monkeypatch.setattr(
         settings, "gemini_api_key", SecretStr("test-key-never-valid-for-inference")
     )
-    monkeypatch.setattr(settings, "groq_api_key", "test-only-not-valid-for-inference")
+    monkeypatch.setattr(
+        settings, "groq_api_key", SecretStr("test-only-not-valid-for-inference")
+    )
     monkeypatch.setattr(settings, "groq_secret_name", "")
 
 
@@ -213,3 +215,76 @@ def test_transient_primary_still_recovers_when_backup_access_is_unavailable(
     execute(run_id)
     run = client.get(f"{BASE}/cases/{CASE}/runs/latest").json()
     assert run["status"] == "queued" and run["attempts"] == 1
+
+
+def test_current_groq_model_uses_json_mode_and_masks_its_key(client, monkeypatch):
+    live_login(client, monkeypatch)
+    use_api(monkeypatch)
+    import groq
+
+    captured = {}
+
+    class Client:
+        def __init__(self, **kwargs):
+            self.chat = SimpleNamespace(completions=SimpleNamespace(create=self.create))
+
+        def create(self, **kwargs):
+            captured.update(kwargs)
+            return SimpleNamespace(
+                choices=[
+                    SimpleNamespace(
+                        message=SimpleNamespace(content='{"text":"backup result"}')
+                    )
+                ],
+                usage=SimpleNamespace(prompt_tokens=20, completion_tokens=11),
+            )
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+    monkeypatch.setattr(groq, "Groq", Client)
+    result, tokens = llm._groq("system", {}, Output)
+    assert result["text"] == "backup result" and tokens == (20, 11)
+    assert captured["model"] == "openai/gpt-oss-120b"
+    assert captured["reasoning_effort"] == "low"
+    assert captured["response_format"] == {"type": "json_object"}
+    assert "test-only-not-valid-for-inference" not in repr(settings)
+
+
+def test_backup_rate_limit_retry_honors_header_and_logs_each_attempt(
+    client, monkeypatch
+):
+    live_login(client, monkeypatch)
+    use_api(monkeypatch)
+
+    def down(*args):
+        raise ProviderUnavailable(503)
+
+    calls = []
+
+    def backup(*args):
+        calls.append(1)
+        if len(calls) == 1:
+            error = ProviderUnavailable(429)
+            error.response = SimpleNamespace(headers={"retry-after": "0.5"})
+            raise error
+        return {"text": "recovered"}, (5, 2)
+
+    waits = []
+    monkeypatch.setattr(llm, "_gemini_api", down)
+    monkeypatch.setattr(llm, "_groq", backup)
+    monkeypatch.setattr("backend.services.llm_router.time.sleep", waits.append)
+    assert (
+        llm.call(CASE, "Toner", "system", {}, Output, lambda: {})["text"] == "recovered"
+    )
+    assert waits == [0.75] and len(calls) == 2
+    with db() as conn:
+        rows = list(
+            conn.execute(
+                "SELECT status FROM agent_telemetry_logs WHERE mode='live_estimate' ORDER BY id"
+            )
+        )
+    assert [row["status"] for row in rows] == ["error_503", "error_429", "success"]

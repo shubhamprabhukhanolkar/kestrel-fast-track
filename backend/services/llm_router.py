@@ -1,5 +1,6 @@
 import json
 import time
+import re
 from typing import Type
 import httpx
 from pydantic import BaseModel
@@ -229,7 +230,7 @@ class LLMRouter:
     def _groq(self, system, payload, schema):
         from groq import Groq
 
-        key = settings.groq_api_key
+        key = settings.groq_api_key.get_secret_value()
         if not key and settings.groq_secret_name:
             from google.cloud import secretmanager
 
@@ -261,6 +262,11 @@ class LLMRouter:
                 max_completion_tokens=24576
                 if schema.__name__ == "Extraction"
                 else 4096,
+                **(
+                    {"reasoning_effort": "low"}
+                    if settings.groq_model.startswith("openai/gpt-oss-")
+                    else {}
+                ),
             )
         usage = response.usage
         tokens = (usage.prompt_tokens, usage.completion_tokens)
@@ -290,7 +296,8 @@ class LLMRouter:
         provider = self.primary_provider
         failover = False
         primary_transient_code = None
-        for _ in range(2):
+        backup_throttle_retried = False
+        for _ in range(3):
             start = time.perf_counter()
             try:
                 if provider != "groq_backup" and (
@@ -327,6 +334,23 @@ class LLMRouter:
                     will_failover or failover,
                     getattr(exc, "usage_tokens", (0, 0)),
                 )
+                if (
+                    provider == "groq_backup"
+                    and code == 429
+                    and not backup_throttle_retried
+                ):
+                    headers = getattr(getattr(exc, "response", None), "headers", {})
+                    try:
+                        delay = float(headers.get("retry-after", ""))
+                    except (ValueError, TypeError):
+                        match = re.search(
+                            r"try again in\s+(\d+(?:\.\d+)?)s", str(exc), re.I
+                        )
+                        delay = float(match[1]) if match else 1.0
+                    if 0 <= delay <= 60:
+                        backup_throttle_retried = True
+                        time.sleep(delay + 0.25)
+                        continue
                 if not will_failover:
                     if failover and primary_transient_code:
                         raise FailoverUnavailable(

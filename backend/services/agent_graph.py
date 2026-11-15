@@ -7,6 +7,11 @@ from backend.models import Extraction, Memo
 from backend.services.intake_rules import intake_check, reconcile, citation_issues
 from backend.services.llm_router import llm
 from backend.config import settings
+from backend.services.evidence_payload import (
+    critique_payload,
+    compact_cells,
+    compact_reconciliation,
+)
 
 
 class CritiqueResult(BaseModel):
@@ -186,13 +191,13 @@ def CritiqueAgentNode(state):
         state["case_id"],
         "Critique",
         state["prompts"]["critique_prompt"]["content"],
-        {
-            "cells": state["cells"],
-            "documents": source_payload(state["documents"]),
-            "reconciliation": reconciliation,
-            "variance_formula": "abs(bank_credits - gst_turnover) / abs(bank_credits) * 100; zero bank/nonzero GST is unresolved",
-            "threshold_pct": state["threshold"],
-        },
+        critique_payload(
+            state["cells"],
+            state["documents"],
+            reconciliation,
+            state["threshold"],
+            deterministic,
+        ),
         CritiqueResult,
         lambda: {"issues": deterministic},
     )
@@ -249,8 +254,10 @@ def format_memo(case, cells, reconciliation, prompts, tone):
                 k: case[k]
                 for k in ("id", "business", "city", "loan_amount", "gap_notes")
             },
-            "verified_findings": cells,
-            "reconciliation": reconciliation,
+            "grounded_findings": compact_cells(cells, include_quotes=False),
+            "analyst_verified_count": sum(bool(c.get("verified_by")) for c in cells),
+            "reconciliation": compact_reconciliation(reconciliation),
+            "instructions": "Expand source document aliases in any citation. Do not imply human verification unless analyst_verified_count equals the number of cells.",
             "tone": tone,
         },
         Memo,

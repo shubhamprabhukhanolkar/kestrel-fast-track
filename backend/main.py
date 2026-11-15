@@ -66,6 +66,7 @@ def health():
         "demo_mode": settings.demo_mode,
         "model": llm.primary_model,
         "primary_provider": llm.primary_provider,
+        "backup_model": settings.groq_model,
         "project": settings.gcp_project,
         "region": settings.gcp_region,
         "vertex_location": settings.vertex_location

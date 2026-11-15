@@ -173,8 +173,11 @@ export default function LoginScreen({ onLogin, health }) {
               onKeyDown={(e) => {
                 if (e.key === "Enter" && password) enter();
               }}
-              placeholder="Enter your operator password"
+              placeholder="Default: KestrelOperator2026!"
             />
+            <small style={{ display: "block", marginTop: "4px", opacity: 0.75 }}>
+              Default password: <code>KestrelOperator2026!</code>
+            </small>
           </label>
         )}
         {health?.auth_mode === "iap" && (

@@ -1,0 +1,10 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'asia-south1-docker.pkg.dev/slabspro-slabsuser37/omnistream-repo/kestrel-fast-track:latest', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'asia-south1-docker.pkg.dev/slabspro-slabsuser37/omnistream-repo/kestrel-fast-track:latest']
+options:
+  logging: CLOUD_LOGGING_ONLY
+serviceAccount: 'projects/slabspro-slabsuser37/serviceAccounts/slabsuser37-service-account@slabspro-slabsuser37.iam.gserviceaccount.com'
+images:
+  - 'asia-south1-docker.pkg.dev/slabspro-slabsuser37/omnistream-repo/kestrel-fast-track:latest'

@@ -164,6 +164,19 @@ def init_db():
             "INSERT OR IGNORE INTO settings VALUES('failover',?)",
             (json.dumps({"simulate_503": False, "simulate_429": False}),),
         )
+        if not conn.execute("SELECT 1 FROM users LIMIT 1").fetchone():
+            import os
+            from backend.services.passwords import hash_password
+
+            default_password = os.environ.get(
+                "DEFAULT_OPERATOR_PASSWORD", "KestrelOperator2026!"
+            )
+            digest = hash_password(default_password)
+            for persona in PERSONAS:
+                conn.execute(
+                    "INSERT OR IGNORE INTO users(persona,password_hash,updated_at) VALUES(?,?,?)",
+                    (persona, digest, now()),
+                )
         if (
             conn.execute("SELECT 1 FROM cases LIMIT 1").fetchone()
             or not settings.seed_sample_cases

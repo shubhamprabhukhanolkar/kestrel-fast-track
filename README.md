@@ -41,9 +41,11 @@ For UI development, run `npm run dev` in frontend while the backend runs on 8080
 
 ## Actual provider status and lab constraints
 
-The approved Vertex model is **gemini-3-flash-preview**, and both inference and regional resources are pinned to **asia-south1**. Another model or region is rejected by configuration. The operator explicitly required this region; there is no silent global-endpoint substitution.
+The default Vertex model is now **gemini-3.5-flash-lite**, the current lightweight model returned by Google's model catalog through asia-south1. The configuration also supports explicitly selecting gemini-2.5-flash-lite or the previous gemini-3-flash-preview. These application selections do not override GCP organization policy. The region remains strictly **asia-south1**.
 
-On 15 November 2026, GCP project access and backend authentication were verified and the Vertex AI/Secret Manager APIs were enabled. The real regional Vertex call returned **404 NOT_FOUND**, stating that the specified model was unavailable or inaccessible to the project. This is an external blocker to normal primary operation. The lab administrator must make the approved model accessible in the approved region. See Google's [model location documentation](https://firebase.google.com/docs/ai-logic/locations?api=vertex).
+Actual checks on 15 November 2026 returned 404 for gemini-2.5-flash-lite, gemini-2.5-flash and gemini-3-flash-preview in this project/region. Google's [2.5 Flash-Lite documentation](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/2-5-flash-lite) lists its Vertex retirement as October 20, 2026; retaining it as the production default would not restore live execution.
+
+The live gemini-3.5-flash-lite request instead reached a specific **400 FAILED_PRECONDITION**: organization constraint `constraints/vertexai.allowedGenAIModels` forbids that model. The lab administrator must permit **`publishers/google/models/gemini-3.5-flash-lite:predict`** in the effective allowlist. No organization policy was changed. Normal live execution remains blocked until that policy is resolved; the app does not fabricate results or change regions.
 
 The Groq key was stored with explicit approval at `projects/slabspro-slabsuser37/secrets/kestrel-groq-api-key`, replicated in asia-south1. The authenticated backend identity needs the Secret Accessor role on that secret. A stored secret alone does not prove provider connectivity.
 

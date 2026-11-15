@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     gcp_project: str = "slabspro-slabsuser37"
     gcp_region: str = "asia-south1"
     vertex_location: str = "asia-south1"
-    vertex_model_name: str = "gemini-3-flash-preview"
+    vertex_model_name: str = "gemini-3.5-flash-lite"
     groq_api_key: str = ""
     groq_secret_name: str = ""
     groq_model: str = "llama-3.3-70b-versatile"
@@ -47,8 +47,14 @@ class Settings(BaseSettings):
     @field_validator("vertex_model_name")
     @classmethod
     def approved_model(cls, value):
-        if value != "gemini-3-flash-preview":
-            raise ValueError("Only lab-approved gemini-3-flash-preview is permitted")
+        if value not in {
+            "gemini-3.5-flash-lite",
+            "gemini-2.5-flash-lite",
+            "gemini-3-flash-preview",
+        }:
+            raise ValueError(
+                "Use an explicitly configured model: gemini-3.5-flash-lite, gemini-2.5-flash-lite or gemini-3-flash-preview. GCP organization policy must also allow it."
+            )
         return value
 
     @field_validator("gcp_region", "vertex_location")

@@ -35,6 +35,21 @@ def test_defaults_are_live_and_region_is_locked():
     config = Settings(_env_file=None)
     assert config.demo_mode is False
     assert config.auth_mode == "password"
+    assert config.vertex_model_name == "gemini-3.5-flash-lite"
+    assert (
+        Settings(
+            _env_file=None, vertex_model_name="gemini-2.5-flash-lite"
+        ).vertex_model_name
+        == "gemini-2.5-flash-lite"
+    )
+    assert (
+        Settings(
+            _env_file=None, vertex_model_name="gemini-3-flash-preview"
+        ).vertex_model_name
+        == "gemini-3-flash-preview"
+    )
+    with pytest.raises(ValidationError):
+        Settings(_env_file=None, vertex_model_name="unapproved-model")
     with pytest.raises(ValidationError):
         Settings(_env_file=None, vertex_location="global")
 

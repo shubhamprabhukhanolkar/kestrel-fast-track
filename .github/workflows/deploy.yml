@@ -47,6 +47,14 @@ jobs:
         working-directory: frontend
       - run: npm run build
         working-directory: frontend
+      - name: Build unified production image
+        run: docker build --tag kestrel-ci:${{ github.sha }} .
+      - name: Smoke test container with explicit offline fixture profile
+        run: |
+          docker run --detach --name kestrel-smoke --publish 8080:8080 --env DEMO_MODE=true --env AUTH_MODE=demo --env ENABLE_JOB_WORKER=false kestrel-ci:${{ github.sha }}
+          trap 'docker logs kestrel-smoke; docker rm --force kestrel-smoke' EXIT
+          curl --fail --retry 15 --retry-delay 2 --retry-all-errors http://127.0.0.1:8080/api/v1/health
+          curl --fail http://127.0.0.1:8080/ > /dev/null
   deploy:
     if: ${{ vars.DEPLOY_ENABLED == 'true' }}
     needs: test-and-build

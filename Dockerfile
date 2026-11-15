@@ -18,5 +18,5 @@ COPY --from=frontend /build/frontend/dist ./static
 RUN groupadd --gid 10001 kestrel && useradd --uid 10001 --gid kestrel --no-create-home kestrel && mkdir -p /app/data && chown -R kestrel:kestrel /app/data
 USER kestrel
 EXPOSE 8080
-HEALTHCHECK --interval=30s --timeout=5s --start-period=20s CMD ["/app/.venv/bin/python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/api/v1/health')"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s CMD ["/app/.venv/bin/python", "-c", "import os, urllib.request; urllib.request.urlopen('http://127.0.0.1:' + os.getenv('PORT', '8080') + '/api/v1/health')"]
 CMD ["sh", "-c", "exec /app/.venv/bin/uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8080} --workers 1 --proxy-headers"]

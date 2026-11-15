@@ -13,6 +13,7 @@ from backend.auth import current_user
 from backend.routers import cases, prompts, finops, tasks
 from backend.services.passwords import verify_password, hash_password
 from backend.services.readiness import readiness, validate_production
+from backend.services.llm_router import llm
 
 DUMMY_PASSWORD_HASH = hash_password(secrets.token_urlsafe(32))
 
@@ -63,10 +64,16 @@ def health():
     return {
         "status": "ok",
         "demo_mode": settings.demo_mode,
-        "model": settings.vertex_model_name,
+        "model": llm.primary_model,
+        "primary_provider": llm.primary_provider,
         "project": settings.gcp_project,
         "region": settings.gcp_region,
-        "vertex_location": settings.vertex_location,
+        "vertex_location": settings.vertex_location
+        if llm.primary_provider == "vertex_gemini"
+        else None,
+        "inference_location": settings.vertex_location
+        if llm.primary_provider == "vertex_gemini"
+        else "provider-managed",
         "auth_mode": settings.auth_mode,
         "execution_mode": "offline" if settings.demo_mode else "live",
         "sample_cases": settings.seed_sample_cases,

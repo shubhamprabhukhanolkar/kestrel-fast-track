@@ -12,7 +12,13 @@ from backend.services.jobs import execute
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument(
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument(
+        "--primary-pipeline",
+        action="store_true",
+        help="Verify actual primary inference, extraction, critique and dossier without requiring backup credentials",
+    )
+    mode.add_argument(
         "--backup-pipeline",
         action="store_true",
         help="Run real Groq extraction, critique and tone formatting under an explicit simulated primary 503",
@@ -32,15 +38,20 @@ def main():
         "timestamp": now(),
         "project": settings.gcp_project,
         "vertex_location": settings.vertex_location,
-        "model": settings.vertex_model_name,
-        "providers": llm.probe(),
+        "primary_provider": llm.primary_provider,
+        "model": llm.primary_model,
+        "providers": llm.probe(include_backup=not args.primary_pipeline),
     }
-    if args.backup_pipeline:
+    if args.backup_pipeline or args.primary_pipeline:
         run_id = str(uuid.uuid4())
         with db() as conn:
             conn.execute(
                 "UPDATE settings SET value=? WHERE key='failover'",
-                (json.dumps({"simulate_503": True, "simulate_429": False}),),
+                (
+                    json.dumps(
+                        {"simulate_503": args.backup_pipeline, "simulate_429": False}
+                    ),
+                ),
             )
             conn.execute(
                 "INSERT INTO runs(id,case_id,status,events,started_at,actor,execution_mode) VALUES(?,?,'queued','[]',?,?,'live')",
@@ -51,12 +62,16 @@ def main():
             run = dict(
                 conn.execute("SELECT * FROM runs WHERE id=?", (run_id,)).fetchone()
             )
-            report["backup_pipeline"] = {
+            report[
+                "backup_pipeline" if args.backup_pipeline else "primary_pipeline"
+            ] = {
                 "status": run["status"],
                 "error": run["error"],
                 "events": json.loads(run["events"]),
                 "attempts": run["attempts"],
-                "simulation": "Primary 503 is injected; all Groq model responses are LIVE",
+                "simulation": "Primary 503 is injected; all Groq model responses are LIVE"
+                if args.backup_pipeline
+                else "None. All primary model responses are LIVE.",
             }
             report["provider_attempts"] = [
                 dict(r)
@@ -80,6 +95,9 @@ def main():
             {
                 "providers": report["providers"],
                 "backup_pipeline_status": report.get("backup_pipeline", {}).get(
+                    "status"
+                ),
+                "primary_pipeline_status": report.get("primary_pipeline", {}).get(
                     "status"
                 ),
                 "report": str(output),

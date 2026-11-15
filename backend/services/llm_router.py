@@ -17,15 +17,32 @@ class ProviderUnavailable(RuntimeError):
 class LLMRouter:
     """Backend-only provider calls. Every attempt, including failures, is metered."""
 
-    def probe(self):
+    @property
+    def primary_provider(self):
+        return settings.primary_provider
+
+    @property
+    def primary_model(self):
+        return (
+            settings.gemini_model_name
+            if self.primary_provider == "gemini_api"
+            else settings.vertex_model_name
+        )
+
+    def _primary(self, system, payload, schema):
+        return (
+            self._gemini_api if self.primary_provider == "gemini_api" else self._vertex
+        )(system, payload, schema)
+
+    def probe(self, include_backup=True):
         class Probe(BaseModel):
             status: str
 
         results = []
-        for provider, call in [
-            ("vertex_gemini", self._vertex),
-            ("groq_backup", self._groq),
-        ]:
+        providers = [(self.primary_provider, self._primary)]
+        if include_backup:
+            providers.append(("groq_backup", self._groq))
+        for provider, call in providers:
             start = time.perf_counter()
             try:
                 result, tokens = call(
@@ -63,18 +80,20 @@ class LLMRouter:
                         "error": f"{code or type(exc).__name__}",
                         "location": settings.vertex_location
                         if provider == "vertex_gemini"
-                        else None,
+                        else ("provider-managed" if provider == "gemini_api" else None),
                     }
                 )
         return results
 
     def _log(self, case_id, agent, provider, start, status, failover, tokens=(0, 0)):
-        primary = provider == "vertex_gemini"
+        primary = provider != "groq_backup"
         rates = (
             (settings.vertex_input_inr, settings.vertex_output_inr)
             if primary
             else (settings.groq_input_inr, settings.groq_output_inr)
         )
+        if provider == "gemini_api":
+            rates = (settings.gemini_input_inr, settings.gemini_output_inr)
         cost = (tokens[0] * rates[0] + tokens[1] * rates[1]) / 1_000_000
         with db() as conn:
             conn.execute(
@@ -84,7 +103,13 @@ class LLMRouter:
                     case_id,
                     agent,
                     provider,
-                    settings.vertex_model_name if primary else settings.groq_model,
+                    (
+                        settings.gemini_model_name
+                        if provider == "gemini_api"
+                        else settings.vertex_model_name
+                    )
+                    if primary
+                    else settings.groq_model,
                     tokens[0],
                     tokens[1],
                     (time.perf_counter() - start) * 1000,
@@ -108,19 +133,57 @@ class LLMRouter:
                 retry_options=types.HttpRetryOptions(attempts=1),
             ),
         ) as client:
-            response = client.models.generate_content(
-                model=settings.vertex_model_name,
-                contents=json.dumps(payload),
-                config=types.GenerateContentConfig(
-                    system_instruction=system,
-                    response_mime_type="application/json",
-                    response_json_schema=schema.model_json_schema(),
-                    temperature=0.1,
-                    max_output_tokens=24576
-                    if schema.__name__ == "Extraction"
-                    else 4096,
-                ),
+            return self._generate_google(
+                client, settings.vertex_model_name, system, payload, schema
             )
+
+    def _gemini_api(self, system, payload, schema):
+        from google import genai
+        from google.genai import types
+
+        key = settings.gemini_api_key.get_secret_value()
+        if not key and settings.gemini_secret_name:
+            from google.cloud import secretmanager
+
+            key = (
+                secretmanager.SecretManagerServiceClient()
+                .access_secret_version(name=settings.gemini_secret_name)
+                .payload.data.decode()
+            )
+        if not key:
+            raise RuntimeError(
+                "Configure GEMINI_API_KEY or GEMINI_SECRET_NAME in the backend"
+            )
+        if not settings.allow_nonregional_inference:
+            raise RuntimeError(
+                "Gemini Developer API inference requires explicit nonregional authorization"
+            )
+        with genai.Client(
+            vertexai=False,
+            api_key=key,
+            http_options=types.HttpOptions(
+                timeout=int(settings.llm_timeout_seconds * 1000),
+                retry_options=types.HttpRetryOptions(attempts=1),
+            ),
+        ) as client:
+            return self._generate_google(
+                client, settings.gemini_model_name, system, payload, schema
+            )
+
+    def _generate_google(self, client, model, system, payload, schema):
+        from google.genai import types
+
+        response = client.models.generate_content(
+            model=model,
+            contents=json.dumps(payload),
+            config=types.GenerateContentConfig(
+                system_instruction=system,
+                response_mime_type="application/json",
+                response_json_schema=schema.model_json_schema(),
+                temperature=0.1,
+                max_output_tokens=24576 if schema.__name__ == "Extraction" else 4096,
+            ),
+        )
         usage = response.usage_metadata
         tokens = (
             usage.prompt_token_count or 0,
@@ -193,12 +256,12 @@ class LLMRouter:
                     "SELECT value FROM settings WHERE key='failover'"
                 ).fetchone()[0]
             )
-        provider = "vertex_gemini"
+        provider = self.primary_provider
         failover = False
         for _ in range(2):
             start = time.perf_counter()
             try:
-                if provider == "vertex_gemini" and (
+                if provider != "groq_backup" and (
                     flags["simulate_503"] or flags["simulate_429"]
                 ):
                     raise ProviderUnavailable(503 if flags["simulate_503"] else 429)
@@ -210,7 +273,7 @@ class LLMRouter:
                     )
                 else:
                     result, tokens = (
-                        self._vertex if provider == "vertex_gemini" else self._groq
+                        self._primary if provider != "groq_backup" else self._groq
                     )(system, payload, schema)
                 self._log(case_id, agent, provider, start, "success", failover, tokens)
                 return result
@@ -222,7 +285,7 @@ class LLMRouter:
                     or type(exc).__name__
                     in ("APITimeoutError", "DeadlineExceeded", "ReadTimeout")
                 )
-                will_failover = provider == "vertex_gemini" and retryable
+                will_failover = provider != "groq_backup" and retryable
                 self._log(
                     case_id,
                     agent,

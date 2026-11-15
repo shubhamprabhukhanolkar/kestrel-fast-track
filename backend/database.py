@@ -340,8 +340,14 @@ def init_db():
                     ).isoformat(),
                     cases[i // 5][0],
                     ["Orchestrator", "Extractor", "Critique", "Toner", "Toner"][i % 5],
-                    "groq_backup" if backup else "vertex_gemini",
-                    settings.groq_model if backup else settings.vertex_model_name,
+                    "groq_backup" if backup else settings.primary_provider,
+                    settings.groq_model
+                    if backup
+                    else (
+                        settings.gemini_model_name
+                        if settings.primary_provider == "gemini_api"
+                        else settings.vertex_model_name
+                    ),
                     1200 + i * 190,
                     200 + i * 37,
                     230 + i * 110,

@@ -1,15 +1,24 @@
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import field_validator
+from pydantic import field_validator, model_validator, SecretStr
 from typing import Literal
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=".env", extra="ignore", hide_input_in_errors=True
+    )
     gcp_project: str = "slabspro-slabsuser37"
     gcp_region: str = "asia-south1"
     vertex_location: str = "asia-south1"
     vertex_model_name: str = "gemini-3.5-flash-lite"
+    primary_provider: Literal["vertex_gemini", "gemini_api"] = "gemini_api"
+    gemini_model_name: str = "gemini-2.5-flash-lite"
+    gemini_api_key: SecretStr = SecretStr("")
+    gemini_secret_name: str = ""
+    allow_nonregional_inference: bool = True
+    gemini_input_inr: float = 44
+    gemini_output_inr: float = 264
     groq_api_key: str = ""
     groq_secret_name: str = ""
     groq_model: str = "llama-3.3-70b-versatile"
@@ -65,6 +74,17 @@ class Settings(BaseSettings):
                 "This lab requires asia-south1; cross-region inference is not permitted"
             )
         return value
+
+    @model_validator(mode="after")
+    def acknowledged_provider_boundary(self):
+        if (
+            self.primary_provider == "gemini_api"
+            and not self.allow_nonregional_inference
+        ):
+            raise ValueError(
+                "Gemini Developer API requires ALLOW_NONREGIONAL_INFERENCE=true; it has no asia-south1 inference endpoint"
+            )
+        return self
 
 
 settings = Settings()

@@ -14,7 +14,8 @@ import {
 } from "lucide-react";
 import { api, send, inr, number } from "../api/client";
 import { Title, Panel, Badge, Busy } from "./shared";
-export default function FinOpsDashboard({ active, user, notify }) {
+export default function FinOpsDashboard({ active, user, notify, health }) {
+  const apiKeyPrimary = health?.primary_provider === "gemini_api";
   const [data, setData] = useState(null),
     [config, setConfig] = useState({
       simulate_503: false,
@@ -148,9 +149,10 @@ export default function FinOpsDashboard({ active, user, notify }) {
         >
           <div className="panel-body">
             <p className="helper">
-              This calls Vertex strictly in asia-south1 and the configured Groq
-              backup with a small diagnostic prompt. No borrower documents are
-              sent.
+              {apiKeyPrimary
+                ? "This checks the backend Gemini API key and configured Groq backup with a small diagnostic prompt. Hosting remains in asia-south1; Gemini inference is provider-managed."
+                : "This checks regional Vertex and the configured Groq backup with a small diagnostic prompt."}{" "}
+              No borrower documents are sent.
             </p>
             <div className="readiness-checks">
               {checks?.checks.map((c) => (
@@ -305,11 +307,13 @@ export default function FinOpsDashboard({ active, user, notify }) {
               <div className="provider-split" key={p.provider}>
                 <span>
                   <i
-                    className={`tiny-dot ${p.provider === "vertex_gemini" ? "purple" : "green"}`}
+                    className={`tiny-dot ${p.provider !== "groq_backup" ? "purple" : "green"}`}
                   />
-                  {p.provider === "vertex_gemini"
-                    ? "Vertex Gemini"
-                    : "Groq backup"}
+                  {p.provider === "gemini_api"
+                    ? "Gemini API"
+                    : p.provider === "vertex_gemini"
+                      ? "Vertex Gemini"
+                      : "Groq backup"}
                 </span>
                 <div>
                   <span
@@ -337,7 +341,7 @@ export default function FinOpsDashboard({ active, user, notify }) {
         </Panel>
         <Panel
           title="API redundancy controller"
-          subtitle="Primary Vertex AI → automatic Groq backup"
+          subtitle={`${apiKeyPrimary ? "Gemini Developer API" : "Vertex AI"} → automatic Groq backup`}
           icon={Network}
           action={
             <Badge type={chaos ? "amber" : "green"}>
@@ -350,13 +354,21 @@ export default function FinOpsDashboard({ active, user, notify }) {
               <div className="provider-logo">G</div>
               <div>
                 <div className="row spread">
-                  <strong>Google Vertex AI</strong>
+                  <strong>
+                    {apiKeyPrimary
+                      ? "Gemini Developer API"
+                      : "Google Vertex AI"}
+                  </strong>
                   <Badge type={chaos ? "amber" : "green"}>
                     {chaos ? "Simulated failure" : "Primary"}
                   </Badge>
                 </div>
-                <code>gemini-3-flash-preview</code>
-                <small>Backend SDK · approved lab model</small>
+                <code>{health?.model || "Loading model…"}</code>
+                <small>
+                  {apiKeyPrimary
+                    ? "Backend API key · no frontend credentials"
+                    : "Backend SDK · regional identity"}
+                </small>
               </div>
             </div>
             <div className="failover-path">

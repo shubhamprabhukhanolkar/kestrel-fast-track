@@ -20,6 +20,7 @@ def client(tmp_path, monkeypatch, request):
     monkeypatch.setattr(settings, "database_url", "")
     monkeypatch.setattr(settings, "documents_bucket", "")
     monkeypatch.setattr(settings, "enable_job_worker", False)
+    monkeypatch.setattr(settings, "primary_provider", "vertex_gemini")
     schema = None
     admin_engine = None
     if request.param == "postgresql":

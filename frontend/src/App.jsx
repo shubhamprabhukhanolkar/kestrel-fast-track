@@ -161,7 +161,7 @@ export default function App() {
           <ShieldCheck size={12} />
           <span>
             Backend-only AI · {health?.project || "Connecting to backend"} ·{" "}
-            {health?.region || "asia-south1"}
+            Deploy region: {health?.region || "asia-south1"}
           </span>
         </div>
         <div>

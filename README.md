@@ -8,7 +8,7 @@ React 18/Vite/Tailwind/Lucide is served by FastAPI in one container. Python 3.12
 
 GitHub hosts this repository and its CI/CD workflow. **GitHub Pages cannot run the FastAPI backend.** The complete live application targets Google Cloud Run.
 
-Pushes run automated tests and the frontend build. Cloud deployment is skipped until the repository variable `DEPLOY_ENABLED=true` is explicitly set and the required configuration below is supplied. No GCP keys, Groq keys, local credentials, databases, uploaded PDFs or runtime reports belong in the repository.
+Pushes run automated tests and the frontend build. Cloud deployment is skipped until the repository variable `DEPLOY_ENABLED=true` is explicitly set and the required configuration below is supplied. No GCP keys, Gemini keys, Groq keys, local credentials, databases, uploaded PDFs or runtime reports belong in the repository.
 
 ## Run live locally
 
@@ -18,12 +18,12 @@ cd frontend
 npm ci
 npm run build
 cd ..
-gcloud auth login
-gcloud auth application-default login
-gcloud auth application-default set-quota-project slabspro-slabsuser37
+# Add GEMINI_API_KEY privately to the ignored .env file before starting the backend.
 ```
 
-CLI login and Application Default Credentials are separate. Python uses the latter. Copy `.env.example` to `.env` for another checkout; the current local configuration points to the approved Secret Manager reference and contains no Groq key.
+Copy `.env.example` to `.env` for another checkout. Set `GEMINI_API_KEY` privately in that ignored file. `PRIMARY_PROVIDER=gemini_api` selects key-based inference; Vertex and Application Default Credentials are not required for primary AI calls. Google credentials remain necessary only for GCP resource access such as Secret Manager, GCS and deployment.
+
+The local and cloud deployment profiles keep hosting/storage in `asia-south1`. As explicitly approved by the operator, Gemini Developer API inference is provider-managed and is not represented as Mumbai-only processing. The key is never sent to the browser or committed to GitHub.
 
 Provision each operator's password in your own terminal. Passwords require at least 12 characters and are stored as salted scrypt hashes.
 
@@ -41,23 +41,23 @@ For UI development, run `npm run dev` in frontend while the backend runs on 8080
 
 ## Actual provider status and lab constraints
 
-The default Vertex model is now **gemini-3.5-flash-lite**, the current lightweight model returned by Google's model catalog through asia-south1. The configuration also supports explicitly selecting gemini-2.5-flash-lite or the previous gemini-3-flash-preview. These application selections do not override GCP organization policy. The region remains strictly **asia-south1**.
+The primary provider is now **Gemini Developer API**, selected with `PRIMARY_PROVIDER=gemini_api`. The requested lightweight default is `GEMINI_MODEL_NAME=gemini-2.5-flash-lite`; a valid key and model access must be verified on the Developer API before calling the app operational. Configure `GEMINI_API_KEY` locally, or `GEMINI_SECRET_NAME` for a backend Secret Manager reference. `ALLOW_NONREGIONAL_INFERENCE=true` records the operator-approved change in inference boundary.
 
-Actual checks on 15 November 2026 returned 404 for gemini-2.5-flash-lite, gemini-2.5-flash and gemini-3-flash-preview in this project/region. Google's [2.5 Flash-Lite documentation](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/2-5-flash-lite) lists its Vertex retirement as October 20, 2026; retaining it as the production default would not restore live execution.
+Vertex is retained only as an optional legacy provider. Earlier Vertex tests returned 404 for the 2.5 family and an organization-model-policy error for 3.5 Flash-Lite. Those Vertex-specific checks do not establish Gemini Developer API availability. Current readiness checks only the selected provider and model, and never silently substitute Vertex or offline templates.
 
-The live gemini-3.5-flash-lite request instead reached a specific **400 FAILED_PRECONDITION**: organization constraint `constraints/vertexai.allowedGenAIModels` forbids that model. The lab administrator must permit **`publishers/google/models/gemini-3.5-flash-lite:predict`** in the effective allowlist. No organization policy was changed. Normal live execution remains blocked until that policy is resolved; the app does not fabricate results or change regions.
+For a cloud deployment, place the Gemini key in the approved backend secret `kestrel-gemini-api-key` and grant the runtime identity access. The workflow references the secret; no key value is stored in source or the frontend. API-key authentication changes the Google API service being used; hosting remains in Mumbai. See the [Google Gen AI SDK authentication documentation](https://googleapis.github.io/python-genai/).
 
 The Groq key was stored with explicit approval at `projects/slabspro-slabsuser37/secrets/kestrel-groq-api-key`, replicated in asia-south1. The authenticated backend identity needs the Secret Accessor role on that secret. A stored secret alone does not prove provider connectivity.
 
-Farhan's **Check live providers** independently calls Vertex and Groq with a small diagnostic prompt and meters both attempts. `/api/v1/health` is process liveness; `/api/v1/ready` requires configured authentication and recent successful live provider checks. It does not claim readiness solely because environment variables exist.
+Farhan's **Check live providers** independently calls the selected Gemini provider and Groq with a small diagnostic prompt and meters both attempts. `/api/v1/health` is process liveness; `/api/v1/ready` requires configured authentication and recent successful live provider checks. It does not claim readiness solely because environment variables exist.
 
 For an explicitly billable verification using isolated synthetic PDFs:
 
 ```powershell
-uv run python -m backend.verify_live --backup-pipeline
+uv run python -m backend.verify_live --primary-pipeline
 ```
 
-This creates a separate database/report under `artifacts/live-verification-*/`, checks both real providers, then invokes actual Groq extraction, critique and dossier generation under a **labelled, injected primary 503**. It records genuine success or failure and never treats the normal primary 404 as a successful failover. It cannot approve credit.
+This creates a separate database/report under `artifacts/live-verification-*/` and verifies actual primary extraction, critique and dossier generation using synthetic PDFs. It requires only the primary API key. To test actual Groq failover under a labelled injected primary 503, use `--backup-pipeline` instead. Reports preserve genuine success or failure; neither path can approve credit.
 
 ## Workflow
 
@@ -89,15 +89,15 @@ Cloud mode uses Cloud SQL/PostgreSQL, private content-addressed GCS objects and 
 
 The multi-stage Dockerfile uses Node 20 to build React and Python 3.12/uv to run one non-root FastAPI process on $PORT. The frontend and API share that container.
 
-The workflow preserves p1.yml's project `slabspro-slabsuser37`, region `asia-south1`, Artifact Registry `omnistream-repo`, JSON service-account authentication and Docker build/push stages. It sets **DEMO_MODE=false**, IAP authentication, secure cookies, private ingress, Cloud SQL, GCS, Cloud Tasks and secret references.
+The workflow preserves p1.yml's project `slabspro-slabsuser37`, region `asia-south1`, Artifact Registry `omnistream-repo`, JSON service-account authentication and Docker build/push stages. It sets **DEMO_MODE=false**, IAP authentication, secure cookies, private ingress, Cloud SQL, GCS, Cloud Tasks and secret references. Primary inference uses the backend Gemini API key; no Vertex model policy or Vertex IAM role is required for this mode.
 
 Before enabling deployment:
 
 - Supply GitHub secret `GCP_CREDENTIALS` or `GCP_SA_KEY` using the lab's existing identity.
 - Set repository variables `RUNTIME_SERVICE_ACCOUNT`, `TASK_SERVICE_ACCOUNT`, `DOCUMENTS_BUCKET`, `CLOUD_SQL_CONNECTION`, `SERVICE_URL` (direct service URL/task audience), `IAP_AUDIENCE`, and `IAP_ROLE_MAP` (approved email-to-role JSON).
-- Store a dedicated PostgreSQL connection URL in Secret Manager secret `kestrel-database-url` and the backup key in `kestrel-groq-api-key`. A Cloud SQL socket URL has the form `postgresql+psycopg://USER:URL_ENCODED_PASSWORD@/kestrel?host=/cloudsql/PROJECT:asia-south1:INSTANCE`.
+- Store a dedicated PostgreSQL connection URL in Secret Manager secret `kestrel-database-url` and the backup key in `kestrel-groq-api-key`. A Cloud SQL socket URL has the form `postgresql+psycopg://USER:URL_ENCODED_PASSWORD@/kestrel?host=/cloudsql/PROJECT:asia-south1:INSTANCE`. Store the Gemini Developer API key in `kestrel-gemini-api-key`.
 - Configure the IAP load balancer, grant its service identity Cloud Run invocation and verify Cloud Tasks ingress. Direct unauthenticated invocation is disabled.
-- Confirm approved regional model access and successful readiness checks. A successful image deployment alone is insufficient.
+- Confirm the selected Gemini Developer API model/key and successful readiness checks. A successful image deployment alone is insufficient.
 - Set `DEPLOY_ENABLED=true` when these prerequisites are ready.
 
 `infra/main.tf` is an **unapplied, reviewable infrastructure option**: regional PostgreSQL 16 with backups/PITR/deletion protection, a private versioned Mumbai bucket, task queue and scoped service accounts. It extends the original SQLite-only plan to provide actual Cloud Run durability, and has cost/lab-permission implications. Review a Terraform plan before provisioning. Import the existing Groq secret if managing it in Terraform. Keep plaintext secrets out of Terraform variables/state. If the lab mandates SQLite, use persistent local disk rather than claiming Cloud Run ephemeral files are durable.

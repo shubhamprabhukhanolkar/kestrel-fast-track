@@ -1,6 +1,7 @@
 from backend.config import settings
 from backend.database import db
 from datetime import datetime, timezone, timedelta
+from backend.services.llm_router import llm
 
 
 def readiness():
@@ -33,29 +34,53 @@ def readiness():
         f"{settings.auth_mode}; {users} provisioned password operators",
     )
     if not settings.demo_mode:
-        try:
-            import google.auth
-
-            google.auth.default(
-                scopes=["https://www.googleapis.com/auth/cloud-platform"]
+        if llm.primary_provider == "gemini_api":
+            add(
+                "gemini_credentials",
+                bool(
+                    settings.gemini_api_key.get_secret_value()
+                    or settings.gemini_secret_name
+                ),
+                "Backend GEMINI_API_KEY or GEMINI_SECRET_NAME required; no Vertex identity needed for inference",
             )
-            credentials_available = True
-        except Exception:
-            credentials_available = False
-        add(
-            "vertex_credentials",
-            credentials_available,
-            "Application Default Credentials or attached runtime identity required",
-        )
+            add(
+                "inference_boundary",
+                settings.allow_nonregional_inference,
+                "Gemini Developer API uses provider-managed inference; hosting and storage remain in asia-south1",
+            )
+        else:
+            try:
+                import google.auth
+
+                google.auth.default(
+                    scopes=["https://www.googleapis.com/auth/cloud-platform"]
+                )
+                credentials_available = True
+            except Exception:
+                credentials_available = False
+            add(
+                "vertex_credentials",
+                credentials_available,
+                "Application Default Credentials or attached runtime identity required",
+            )
         add(
             "backup_configured",
             settings.groq_api_key or settings.groq_secret_name,
             "Groq environment key or Secret Manager reference required",
         )
         cutoff = (datetime.now(timezone.utc) - timedelta(minutes=15)).isoformat()
-        for provider in ("vertex_gemini", "groq_backup"):
+        for provider in (llm.primary_provider, "groq_backup"):
+            expected_model = (
+                settings.groq_model if provider == "groq_backup" else llm.primary_model
+            )
             observation = next(
-                (row for row in observations if row["provider"] == provider), None
+                (
+                    row
+                    for row in observations
+                    if row["provider"] == provider
+                    and row["model_name"] == expected_model
+                ),
+                None,
             )
             connected = (
                 observation
@@ -120,10 +145,12 @@ def validate_production():
         settings.secure_cookies,
         settings.gcp_region == "asia-south1",
         settings.vertex_location == "asia-south1",
+        settings.primary_provider != "gemini_api"
+        or settings.allow_nonregional_inference,
     ]
     if not all(required):
         raise RuntimeError(
-            "Production requires live AI, authenticated operators, PostgreSQL, a private asia-south1 document bucket, Cloud Tasks identity/service URL and secure cookies. All GCP locations must remain asia-south1."
+            "Production requires live AI, authenticated operators, PostgreSQL, private asia-south1 document storage, Cloud Tasks identity/service URL and secure cookies. Gemini Developer API inference requires explicit nonregional authorization."
         )
     from google.cloud import storage
 

@@ -16,7 +16,7 @@ variable "documents_bucket" { type = string }
 
 # Provision deliberately, after reviewing terraform plan and lab permissions/costs.
 resource "google_project_service" "api" {
-  for_each = toset(["sqladmin.googleapis.com", "storage.googleapis.com", "cloudtasks.googleapis.com", "secretmanager.googleapis.com", "aiplatform.googleapis.com", "run.googleapis.com"])
+  for_each = toset(["sqladmin.googleapis.com", "storage.googleapis.com", "cloudtasks.googleapis.com", "secretmanager.googleapis.com", "run.googleapis.com"])
   service = each.value
   disable_on_destroy = false
 }
@@ -85,7 +85,7 @@ resource "google_cloud_tasks_queue" "pipeline" {
   depends_on = [google_project_service.api]
 }
 resource "google_project_iam_member" "runtime_roles" {
-  for_each = toset(["roles/aiplatform.user", "roles/cloudsql.client", "roles/cloudtasks.enqueuer"])
+  for_each = toset(["roles/cloudsql.client", "roles/cloudtasks.enqueuer"])
   project = var.project_id
   role = each.value
   member = "serviceAccount:${google_service_account.runtime.email}"
@@ -97,7 +97,7 @@ resource "google_service_account_iam_member" "dispatch_identity" {
 }
 # Create these secret versions through Secret Manager; plaintext values never enter Terraform state.
 resource "google_secret_manager_secret" "runtime" {
-  for_each = toset(["kestrel-database-url", "kestrel-groq-api-key"])
+  for_each = toset(["kestrel-database-url", "kestrel-groq-api-key", "kestrel-gemini-api-key"])
   secret_id = each.value
   replication {
     user_managed {

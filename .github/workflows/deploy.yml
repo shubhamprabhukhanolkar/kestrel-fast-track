@@ -82,7 +82,7 @@ jobs:
               raise SystemExit('Live deployment requires repository variables: ' + ', '.join(missing))
           json.loads(os.environ['IAP_ROLE_MAP'])
           values = {key: os.environ[key] for key in ['TASK_SERVICE_ACCOUNT','DOCUMENTS_BUCKET','SERVICE_URL','IAP_AUDIENCE','IAP_ROLE_MAP']}
-          values.update(GCP_PROJECT='slabspro-slabsuser37',GCP_REGION='asia-south1',VERTEX_LOCATION='asia-south1',VERTEX_MODEL_NAME='gemini-3.5-flash-lite',DEMO_MODE='false',AUTH_MODE='iap',APP_ENV='production',SECURE_COOKIES='true',SEED_SAMPLE_CASES='true',SEED_TELEMETRY='false',TASK_BACKEND='cloud_tasks',TASKS_QUEUE='kestrel-pipeline',STATIC_DIR='/app/static')
+          values.update(GCP_PROJECT='slabspro-slabsuser37',GCP_REGION='asia-south1',PRIMARY_PROVIDER='gemini_api',GEMINI_MODEL_NAME='gemini-2.5-flash-lite',ALLOW_NONREGIONAL_INFERENCE='true',DEMO_MODE='false',AUTH_MODE='iap',APP_ENV='production',SECURE_COOKIES='true',SEED_SAMPLE_CASES='true',SEED_TELEMETRY='false',TASK_BACKEND='cloud_tasks',TASKS_QUEUE='kestrel-pipeline',STATIC_DIR='/app/static')
           with open('.runtime-env.yml','w') as f: json.dump(values,f)
           PY
       # Mirrors p1.yml exactly: service-account JSON, not invented WIF identifiers.
@@ -117,6 +117,7 @@ jobs:
           secrets: |
             DATABASE_URL=kestrel-database-url:latest
             GROQ_API_KEY=kestrel-groq-api-key:latest
+            GEMINI_API_KEY=kestrel-gemini-api-key:latest
       - name: Grant authenticated task invocation
         run: gcloud run services add-iam-policy-binding "$SERVICE_NAME" --region="$REGION" --project="$PROJECT_ID" --member="serviceAccount:$TASK_SERVICE_ACCOUNT" --role=roles/run.invoker --quiet
       - name: Report service URL

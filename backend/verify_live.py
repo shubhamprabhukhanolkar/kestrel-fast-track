@@ -3,6 +3,7 @@
 import argparse
 import json
 import uuid
+import time
 from pathlib import Path
 from backend.config import settings
 from backend.database import init_db, db, now
@@ -57,7 +58,16 @@ def main():
                 "INSERT INTO runs(id,case_id,status,events,started_at,actor,execution_mode) VALUES(?,?,'queued','[]',?,?,'live')",
                 (run_id, "KF-2026-0892", now(), "Live verification runner"),
             )
-        execute(run_id)
+        for attempt in range(settings.job_max_attempts):
+            execute(run_id)
+            with db() as conn:
+                state = conn.execute(
+                    "SELECT status FROM runs WHERE id=?", (run_id,)
+                ).fetchone()[0]
+            if state != "queued":
+                break
+            if attempt + 1 < settings.job_max_attempts:
+                time.sleep(settings.job_retry_delay_seconds + 1)
         with db() as conn:
             run = dict(
                 conn.execute("SELECT * FROM runs WHERE id=?", (run_id,)).fetchone()

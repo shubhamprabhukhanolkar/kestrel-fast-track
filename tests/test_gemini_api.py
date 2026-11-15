@@ -7,6 +7,8 @@ from backend.services.llm_router import llm, ProviderUnavailable
 from backend.services.readiness import readiness
 from test_live_runtime import live_login, mocked_vertex, CASE, BASE
 from backend.services.jobs import execute
+from backend.services.llm_router import google_output_schema
+from backend.models import Extraction
 
 
 class Output(BaseModel):
@@ -19,6 +21,8 @@ def use_api(monkeypatch):
     monkeypatch.setattr(
         settings, "gemini_api_key", SecretStr("test-key-never-valid-for-inference")
     )
+    monkeypatch.setattr(settings, "groq_api_key", "test-only-not-valid-for-inference")
+    monkeypatch.setattr(settings, "groq_secret_name", "")
 
 
 def test_api_selection_requires_explicit_boundary_acknowledgement():
@@ -32,6 +36,29 @@ def test_api_selection_requires_explicit_boundary_acknowledgement():
         _env_file=None, primary_provider="gemini_api", allow_nonregional_inference=True
     )
     assert config.gcp_region == "asia-south1"
+
+
+def test_provider_schema_is_small_but_backend_keeps_strict_extraction_constraints():
+    schema = google_output_schema(Extraction)
+    assert "$defs" not in schema and "$ref" not in str(schema)
+    assert "minItems" not in schema["properties"]["cells"]
+    assert schema["properties"]["cells"]["items"]["properties"]["field"]["enum"]
+    with pytest.raises(ValidationError):
+        Extraction.model_validate({"cells": []})
+
+
+def test_permanent_api_request_error_does_not_requeue_job(client, monkeypatch):
+    live_login(client, monkeypatch)
+    use_api(monkeypatch)
+
+    def invalid(*args):
+        raise ProviderUnavailable(400)
+
+    monkeypatch.setattr(llm, "_gemini_api", invalid)
+    run_id = client.post(f"{BASE}/cases/{CASE}/pipeline", json={}).json()["run_id"]
+    execute(run_id)
+    run = client.get(f"{BASE}/cases/{CASE}/runs/latest").json()
+    assert run["status"] == "failed" and run["attempts"] == 1
 
 
 def test_api_sdk_uses_key_without_vertex_identity_and_masks_key(client, monkeypatch):
@@ -166,3 +193,23 @@ def test_api_readiness_requires_current_model_not_vertex_adc(client, monkeypatch
     assert not any(c["key"] == "vertex_credentials" for c in result["checks"])
     monkeypatch.setattr(settings, "gemini_model_name", "gemini-other-model")
     assert not readiness()["ready"]
+
+
+def test_transient_primary_still_recovers_when_backup_access_is_unavailable(
+    client, monkeypatch
+):
+    live_login(client, monkeypatch)
+    use_api(monkeypatch)
+
+    def primary_down(*args):
+        raise ProviderUnavailable(503)
+
+    def backup_denied(*args):
+        raise ProviderUnavailable(403)
+
+    monkeypatch.setattr(llm, "_gemini_api", primary_down)
+    monkeypatch.setattr(llm, "_groq", backup_denied)
+    run_id = client.post(f"{BASE}/cases/{CASE}/pipeline", json={}).json()["run_id"]
+    execute(run_id)
+    run = client.get(f"{BASE}/cases/{CASE}/runs/latest").json()
+    assert run["status"] == "queued" and run["attempts"] == 1

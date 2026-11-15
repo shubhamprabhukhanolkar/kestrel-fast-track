@@ -45,6 +45,10 @@ The primary provider is now **Gemini Developer API**, selected with `PRIMARY_PRO
 
 Vertex is retained only as an optional legacy provider. Earlier Vertex tests returned 404 for the 2.5 family and an organization-model-policy error for 3.5 Flash-Lite. Those Vertex-specific checks do not establish Gemini Developer API availability. Current readiness checks only the selected provider and model, and never silently substitute Vertex or offline templates.
 
+With the local key supplied on 15 November 2026, the Developer API returned a real successful connectivity response and a 60-cell extraction. The full graph subsequently encountered Google 503 high-demand errors; automatic Groq fallback also requires the configured secret's read permission. Those failed runs are recorded honestly, and no completed end-to-end run is inferred from connectivity alone. Transport schemas are simplified for Google compatibility while full Pydantic, completeness and citation constraints remain enforced in the backend.
+
+Gemini cost defaults are illustrative paid-tier estimates based on the [listed Flash-Lite prices](https://ai.google.dev/gemini-api/docs/pricing) and an assumed INR 90/USD conversion, not a live exchange quote or your invoice. Set GEMINI_INPUT_INR/GEMINI_OUTPUT_INR to your contracted billing rates, especially when changing models or using a free tier.
+
 For a cloud deployment, place the Gemini key in the approved backend secret `kestrel-gemini-api-key` and grant the runtime identity access. The workflow references the secret; no key value is stored in source or the frontend. API-key authentication changes the Google API service being used; hosting remains in Mumbai. See the [Google Gen AI SDK authentication documentation](https://googleapis.github.io/python-genai/).
 
 The Groq key was stored with explicit approval at `projects/slabspro-slabsuser37/secrets/kestrel-groq-api-key`, replicated in asia-south1. The authenticated backend identity needs the Secret Accessor role on that secret. A stored secret alone does not prove provider connectivity.

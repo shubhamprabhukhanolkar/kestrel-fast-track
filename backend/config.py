@@ -17,8 +17,9 @@ class Settings(BaseSettings):
     gemini_api_key: SecretStr = SecretStr("")
     gemini_secret_name: str = ""
     allow_nonregional_inference: bool = True
-    gemini_input_inr: float = 44
-    gemini_output_inr: float = 264
+    # Illustrative Flash-Lite paid-tier estimates at assumed INR 90/USD, not a live FX quote.
+    gemini_input_inr: float = 9
+    gemini_output_inr: float = 36
     groq_api_key: str = ""
     groq_secret_name: str = ""
     groq_model: str = "llama-3.3-70b-versatile"
@@ -47,6 +48,7 @@ class Settings(BaseSettings):
     iap_audience: str = ""
     iap_role_map: dict[str, str] = {}
     llm_timeout_seconds: float = 60
+    extraction_max_output_tokens: int = 12288
     # Explicit estimated rates, INR per million tokens; configure to contracted prices.
     vertex_input_inr: float = 44
     vertex_output_inr: float = 264

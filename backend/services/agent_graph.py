@@ -149,14 +149,14 @@ def ExtractorAgentNode(state):
         f"Step 2: extracting 60 cited fields; attempt {state['attempts'] + 1}",
     )
     try:
+        payload = {"documents": source_payload(state["documents"])}
+        if state.get("issues"):
+            payload["correction_instructions"] = state["issues"]
         result = llm.call(
             state["case_id"],
             "Extractor",
             state["prompts"]["extractor_prompt"]["content"],
-            {
-                "documents": source_payload(state["documents"]),
-                "previous_issues": state.get("issues", []),
-            },
+            payload,
             Extraction,
             lambda: demo_extract(state["documents"]),
         )
@@ -365,7 +365,8 @@ def run_pipeline(case_id, run_id, actor, execution_token=None):
                 and run["attempts"] < settings.job_max_attempts
                 and type(exc).__name__
                 not in ("DefaultCredentialsError", "RefreshError")
-                and getattr(exc, "status_code", None) not in (401, 403)
+                and (getattr(exc, "status_code", None) or getattr(exc, "code", None))
+                not in (400, 401, 403, 404, 422)
             )
             from backend.services.jobs import after
 

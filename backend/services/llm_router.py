@@ -8,10 +8,39 @@ from backend.database import db, now
 from pydantic import ValidationError
 
 
+def google_output_schema(schema):
+    """Keep provider decoding small; enforce all strict constraints with Pydantic afterwards."""
+    root = schema.model_json_schema()
+    definitions = root.get("$defs", {})
+
+    def simplify(value):
+        if isinstance(value, list):
+            return [simplify(item) for item in value]
+        if not isinstance(value, dict):
+            return value
+        if "$ref" in value:
+            return simplify(definitions[value["$ref"].split("/")[-1]])
+        return {
+            key: simplify(item)
+            for key, item in value.items()
+            if key not in ("$defs", "title", "default", "minItems", "maxItems")
+        }
+
+    return simplify(root)
+
+
 class ProviderUnavailable(RuntimeError):
     def __init__(self, code):
         self.status_code = code
         super().__init__(f"Provider unavailable ({code})")
+
+
+class FailoverUnavailable(RuntimeError):
+    def __init__(self, primary_code, backup_code):
+        self.status_code = primary_code
+        super().__init__(
+            f"Primary temporarily unavailable ({primary_code}); backup unavailable ({backup_code})"
+        )
 
 
 class LLMRouter:
@@ -179,9 +208,11 @@ class LLMRouter:
             config=types.GenerateContentConfig(
                 system_instruction=system,
                 response_mime_type="application/json",
-                response_json_schema=schema.model_json_schema(),
+                response_json_schema=google_output_schema(schema),
                 temperature=0.1,
-                max_output_tokens=24576 if schema.__name__ == "Extraction" else 4096,
+                max_output_tokens=settings.extraction_max_output_tokens
+                if schema.__name__ == "Extraction"
+                else 4096,
             ),
         )
         usage = response.usage_metadata
@@ -258,6 +289,7 @@ class LLMRouter:
             )
         provider = self.primary_provider
         failover = False
+        primary_transient_code = None
         for _ in range(2):
             start = time.perf_counter()
             try:
@@ -296,7 +328,12 @@ class LLMRouter:
                     getattr(exc, "usage_tokens", (0, 0)),
                 )
                 if not will_failover:
+                    if failover and primary_transient_code:
+                        raise FailoverUnavailable(
+                            primary_transient_code, code or type(exc).__name__
+                        ) from exc
                     raise
+                primary_transient_code = code or 504
                 provider, failover = "groq_backup", True
         raise RuntimeError("Both providers unavailable")
 

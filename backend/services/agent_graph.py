@@ -244,7 +244,17 @@ def demo_memo(case, reconciliation, tone):
     }
 
 
-def format_memo(case, cells, reconciliation, prompts, tone):
+def format_memo(
+    case,
+    cells,
+    reconciliation,
+    prompts,
+    tone,
+    *,
+    instructions="",
+    current_draft="",
+    intake=None,
+):
     result = llm.call(
         case["id"],
         "Toner",
@@ -259,6 +269,10 @@ def format_memo(case, cells, reconciliation, prompts, tone):
             "reconciliation": compact_reconciliation(reconciliation),
             "instructions": "Expand source document aliases in any citation. Do not imply human verification unless analyst_verified_count equals the number of cells.",
             "tone": tone,
+            "revision_instructions": instructions,
+            "current_draft": current_draft,
+            "intake_checks": intake,
+            "drafting_rules": "Apply the operator's style and wording instructions to the current draft, if provided. Return the complete revised draft. Preserve actual document gaps, facility eligibility and unresolved exceptions. Do not invent facts, claim human verification or approve credit. A chaser is an unsent communication draft, not a completed credit review.",
         },
         Memo,
         lambda: demo_memo(case, reconciliation, tone),

@@ -39,7 +39,7 @@ def test_sessions_roles_and_csrf(client):
 
 def test_seed_intake_pdf_and_finops(client):
     login(client, "meena")
-    assert len(client.get(f"{BASE}/cases").json()) == 3
+    assert len(client.get(f"{BASE}/cases").json()) == 7
     blocked = client.get(f"{BASE}/cases/{BLOCKED}").json()
     assert not blocked["intake"]["passed"]
     assert any("2025-10, 2025-11" in c["detail"] for c in blocked["intake"]["checks"])

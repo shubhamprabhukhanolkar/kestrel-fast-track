@@ -2575,3 +2575,80 @@ iframe {
     animation: none !important;
   }
 }
+/* Prototype case queue, draft editor and transparent model cost examples. */
+.feature-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 22px;
+}
+.chaser-editor {
+  display: grid;
+  gap: 12px;
+}
+.chaser-editor textarea {
+  width: 100%;
+  resize: vertical;
+  min-width: 0;
+}
+.chaser-editor label,
+.cost-inputs label {
+  font-size: 13px;
+  font-weight: 600;
+}
+.cost-formula {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  line-height: 1.7;
+  font-weight: 600;
+}
+.cost-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 24px 0;
+}
+.cost-inputs label {
+  display: grid;
+  gap: 8px;
+}
+.cost-inputs input {
+  width: 220px;
+  max-width: 100%;
+}
+.cost-model-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  min-width: 0;
+}
+.cost-model-card h3 {
+  overflow-wrap: anywhere;
+  margin: 16px 0;
+}
+.cost-model-card p {
+  margin: 12px 0;
+  line-height: 1.6;
+}
+.cost-model-card hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+.cost-model-card small {
+  display: block;
+  margin-top: 8px;
+}
+.cost-total {
+  display: block;
+  font-size: 28px;
+  margin-top: 20px;
+}
+.cost-notes {
+  padding-left: 20px;
+  line-height: 1.8;
+}
+.cost-notes li {
+  margin: 12px 0;
+}

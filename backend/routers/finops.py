@@ -8,6 +8,36 @@ from backend.models import FailoverConfig
 router = APIRouter(prefix="/api/v1", dependencies=[Depends(current_user)])
 
 
+@router.get("/finops/pricing")
+def pricing():
+    return {
+        "unit": "INR per 1,000,000 tokens",
+        "formula": "(input_tokens × input_rate + output_tokens × output_rate) / 1,000,000",
+        "models": [
+            {
+                "provider": "Gemini Developer API",
+                "model": settings.gemini_model_name,
+                "input_rate": settings.gemini_input_inr,
+                "output_rate": settings.gemini_output_inr,
+            },
+            {
+                "provider": "Groq",
+                "model": settings.groq_model,
+                "input_rate": settings.groq_input_inr,
+                "output_rate": settings.groq_output_inr,
+            },
+        ],
+        "notes": [
+            "These are the backend's configured estimates, not a live price quote or provider invoice. Rates must match the selected model and billing tier.",
+            "Input includes prompts, document evidence and revision instructions. Output uses provider-reported generated token usage, including reasoning tokens when included by the SDK.",
+            "Each extraction, critique, draft revision and retry is a separate attempt. During failover, known primary usage and Groq usage are recorded separately and added together.",
+            "Failed requests with unknown usage are logged with zero known tokens; this does not confirm zero provider billing. Offline simulation does not incur model charges.",
+            "Application average = recorded case-linked spend / distinct cases with recorded attempts. Provider checks are included in total spend but excluded from application cost.",
+            "The attempt log preserves the cost calculated when the call ran. This calculator uses current configured rates; changing rates does not rewrite historical costs. Hosting, storage, taxes and other cloud charges are excluded.",
+        ],
+    }
+
+
 @router.get("/finops/summary")
 def summary():
     where = "" if settings.demo_mode else " WHERE mode='live_estimate'"

@@ -47,7 +47,12 @@ def unlocked(conn, case_id):
 @router.get("")
 def list_cases():
     with db() as conn:
-        return [dict(r) for r in conn.execute("SELECT * FROM cases ORDER BY id")]
+        return [
+            dict(r)
+            for r in conn.execute(
+                "SELECT cases.*, CASE WHEN EXISTS (SELECT 1 FROM decisions WHERE decisions.case_id=cases.id) THEN 0 ELSE 1 END AS is_pending FROM cases ORDER BY id"
+            )
+        ]
 
 
 @router.get("/{case_id}")

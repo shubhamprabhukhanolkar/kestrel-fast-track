@@ -55,6 +55,8 @@ class FailoverConfig(BaseModel):
 
 
 class TonePreview(BaseModel):
+    instructions: str = Field(default="", max_length=2000)
+    current_draft: str = Field(default="", max_length=12000)
     case_id: str = "KF-2026-0892"
     tone: Literal[
         "Strict CRO Regulatory Memo",

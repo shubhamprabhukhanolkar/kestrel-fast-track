@@ -98,7 +98,16 @@ export default function App() {
       setError(e.message);
     }
   }
-  const props = { active, user, refresh, notify: setToast, navigate, health };
+  const props = {
+    active,
+    user,
+    refresh,
+    notify: setToast,
+    navigate,
+    health,
+    cases,
+    selectCase: setCaseId,
+  };
   return (
     <>
       <header className="topbar">
@@ -222,7 +231,11 @@ export default function App() {
             </div>
             <div>
               <small>COHORT</small>
-              <strong>&lt;₹25L · Text-based PDF</strong>
+              <strong>
+                {active?.loan_amount >= 2500000
+                  ? "₹25L+ · Standard review"
+                  : "<₹25L · Fast-track"}
+              </strong>
             </div>
             <Badge type={active?.intake?.passed ? "green" : "amber"}>
               {active?.status?.replaceAll("_", " ") || "Loading dossier"}

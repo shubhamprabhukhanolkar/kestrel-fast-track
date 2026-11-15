@@ -177,10 +177,8 @@ def init_db():
                     "INSERT OR IGNORE INTO users(persona,password_hash,updated_at) VALUES(?,?,?)",
                     (persona, digest, now()),
                 )
-        if (
-            conn.execute("SELECT 1 FROM cases LIMIT 1").fetchone()
-            or not settings.seed_sample_cases
-        ):
+        initial_seed = not conn.execute("SELECT 1 FROM cases LIMIT 1").fetchone()
+        if not settings.seed_sample_cases:
             return
         cases = [
             (
@@ -211,7 +209,49 @@ def init_db():
                 "All source figures reviewed by Meena Pillai. No monthly variance exceeds 10%. Human credit judgement pending.",
             ),
         ]
+        cases.extend(
+            [
+                (
+                    "KF-2026-0920",
+                    "Malabar Packaging",
+                    "Kochi",
+                    1200000,
+                    "ready_for_extraction",
+                    6,
+                    "Complete native PDFs supplied. Pending analyst extraction and review.",
+                ),
+                (
+                    "KF-2026-0921",
+                    "Sahyadri Engineering",
+                    "Nashik",
+                    3200000,
+                    "outside_fast_track",
+                    5,
+                    "Facility above INR 25 lakh. Route to standard credit review; fast-track extraction is unavailable.",
+                ),
+                (
+                    "KF-2026-0922",
+                    "Coastal Food Distributors",
+                    "Mangaluru",
+                    4800000,
+                    "outside_fast_track",
+                    12,
+                    "Facility above INR 25 lakh. Standard credit review pending.",
+                ),
+                (
+                    "KF-2026-0923",
+                    "Narmada Textiles",
+                    "Surat",
+                    2500000,
+                    "outside_fast_track",
+                    9,
+                    "Exactly INR 25 lakh. The strictly below-25-lakh fast-track rule does not apply.",
+                ),
+            ]
+        )
         for case in cases:
+            if conn.execute("SELECT 1 FROM cases WHERE id=?", (case[0],)).fetchone():
+                continue
             conn.execute(
                 "INSERT INTO cases(id,business,city,loan_amount,status,cash_share,gap_notes) VALUES(?,?,?,?,?,?,?)",
                 case,
@@ -219,7 +259,7 @@ def init_db():
             case_id = case[0]
             blocked = case_id.endswith("0904")
             verified = case_id.endswith("0911") and settings.demo_mode
-            if not settings.demo_mode and not blocked:
+            if not settings.demo_mode and not blocked and case[3] < 2500000:
                 conn.execute(
                     "UPDATE cases SET status='ready_for_extraction' WHERE id=?",
                     (case_id,),
@@ -301,7 +341,7 @@ def init_db():
                         stored_path,
                     ),
                 )
-                if blocked:
+                if blocked or case_id >= "KF-2026-0920":
                     continue
                 for page_index, month in enumerate(months):
                     for line_index, field in enumerate(fields):
@@ -340,7 +380,7 @@ def init_db():
                     "seeded_verification",
                     {"fields": 60, "synthetic": True},
                 )
-        if not (settings.demo_mode and settings.seed_telemetry):
+        if not (initial_seed and settings.demo_mode and settings.seed_telemetry):
             return
         # Offline-only sample telemetry is never mixed with live provider totals.
         for i in range(15):

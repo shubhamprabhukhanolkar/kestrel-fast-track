@@ -19,6 +19,47 @@ test("Five screens, grounded verification, tone studio, failover and human signa
       name: "Good decisions start with complete evidence.",
     }),
   ).toBeVisible();
+  await page.getByRole("tab", { name: "Pending cases (7)" }).click();
+  await page.screenshot({path: "../artifacts/pending-cases.png", fullPage: true});
+  await page.getByRole("button", { name: "₹25 lakh & above (3)" }).click();
+  await page.getByRole("button", { name: "Open Narmada Textiles" }).click();
+  await expect(
+    page.getByRole("button", { name: "Run cited extraction" }),
+  ).toBeDisabled();
+  await expect(
+    page.getByText("₹25L+ · Standard review", { exact: true }),
+  ).toBeVisible();
+  await page.getByRole("tab", { name: "Pending cases (7)" }).click();
+  await page
+    .getByRole("button", { name: "Open Deccan Precision Logistics" })
+    .click();
+  await page
+    .getByRole("button", { name: "Draft RM chaser", exact: true })
+    .click();
+  const draft = page.getByRole("textbox", { name: "Editable RM chaser draft" });
+  await expect(draft).toBeVisible();
+  await draft.fill(
+    "Dear RM, my manually edited request for the missing returns.",
+  );
+  await page
+    .getByRole("textbox", { name: "Instructions for the drafter agent" })
+    .fill("Use bullets and request the returns by Friday.");
+  const revisionRequest = page.waitForRequest(
+    (r) => r.url().endsWith("/toner/preview") && r.method() === "POST",
+  );
+  await page
+    .getByRole("button", { name: "Revise draft with instructions" })
+    .click();
+  const revisionPayload = (await revisionRequest).postDataJSON();
+  expect(revisionPayload.current_draft).toContain("my manually edited request");
+  expect(revisionPayload.instructions).toContain("by Friday");
+  await expect(
+    page.getByRole("button", { name: "Revise draft with instructions" }),
+  ).toBeEnabled();
+  await page.getByRole("tab", { name: "Pending cases (7)" }).click();
+  await page
+    .getByRole("button", { name: "Open Shree Ganesh Surgicals" })
+    .click();
   await page.getByRole("button", { name: "Run cited extraction" }).click();
   await expect(
     page.locator(".node-event").filter({ hasText: "Citation QA: 0 issues." }),
@@ -87,6 +128,25 @@ test("Five screens, grounded verification, tone studio, failover and human signa
   await expect(
     page.getByRole("heading", { name: "API redundancy controller" }),
   ).toBeVisible();
+  await page.getByRole("tab", { name: "Cost calculation" }).click();
+  await expect(
+    page.getByRole("heading", { name: "How model costs are calculated" }),
+  ).toBeVisible();
+  await expect(page.locator(".cost-model-card")).toHaveCount(2);
+  await page.getByRole("spinbutton", { name: "Input tokens" }).fill("1000000");
+  await page.getByRole("spinbutton", { name: "Output tokens" }).fill("0");
+  const prices = await page.evaluate(async () =>
+    (await fetch("/api/v1/finops/pricing")).json(),
+  );
+  const totals = await page.locator(".cost-total").allTextContents();
+  expect(Number(totals[0].replace(/[^\d.]/g, ""))).toBe(
+    prices.models[0].input_rate,
+  );
+  expect(Number(totals[1].replace(/[^\d.]/g, ""))).toBe(
+    prices.models[1].input_rate,
+  );
+  await page.screenshot({path: "../artifacts/model-cost-calculation.png", fullPage: true});
+  await page.getByRole("tab", { name: "Spend & API health" }).click();
   await page
     .getByRole("switch", { name: "Simulate Gemini service outage" })
     .click();

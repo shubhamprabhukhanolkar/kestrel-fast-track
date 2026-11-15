@@ -6,6 +6,7 @@ from backend.models import PromptUpdate, PolicyUpdate, TonePreview
 from backend.routers.cases import get_case
 from backend.services.agent_graph import format_memo
 from backend.services.intake_rules import reconcile
+from backend.services.intake_rules import intake_check
 
 router = APIRouter(prefix="/api/v1", dependencies=[Depends(current_user)])
 
@@ -98,6 +99,13 @@ def preview(body: TonePreview, user=Depends(current_user)):
             c["citation"] = json.loads(c["citation"])
         prompts = active_prompts(conn)
         recon = reconcile(cells, policy(conn)["gst_variance_threshold_pct"])
+        documents = [
+            dict(d)
+            for d in conn.execute(
+                "SELECT * FROM documents WHERE case_id=?", (body.case_id,)
+            )
+        ]
+        intake = intake_check(case, documents)
     if body.tone != "Polite RM Document Chaser" and (
         len(cells) != 60 or any(not c["verified_by"] for c in cells)
     ):
@@ -106,7 +114,16 @@ def preview(body: TonePreview, user=Depends(current_user)):
             "Verify all 60 source fields before generating a final dossier; RM chaser remains available",
         )
     try:
-        text = format_memo(case, cells, recon, prompts, body.tone)
+        text = format_memo(
+            case,
+            cells,
+            recon,
+            prompts,
+            body.tone,
+            instructions=body.instructions,
+            current_draft=body.current_draft,
+            intake=intake,
+        )
     except Exception:
         raise HTTPException(
             502, "Toner provider unavailable; check backend provider configuration"
@@ -117,6 +134,11 @@ def preview(body: TonePreview, user=Depends(current_user)):
             body.case_id,
             user["name"],
             "toner_preview",
-            {"tone": body.tone, "prompt_version": prompts["toner_prompt"]["version"]},
+            {
+                "tone": body.tone,
+                "prompt_version": prompts["toner_prompt"]["version"],
+                "instructions": body.instructions,
+                "revised_existing_draft": bool(body.current_draft),
+            },
         )
     return {"text": text, "prompt_version": prompts["toner_prompt"]["version"]}

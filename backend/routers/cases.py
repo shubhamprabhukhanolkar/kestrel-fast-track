@@ -377,7 +377,7 @@ async def upload_document(
     file: UploadFile = File(...),
     user=Depends(current_user),
 ):
-    require_role(user, "vikram")
+    require_role(user, "vikram", "meena")
     if kind not in ("bank", "gstr1", "gstr3b"):
         raise HTTPException(422, "Document kind must be bank, gstr1 or gstr3b")
     content = await file.read(15 * 1024 * 1024 + 1)

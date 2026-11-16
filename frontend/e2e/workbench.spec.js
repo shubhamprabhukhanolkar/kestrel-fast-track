@@ -20,7 +20,10 @@ test("Five screens, grounded verification, tone studio, failover and human signa
     }),
   ).toBeVisible();
   await page.getByRole("tab", { name: "Pending cases (7)" }).click();
-  await page.screenshot({path: "../artifacts/pending-cases.png", fullPage: true});
+  await page.screenshot({
+    path: "../artifacts/pending-cases.png",
+    fullPage: true,
+  });
   await page.getByRole("button", { name: "₹25 lakh & above (3)" }).click();
   await page.getByRole("button", { name: "Open Narmada Textiles" }).click();
   await expect(
@@ -121,10 +124,11 @@ test("Five screens, grounded verification, tone studio, failover and human signa
     fullPage: true,
   });
   await page.getByTitle("Switch operator persona").click();
+  await page.getByRole("button", { name: "Arjun Iyer", exact: false }).click();
+  await page.getByRole("button", { name: "Enter as Arjun Iyer" }).click();
   await page
-    .getByRole("button", { name: "Farhan Qureshi", exact: false })
+    .getByRole("button", { name: "FinOps & API Health", exact: true })
     .click();
-  await page.getByRole("button", { name: "Enter as Farhan Qureshi" }).click();
   await expect(
     page.getByRole("heading", { name: "API redundancy controller" }),
   ).toBeVisible();
@@ -145,7 +149,10 @@ test("Five screens, grounded verification, tone studio, failover and human signa
   expect(Number(totals[1].replace(/[^\d.]/g, ""))).toBe(
     prices.models[1].input_rate,
   );
-  await page.screenshot({path: "../artifacts/model-cost-calculation.png", fullPage: true});
+  await page.screenshot({
+    path: "../artifacts/model-cost-calculation.png",
+    fullPage: true,
+  });
   await page.getByRole("tab", { name: "Spend & API health" }).click();
   await page
     .getByRole("switch", { name: "Simulate Gemini service outage" })

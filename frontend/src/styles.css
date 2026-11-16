@@ -2834,3 +2834,61 @@ iframe {
     font-size: 19px;
   }
 }
+.login.login-focused {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 180px);
+  padding-top: 48px;
+}
+.login-focused .login-card {
+  width: min(540px, 100%);
+}
+.cibil-form {
+  display: grid;
+  gap: 14px;
+}
+.cibil-headline {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.cibil-headline strong {
+  font-size: 30px;
+  color: var(--text);
+}
+.cibil-headline span {
+  color: var(--muted);
+}
+.cibil-fields {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 20px;
+}
+.email-approval {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.submitted-email {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.submitted-email pre {
+  white-space: pre-wrap;
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.email-password-form {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}

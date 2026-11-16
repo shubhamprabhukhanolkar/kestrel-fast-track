@@ -1,5 +1,5 @@
 from typing import Literal
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, SecretStr
 
 FIELDS = ("credits", "debits", "average_balance", "gstr1", "gstr3b")
 
@@ -68,3 +68,21 @@ class TonePreview(BaseModel):
 class Login(BaseModel):
     persona: Literal["vikram", "meena", "arjun", "farhan"]
     password: str = Field(default="", max_length=256)
+
+
+class CibilUpdate(BaseModel):
+    score: int | None = Field(default=None, ge=300, le=900, strict=True)
+    note: str = Field(min_length=5, max_length=1000)
+
+
+class EmailDraft(BaseModel):
+    model_config = ConfigDict(str_strip_whitespace=True)
+    recipient: str = Field(
+        min_length=3, max_length=254, pattern=r"^[^\s@]+@[^\s@]+\.[^\s@]+$"
+    )
+    subject: str = Field(min_length=3, max_length=200, pattern=r"^[^\r\n]+$")
+    body: str = Field(min_length=10, max_length=12000)
+
+
+class EmailAuthorization(BaseModel):
+    password: SecretStr = Field(min_length=1, max_length=256)

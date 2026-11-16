@@ -10,7 +10,7 @@ from backend.config import settings
 from backend.database import init_db, db, PERSONAS, now
 from backend.models import Login
 from backend.auth import current_user
-from backend.routers import cases, prompts, finops, tasks
+from backend.routers import cases, prompts, finops, tasks, communications
 from backend.services.passwords import verify_password, hash_password
 from backend.services.readiness import readiness, validate_production
 from backend.services.llm_router import llm
@@ -47,7 +47,9 @@ async def headers_and_csrf(request: Request, call_next):
             base_clean = str(request.base_url).rstrip("/")
             origin_parsed = urlparse(origin_clean)
             base_parsed = urlparse(base_clean)
-            host_header = request.headers.get("x-forwarded-host") or request.headers.get("host")
+            host_header = request.headers.get(
+                "x-forwarded-host"
+            ) or request.headers.get("host")
             is_same_origin = (
                 origin_clean == base_clean
                 or origin_parsed.netloc == base_parsed.netloc
@@ -186,7 +188,13 @@ def logout(request: Request, response: Response):
     return {"logged_out": True}
 
 
-for router in (cases.router, prompts.router, finops.router, tasks.router):
+for router in (
+    cases.router,
+    prompts.router,
+    finops.router,
+    tasks.router,
+    communications.router,
+):
     app.include_router(router)
 
 static = Path(settings.static_dir)

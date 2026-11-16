@@ -110,7 +110,7 @@ def summary():
 
 @router.post("/admin/provider-check")
 def provider_check(user=Depends(current_user)):
-    require_role(user, "farhan")
+    require_role(user, "farhan", "arjun")
     if settings.demo_mode:
         raise HTTPException(409, "Provider connectivity checks require live execution")
     from backend.services.llm_router import llm
@@ -120,7 +120,7 @@ def provider_check(user=Depends(current_user)):
 
 @router.get("/admin/readiness")
 def admin_readiness(user=Depends(current_user)):
-    require_role(user, "farhan")
+    require_role(user, "farhan", "arjun")
     from backend.services.readiness import readiness
 
     return readiness()
@@ -139,7 +139,7 @@ def get_failover():
 @router.put("/admin/failover-config")
 @router.post("/admin/failover-config")
 def update_failover(body: FailoverConfig, user=Depends(current_user)):
-    require_role(user, "farhan")
+    require_role(user, "farhan", "arjun")
     with db() as conn:
         conn.execute(
             "UPDATE settings SET value=? WHERE key='failover'",

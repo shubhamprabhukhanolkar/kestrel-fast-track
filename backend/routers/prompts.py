@@ -34,7 +34,7 @@ def prompts():
 
 @router.put("/prompts/{agent_key}")
 def update_prompt(agent_key: str, body: PromptUpdate, user=Depends(current_user)):
-    require_role(user, "meena", "farhan")
+    require_role(user, "meena", "farhan", "arjun")
     if agent_key not in DEFAULT_PROMPTS:
         raise HTTPException(404, "Unknown prompt key")
     with db() as conn:
@@ -56,7 +56,7 @@ def update_prompt(agent_key: str, body: PromptUpdate, user=Depends(current_user)
 
 @router.post("/prompts/reset")
 def reset(user=Depends(current_user)):
-    require_role(user, "meena", "farhan")
+    require_role(user, "meena", "farhan", "arjun")
     with db() as conn:
         conn.execute("BEGIN IMMEDIATE")
         current = active_prompts(conn)

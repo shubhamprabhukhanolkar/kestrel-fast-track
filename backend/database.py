@@ -26,6 +26,15 @@ PERSONAS = {
     },
 }
 MONTHS = [f"2025-{m:02d}" for m in range(1, 13)]
+CIBIL_SAMPLES = {
+    "KF-2026-0892": 742,
+    "KF-2026-0904": 681,
+    "KF-2026-0911": 789,
+    "KF-2026-0920": 765,
+    "KF-2026-0921": 718,
+    "KF-2026-0922": 695,
+    "KF-2026-0923": 751,
+}
 
 
 def now():
@@ -145,6 +154,26 @@ def init_db():
                 "UPDATE documents SET is_sample=1 WHERE name IN ('HDFC_Bank_12M_Statement.pdf','GSTR1_12M_Returns.pdf','GSTR3B_12M_Returns.pdf')"
             )
             conn.execute("INSERT INTO schema_versions VALUES(4,?)", (now(),))
+        if not conn.execute("SELECT 1 FROM schema_versions WHERE version=5").fetchone():
+            for name, datatype in [
+                ("cibil_score", "INTEGER"),
+                ("cibil_source", "TEXT DEFAULT 'sample'"),
+                ("cibil_note", "TEXT DEFAULT ''"),
+                ("cibil_updated_by", "TEXT"),
+                ("cibil_updated_at", "TEXT"),
+            ]:
+                conn.execute(f"ALTER TABLE cases ADD COLUMN {name} {datatype}")
+            for case_id, score in CIBIL_SAMPLES.items():
+                conn.execute(
+                    "UPDATE cases SET cibil_score=?,cibil_note='Example score for this case' WHERE id=? AND cibil_source='sample'",
+                    (score, case_id),
+                )
+            conn.execute("INSERT INTO schema_versions VALUES(5,?)", (now(),))
+        conn.execute("""CREATE TABLE IF NOT EXISTS email_drafts(
+            id INTEGER PRIMARY KEY,case_id TEXT REFERENCES cases(id),recipient TEXT,
+            subject TEXT,body TEXT,status TEXT DEFAULT 'pending_authorization',
+            created_at TEXT,created_by TEXT,authorized_at TEXT,authorized_by TEXT,
+            delivery_mode TEXT DEFAULT 'simulation')""")
         if not conn.execute("SELECT 1 FROM prompt_versions LIMIT 1").fetchone():
             for key, content in DEFAULT_PROMPTS.items():
                 conn.execute(
@@ -257,6 +286,10 @@ def init_db():
                 case,
             )
             case_id = case[0]
+            conn.execute(
+                "UPDATE cases SET cibil_score=?,cibil_note='Example score for this case' WHERE id=?",
+                (CIBIL_SAMPLES[case_id], case_id),
+            )
             blocked = case_id.endswith("0904")
             verified = case_id.endswith("0911") and settings.demo_mode
             if not settings.demo_mode and not blocked and case[3] < 2500000:

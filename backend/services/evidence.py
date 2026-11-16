@@ -14,6 +14,7 @@ def evidence_snapshot(case, cells, threshold):
     verified = sum(bool(c["verified_by"]) for c in cells)
     text = f"{case['id']} | {case['business']} | {case['city']}\nRequested facility: INR {case['loan_amount']:,.0f}. Evidence window: Jan-Dec 2025.\n"
     text += f"Analyst verified {verified}/{len(cells)} source fields; {corrected} distinct cells corrected. Case revision {case['revision']}.\n"
+    text += f"CIBIL score: {case.get('cibil_score') if case.get('cibil_score') is not None else 'not provided'}; source: {case.get('cibil_source', 'not provided')}. Analyst note: {case.get('cibil_note', '')}\n"
     text += (
         "Annual totals: "
         + "; ".join(f"{f} INR {value:,.2f}" for f, value in totals.items())

@@ -30,7 +30,7 @@ export default function PromptTonerStudio({ active, user, notify, health }) {
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
     [previewVersion, setPreviewVersion] = useState(null);
-  const canEdit = ["meena", "farhan"].includes(user.persona);
+  const canEdit = ["meena", "farhan", "arjun"].includes(user.persona);
   async function load() {
     const result = await api("/prompts");
     setData(result);

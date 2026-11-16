@@ -1,26 +1,8 @@
 import { useState } from "react";
-import {
-  ArrowRight,
-  ShieldCheck,
-  BriefcaseBusiness,
-  ScanLine,
-  PenLine,
-  Activity,
-  Hexagon,
-  LockKeyhole,
-} from "lucide-react";
+import { ArrowRight, ScanLine, PenLine, LockKeyhole } from "lucide-react";
 import { send } from "../api/client";
 import { Busy, Badge } from "./shared";
 export const personas = [
-  {
-    key: "vikram",
-    name: "Vikram Rao",
-    role: "Relationship Manager",
-    initials: "VR",
-    icon: BriefcaseBusiness,
-    description: "Bring complete borrower files into the fast-track lane.",
-    access: "Intake, PDF uploads & RM chasers",
-  },
   {
     key: "meena",
     name: "Meena Pillai",
@@ -28,25 +10,16 @@ export const personas = [
     initials: "MP",
     icon: ScanLine,
     description: "Turn cited evidence into a verified spreading sheet.",
-    access: "Extraction, reconciliation & verification",
+    access: "Document intake, extraction, verification & Finance",
   },
   {
     key: "arjun",
     name: "Arjun Iyer",
-    role: "Credit Manager / CRO",
+    role: "Credit Authorizer",
     initials: "AI",
     icon: PenLine,
     description: "Apply human judgement. Own the final credit decision.",
     access: "Evidence review & mandatory credit sign-off",
-  },
-  {
-    key: "farhan",
-    name: "Farhan Qureshi",
-    role: "CIO / FinOps Admin",
-    initials: "FQ",
-    icon: Activity,
-    description: "Keep the agent pipeline observable, resilient and efficient.",
-    access: "Prompt governance, costs & provider failover",
   },
 ];
 export default function LoginScreen({ onLogin, health }) {
@@ -68,59 +41,7 @@ export default function LoginScreen({ onLogin, health }) {
     }
   }
   return (
-    <main className="login">
-      <section className="login-story">
-        <div className="eyebrow">
-          <span className="live-dot" /> SME FAST-TRACK WORKBENCH
-        </div>
-        <h1>
-          More evidence.
-          <br />
-          Less waiting.
-          <br />
-          <em>Human judgement.</em>
-        </h1>
-        <p className="intro">
-          A clearer path from borrower documents to a credit decision. Built for
-          the simple cases that deserve a faster answer.
-        </p>
-        <div className="story-metrics">
-          <div>
-            <strong>&lt;₹25L</strong>
-            <span>Focused first slice</span>
-          </div>
-          <div>
-            <strong>12 months</strong>
-            <span>Source-linked evidence</span>
-          </div>
-          <div>
-            <strong>5 steps</strong>
-            <span>One accountable workflow</span>
-          </div>
-        </div>
-        <div className="story-flow">
-          <span>
-            <BriefcaseBusiness size={20} />
-            Complete intake
-          </span>
-          <ArrowRight size={16} />
-          <span>
-            <ScanLine size={20} />
-            Cited evidence
-          </span>
-          <ArrowRight size={16} />
-          <span>
-            <PenLine size={20} />
-            Human decision
-          </span>
-        </div>
-        <div className="login-note">
-          <ShieldCheck size={20} />
-          <span>
-            No model approves credit. Every decision belongs to a named person.
-          </span>
-        </div>
-      </section>
+    <main className="login login-focused">
       <section className="login-card">
         <div className="row spread">
           <div className="icon-box large">
@@ -175,7 +96,9 @@ export default function LoginScreen({ onLogin, health }) {
               }}
               placeholder="Default: KestrelOperator2026!"
             />
-            <small style={{ display: "block", marginTop: "4px", opacity: 0.75 }}>
+            <small
+              style={{ display: "block", marginTop: "4px", opacity: 0.75 }}
+            >
               Default password: <code>KestrelOperator2026!</code>
             </small>
           </label>

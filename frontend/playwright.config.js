@@ -35,6 +35,7 @@ export default defineConfig({
       DATABASE_PATH: `artifacts/browser-${runId}/kestrel.db`,
       DOCUMENT_DIR: `artifacts/browser-${runId}/documents`,
       STATIC_DIR: "frontend/dist",
+      DEFAULT_OPERATOR_PASSWORD: "BrowserAuthorizer2026!",
     },
   },
 });

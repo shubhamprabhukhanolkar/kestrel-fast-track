@@ -50,3 +50,41 @@ def require_role(user, *roles):
         raise HTTPException(
             403, "This action requires " + ", ".join(PERSONAS[r]["name"] for r in roles)
         )
+
+
+def confirm_operator_password(user, password, purpose):
+    """Verify a fresh password without replacing the session or logging the secret."""
+    from datetime import timedelta
+    from backend.database import now
+    from backend.services.passwords import verify_password
+
+    identity = f"{purpose}:{user['persona']}"
+    failed = False
+    with db() as conn:
+        conn.execute("BEGIN IMMEDIATE")
+        attempt = conn.execute(
+            "SELECT * FROM login_attempts WHERE identity=?", (identity,)
+        ).fetchone()
+        if attempt and attempt["locked_until"] and attempt["locked_until"] > now():
+            raise HTTPException(
+                429, "Too many password attempts; retry after 15 minutes"
+            )
+        row = conn.execute(
+            "SELECT password_hash FROM users WHERE persona=?", (user["persona"],)
+        ).fetchone()
+        if not row or not verify_password(password, row[0]):
+            failures = (attempt["failures"] if attempt else 0) + 1
+            locked = (
+                (datetime.now(timezone.utc) + timedelta(minutes=15)).isoformat()
+                if failures >= 5
+                else None
+            )
+            conn.execute(
+                "INSERT INTO login_attempts(identity,failures,locked_until) VALUES(?,?,?) ON CONFLICT(identity) DO UPDATE SET failures=excluded.failures,locked_until=excluded.locked_until",
+                (identity, failures, locked),
+            )
+            failed = True
+        else:
+            conn.execute("DELETE FROM login_attempts WHERE identity=?", (identity,))
+    if failed:
+        raise HTTPException(401, "Authorizer password was not accepted")

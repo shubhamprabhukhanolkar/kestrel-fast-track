@@ -12,12 +12,14 @@ export async function api(path, options = {}) {
   const data = await response
     .json()
     .catch(() => ({ detail: `Request failed (${response.status})` }));
-  if (!response.ok)
+  if (!response.ok) {
+    window.dispatchEvent(new Event("kestrel-api-error"));
     throw new Error(
       typeof data.detail === "string"
         ? data.detail
         : JSON.stringify(data.detail),
     );
+  }
   return data;
 }
 export const send = (path, body, method = "POST") =>

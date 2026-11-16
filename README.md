@@ -28,10 +28,8 @@ The local and cloud deployment profiles keep hosting/storage in `asia-south1`. A
 Provision each operator's password in your own terminal. Passwords require at least 12 characters and are stored as salted scrypt hashes.
 
 ```powershell
-uv run python -m backend.manage set-password --persona vikram
 uv run python -m backend.manage set-password --persona meena
 uv run python -m backend.manage set-password --persona arjun
-uv run python -m backend.manage set-password --persona farhan
 uv run uvicorn backend.main:app --host 127.0.0.1 --port 8080
 ```
 
@@ -133,3 +131,11 @@ For deliberate offline development, copy `.env.offline.example` to `.env`. That 
 The original Stitch light/dark files and p1.yml remain in the project. The two referenced PDFs and presentation HTML were absent, so domain grounding uses the pasted brief; synthetic figures are not verbatim interview evidence.
 
 [LangGraph](https://reference.langchain.com/python/langgraph/graph/state/StateGraph) · [Google Gen AI SDK](https://googleapis.github.io/python-genai/) · [Cloud Run/Cloud SQL](https://docs.cloud.google.com/sql/docs/postgres/connect-run) · [Authenticated Cloud Tasks](https://docs.cloud.google.com/tasks/docs/creating-http-target-tasks)
+
+## Two-operator walkthrough
+
+The login screen presents Meena Pillai (intake, CIBIL entry, extraction, verification and drafting) and Arjun Iyer (credit authorization, provider controls and password-confirmed email approval). Existing backend roles remain compatible with management tooling. The header Audio toggle controls short interaction, success and error tones across screens and remembers the preference.
+
+CIBIL values start as labelled example scores. Meena can enter a supplied score from 300 to 900 or clear it, with a source note. Manual changes are audited and preserved on restart. These are not live bureau lookups or automatic approval rules.
+
+Submit an RM draft for authorization to save a shared version with its recipient and subject. Arjun reviews the same version and confirms his current operator password before approval is recorded. Wrong passwords and stale versions are rejected; five failed confirmations lock further attempts for 15 minutes. Passwords are not stored in the audit. The status is Approved for sending; no email service is integrated and no delivery occurs.

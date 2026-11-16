@@ -9,6 +9,8 @@ import {
   ArrowUpRight,
   Activity,
   BookOpen,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import { api, send, inr } from "./api/client";
 import LoginScreen from "./components/LoginScreen";
@@ -17,6 +19,8 @@ import SpreadingWorkspace from "./components/SpreadingWorkspace";
 import PromptTonerStudio from "./components/PromptTonerStudio";
 import FinOpsDashboard from "./components/FinOpsDashboard";
 import HelpCenter from "./components/HelpCenter";
+import CibilPanel from "./components/CibilPanel";
+import { useAppAudio } from "./audio";
 import { Badge } from "./components/shared";
 const tabs = [
   ["intake", "Intake & Extraction"],
@@ -25,6 +29,7 @@ const tabs = [
   ["finops", "FinOps & API Health"],
 ];
 export default function App() {
+  const audio = useAppAudio();
   const [theme, setTheme] = useState(
       localStorage.getItem("kestrel-theme") || "light",
     ),
@@ -105,7 +110,10 @@ export default function App() {
     active,
     user,
     refresh,
-    notify: setToast,
+    notify: (message) => {
+      setToast(message);
+      audio.play("success");
+    },
     navigate,
     health,
     cases,
@@ -139,6 +147,16 @@ export default function App() {
             </nav>
           )}
           <div className="topbar-actions">
+            <button
+              className="help-trigger"
+              data-audio-toggle
+              aria-label={audio.enabled ? "Turn audio off" : "Turn audio on"}
+              aria-pressed={audio.enabled}
+              onClick={audio.toggle}
+            >
+              {audio.enabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
+              <span>Audio {audio.enabled ? "on" : "off"}</span>
+            </button>
             <button
               className="help-trigger"
               onClick={() => setHelpOpen(true)}
@@ -252,6 +270,9 @@ export default function App() {
               {active?.status?.replaceAll("_", " ") || "Loading dossier"}
             </Badge>
           </div>
+          {active && ["intake", "verification"].includes(tab) && (
+            <CibilPanel {...props} />
+          )}
           {active ? (
             tab === "verification" ? (
               <SpreadingWorkspace {...props} />

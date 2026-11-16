@@ -156,7 +156,7 @@ export default function FinOpsDashboard({ active, user, notify, health }) {
               {error}
             </p>
           )}
-          {!data?.demo_mode && user.persona === "farhan" && (
+          {!data?.demo_mode && ["farhan", "arjun"].includes(user.persona) && (
             <Panel
               title="Live environment readiness"
               subtitle="Configuration and actual model connectivity are checked separately"
@@ -455,7 +455,9 @@ export default function FinOpsDashboard({ active, user, notify, health }) {
                         aria-checked={config[key]}
                         aria-label={label}
                         className={`toggle ${config[key] ? "on" : ""}`}
-                        disabled={busy || user.persona !== "farhan"}
+                        disabled={
+                          busy || !["farhan", "arjun"].includes(user.persona)
+                        }
                         onClick={() => toggle(key)}
                       >
                         <span />
@@ -477,9 +479,9 @@ export default function FinOpsDashboard({ active, user, notify, health }) {
                       </>
                     )}
                   </button>
-                  {user.persona !== "farhan" && (
+                  {!["farhan", "arjun"].includes(user.persona) && (
                     <p className="helper">
-                      Switch to Farhan Qureshi to change outage settings.
+                      Switch to Arjun Iyer to change outage settings.
                     </p>
                   )}
                 </div>

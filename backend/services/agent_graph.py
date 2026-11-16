@@ -269,6 +269,12 @@ def format_memo(
             "reconciliation": compact_reconciliation(reconciliation),
             "instructions": "Expand source document aliases in any citation. Do not imply human verification unless analyst_verified_count equals the number of cells.",
             "tone": tone,
+            "credit_bureau": {
+                "score": case.get("cibil_score"),
+                "source": case.get("cibil_source"),
+                "note": case.get("cibil_note"),
+                "instruction": "This score is sample or manually supplied information, not a live bureau retrieval. Do not infer automatic credit approval.",
+            },
             "revision_instructions": instructions,
             "current_draft": current_draft,
             "intake_checks": intake,

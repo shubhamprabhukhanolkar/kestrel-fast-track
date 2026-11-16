@@ -15,6 +15,7 @@ import {
 import { api, send } from "../api/client";
 import { Title, Panel, Badge, Steps, Busy } from "./shared";
 import CaseQueue from "./CaseQueue";
+import EmailApproval from "./EmailApproval";
 export default function IntakePipeline({
   active,
   user,
@@ -304,33 +305,34 @@ export default function IntakePipeline({
                     </a>
                   ))}
                 </div>
-                {user.persona === "vikram" && !active.decision && (
-                  <div className="upload-row">
-                    <select
-                      aria-label="Document type"
-                      value={kind}
-                      onChange={(e) => setKind(e.target.value)}
-                    >
-                      <option value="bank">Bank statement</option>
-                      <option value="gstr1">GSTR-1 returns</option>
-                      <option value="gstr3b">GSTR-3B returns</option>
-                    </select>
-                    <label
-                      className={`button secondary ${busy ? "disabled" : ""}`}
-                    >
-                      <Upload size={15} />
-                      Replace PDF
-                      <input
-                        type="file"
-                        accept="application/pdf"
-                        disabled={busy || running}
-                        onChange={upload}
-                        hidden
-                      />
-                    </label>
-                    <small>Max 15 MB · YYYY-MM periods</small>
-                  </div>
-                )}
+                {["vikram", "meena"].includes(user.persona) &&
+                  !active.decision && (
+                    <div className="upload-row">
+                      <select
+                        aria-label="Document type"
+                        value={kind}
+                        onChange={(e) => setKind(e.target.value)}
+                      >
+                        <option value="bank">Bank statement</option>
+                        <option value="gstr1">GSTR-1 returns</option>
+                        <option value="gstr3b">GSTR-3B returns</option>
+                      </select>
+                      <label
+                        className={`button secondary ${busy ? "disabled" : ""}`}
+                      >
+                        <Upload size={15} />
+                        Replace PDF
+                        <input
+                          type="file"
+                          accept="application/pdf"
+                          disabled={busy || running}
+                          onChange={upload}
+                          hidden
+                        />
+                      </label>
+                      <small>Max 15 MB · YYYY-MM periods</small>
+                    </div>
+                  )}
                 <div
                   className={`notice ${active.intake.passed ? "success" : ""}`}
                 >
@@ -407,6 +409,13 @@ export default function IntakePipeline({
                     Edit the text directly or ask the agent to revise it. This
                     draft is not sent to the RM.
                   </p>
+                  <EmailApproval
+                    active={active}
+                    user={user}
+                    draftText={chaser}
+                    onLoadDraft={setChaser}
+                    notify={notify}
+                  />
                 </div>
               </div>
             </Panel>
@@ -533,8 +542,8 @@ export default function IntakePipeline({
                   </button>
                   {!canRun && (
                     <p className="helper">
-                      Vikram or Meena can run intake and extraction. Switch
-                      persona in the top bar.
+                      Meena can run intake and extraction. Switch persona in the
+                      top bar.
                     </p>
                   )}
                   {run?.status === "completed" && (

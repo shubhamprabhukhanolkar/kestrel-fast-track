@@ -2892,3 +2892,54 @@ iframe {
   border: 1px solid var(--border);
   border-radius: 10px;
 }
+.cibil-compact {
+  max-width: 440px;
+  margin: 22px 0 0 auto;
+}
+.cibil-compact .panel-head {
+  padding: 12px 16px;
+}
+.cibil-compact .panel-head .icon-box {
+  display: none;
+}
+.cibil-compact .panel-head h2 {
+  font-size: 13px;
+}
+.cibil-compact .cibil-headline {
+  gap: 5px;
+}
+.cibil-compact .cibil-headline strong {
+  font-size: 24px;
+}
+.cibil-compact .cibil-headline span {
+  font-size: 10px;
+}
+.cibil-compact-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.cibil-compact-summary > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cibil-edit {
+  border-top: 1px solid var(--border);
+}
+.cibil-edit > summary {
+  padding: 10px 16px;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 11px;
+}
+.cibil-compact .cibil-fields {
+  grid-template-columns: 100px 1fr;
+  gap: 10px;
+}
+.cibil-compact .panel-body {
+  padding: 12px 16px;
+}

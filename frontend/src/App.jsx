@@ -270,9 +270,6 @@ export default function App() {
               {active?.status?.replaceAll("_", " ") || "Loading dossier"}
             </Badge>
           </div>
-          {active && ["intake", "verification"].includes(tab) && (
-            <CibilPanel {...props} />
-          )}
           {active ? (
             tab === "verification" ? (
               <SpreadingWorkspace {...props} />
@@ -285,6 +282,9 @@ export default function App() {
             )
           ) : (
             <div className="loading-state">Loading evidence dossier…</div>
+          )}
+          {active && ["intake", "verification"].includes(tab) && (
+            <CibilPanel {...props} />
           )}
         </main>
       )}

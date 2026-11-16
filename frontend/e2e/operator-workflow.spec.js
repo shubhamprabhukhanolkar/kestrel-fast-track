@@ -11,6 +11,7 @@ test("Two operators, persistent audio, CIBIL and password-protected email approv
     page.getByRole("button", { name: "Turn audio off" }),
   ).toHaveAttribute("aria-pressed", "true");
   await page.getByRole("button", { name: "Enter as Meena Pillai" }).click();
+  await page.getByText("Edit score & source", {exact: true}).click();
   await page
     .getByRole("spinbutton", { name: "CIBIL score", exact: true })
     .fill("758");
@@ -61,9 +62,8 @@ test("Two operators, persistent audio, CIBIL and password-protected email approv
   await expect(page.locator(".email-approval .badge")).toHaveText(
     "Approved for sending",
   );
-  await expect(
-    page.getByRole("spinbutton", { name: "CIBIL score", exact: true }),
-  ).toBeDisabled();
+  await expect(page.locator(".cibil-headline")).toContainText("758");
+  await expect(page.getByText("Edit score & source", {exact: true})).toHaveCount(0);
   await page
     .getByRole("button", { name: "FinOps & API Health", exact: true })
     .click();

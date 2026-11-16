@@ -8,6 +8,7 @@ import {
   ChevronDown,
   ArrowUpRight,
   Activity,
+  BookOpen,
 } from "lucide-react";
 import { api, send, inr } from "./api/client";
 import LoginScreen from "./components/LoginScreen";
@@ -15,6 +16,7 @@ import IntakePipeline from "./components/IntakePipeline";
 import SpreadingWorkspace from "./components/SpreadingWorkspace";
 import PromptTonerStudio from "./components/PromptTonerStudio";
 import FinOpsDashboard from "./components/FinOpsDashboard";
+import HelpCenter from "./components/HelpCenter";
 import { Badge } from "./components/shared";
 const tabs = [
   ["intake", "Intake & Extraction"],
@@ -34,6 +36,7 @@ export default function App() {
     [active, setActive] = useState(null),
     [toast, setToast] = useState(""),
     [error, setError] = useState("");
+  const [helpOpen, setHelpOpen] = useState(false);
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
     localStorage.setItem("kestrel-theme", theme);
@@ -136,6 +139,14 @@ export default function App() {
             </nav>
           )}
           <div className="topbar-actions">
+            <button
+              className="help-trigger"
+              onClick={() => setHelpOpen(true)}
+              aria-label="Help & Tutorial"
+            >
+              <BookOpen size={16} />
+              <span>Help</span>
+            </button>
             <button
               className="theme-switch"
               aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
@@ -274,6 +285,13 @@ export default function App() {
           <ShieldCheck size={18} />
           {toast}
         </div>
+      )}
+      {helpOpen && (
+        <HelpCenter
+          user={user}
+          navigate={navigate}
+          onClose={() => setHelpOpen(false)}
+        />
       )}
     </>
   );

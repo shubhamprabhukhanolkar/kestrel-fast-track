@@ -79,7 +79,7 @@ The seven synthetic borrowers include Shree Ganesh Surgicals (Pune, ₹18.5L), D
 
 In Intake, generate the RM chaser, edit its text directly and supply instructions for the drafter agent to return a revised draft. Revisions include the selected case's actual intake gaps and are metered as model calls; nothing is sent to the RM. FinOps includes a Cost calculation tab showing the configured Gemini and Groq model rates, an interactive input/output token calculator, and explanations of retries, failover, provider checks and historical cost estimates.
 
-The header's **Help** button opens a searchable operating guide before or after sign-in. It covers a complete demo walkthrough, operator roles, pending cases, document requirements, chaser revisions, verification, human sign-off, PDF exports, prompts, model costs and troubleshooting. Download the same content as `Kestrel-Operating-Guide.md` for offline use. Signed-in operators can jump directly from a guide topic to its workbench screen.
+The header's **Help** button opens a searchable operating guide before or after sign-in. It covers getting started with a case, operator roles, pending cases, document requirements, chaser revisions, verification, human sign-off, PDF exports, prompts, model costs and troubleshooting. Download the same content as `Kestrel-Operating-Guide.md` for offline use. Signed-in operators can jump directly from a guide topic to its workbench screen.
 
 Meena/Farhan can edit and version system prompts; restoring defaults creates new versions. Saved prompt changes affect actual live previews. Final memo previews require all 60 human verifications; an RM document chaser remains available for incomplete files. Nothing is emailed.
 

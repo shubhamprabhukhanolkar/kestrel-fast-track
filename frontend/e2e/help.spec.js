@@ -10,7 +10,7 @@ test("Help covers operations before and after sign-in, searches and downloads", 
   const guide = page.getByRole("dialog", { name: "Help & Tutorial" });
   await expect(guide).toBeVisible();
   await expect(
-    guide.getByRole("heading", { name: "Start here: demo walkthrough" }),
+    guide.getByRole("heading", { name: "Getting started with your case" }),
   ).toBeVisible();
   await expect(guide.getByRole("searchbox")).toBeFocused();
   await guide.getByRole("searchbox").fill("15 MB");
